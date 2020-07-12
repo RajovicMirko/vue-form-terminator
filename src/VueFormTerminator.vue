@@ -16,6 +16,7 @@
           :id="item.id"
           :placeholder="item.placeholder"
           v-model="item.value"
+          @input="handleInput(item)"
         />
         <small class="errornator">{{ item.errors[0] }}</small>
       </div>
@@ -69,6 +70,12 @@ export default {
       e.preventDefault();
       const test = this.FormClass.isValid;
       if (test) this.$emit("submited", this.FormClass.data);
+    },
+
+    handleInput(item) {
+      if (item.isValid) {
+        console.log("valid");
+      }
     },
   },
 };

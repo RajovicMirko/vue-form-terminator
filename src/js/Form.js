@@ -92,4 +92,9 @@ export class Item {
 
     return this.errors;
   }
+
+  get isValid() {
+    this.validate();
+    return Object.keys(this.errors).length === 0;
+  }
 }

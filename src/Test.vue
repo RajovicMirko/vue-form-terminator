@@ -38,9 +38,25 @@ export default {
             },
           },
           {
+            id: "username",
+            name: "Username",
+            type: "text",
+            label: "",
+            placeholder: "Username",
+            validations: {
+              required: {
+                message: "Username is required",
+              },
+              max: {
+                value: 20,
+                message: "Username must have less then 20 characters",
+              },
+            },
+          },
+          {
             id: "password",
             name: "Password",
-            type: "text",
+            type: "password",
             label: "",
             placeholder: "Password",
             validations: {
@@ -60,7 +76,7 @@ export default {
           {
             id: "repeatPassword",
             name: "RepeatPassword",
-            type: "text",
+            type: "password",
             label: "",
             placeholder: "Repeat Password",
             validations: {
