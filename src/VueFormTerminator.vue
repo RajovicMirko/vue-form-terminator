@@ -1,27 +1,75 @@
 <template>
-  <form class="vue-form-terminator flex flex-column">
+  <form class="vue-form-terminator flex flex-column" @submit="handleSubmit">
     <div class="titlenator flex flex-column">
-      <span>Title</span>
+      <span>{{ title }}</span>
     </div>
 
     <div class="bodynator flex flex-column">
-      <div class="inputnator flex flex-column">
-        <label for="item1">Input label</label>
-        <input type="text" id="item1" placeholder="Input" />
+      <div
+        v-for="item in FormClass.items"
+        :key="item.name"
+        class="inputnator flex flex-column"
+      >
+        <label for="item.id">{{ item.label }}</label>
+        <input
+          :type="item.type"
+          :id="item.id"
+          :placeholder="item.placeholder"
+          v-model="item.value"
+        />
       </div>
     </div>
 
     <div class="buttonator flex flex-column">
-      <button>Button 1</button>
-      <button>Button 2</button>
-      <button>Button 3</button>
+      <button
+        v-for="action in actions"
+        :key="action.id"
+        :type="action.type"
+        :class="action.class"
+      >
+        {{ action.name }}
+      </button>
     </div>
   </form>
 </template>
 
 <script>
+import { Form } from "./js/Form.js";
+
 export default {
   name: "VueFormTerminator",
+
+  props: {
+    title: {
+      type: String,
+    },
+    body: {
+      type: Array,
+      required: true,
+    },
+    actions: {
+      type: Array,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      FormClass: {},
+    };
+  },
+
+  mounted() {
+    this.FormClass = new Form(this.body);
+    this.FormClass.test();
+  },
+
+  methods: {
+    handleSubmit(e) {
+      e.preventDefault();
+      this.$emit("submited", this.FormClass.data);
+    },
+  },
 };
 </script>
 
