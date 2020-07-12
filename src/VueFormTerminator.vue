@@ -17,6 +17,7 @@
           :placeholder="item.placeholder"
           v-model="item.value"
         />
+        <small class="errornator">{{ item.errors[0] }}</small>
       </div>
     </div>
 
@@ -61,13 +62,13 @@ export default {
 
   mounted() {
     this.FormClass = new Form(this.body);
-    this.FormClass.test();
   },
 
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      this.$emit("submited", this.FormClass.data);
+      const test = this.FormClass.isValid;
+      if (test) this.$emit("submited", this.FormClass.data);
     },
   },
 };

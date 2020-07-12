@@ -23,18 +23,63 @@ export default {
         title: "Custom title",
         body: [
           {
-            id: "input1",
-            name: "Input 1",
+            id: "email",
+            name: "Email",
             type: "text",
             label: "",
-            placeholder: "Input 1",
+            placeholder: "Email",
+            validations: {
+              required: {
+                message: "Email is required",
+              },
+              email: {
+                message: "Email must be a valid email",
+              },
+            },
           },
           {
-            id: "input2",
-            name: "Input 2",
+            id: "password",
+            name: "Password",
             type: "text",
             label: "",
-            placeholder: "Input 2",
+            placeholder: "Password",
+            validations: {
+              required: {
+                message: "Password is required",
+              },
+              min: {
+                value: 5,
+                message: "Pasword must have more then 5 characters",
+              },
+              max: {
+                value: 20,
+                message: "Pasword must have less then 20 characters",
+              },
+            },
+          },
+          {
+            id: "repeatPassword",
+            name: "RepeatPassword",
+            type: "text",
+            label: "",
+            placeholder: "Repeat Password",
+            validations: {
+              required: {
+                message: "Repeat Pasword is required",
+              },
+              min: {
+                value: 5,
+                message: "Repeat Pasword must have more then 5 characters",
+              },
+              max: {
+                value: 20,
+                message: "Repeat Pasword must have less then 20 characters",
+              },
+              compareElements: {
+                value: "password",
+                message: "Repeat Password must be equal as password",
+              },
+            },
           },
         ],
         actions: [
