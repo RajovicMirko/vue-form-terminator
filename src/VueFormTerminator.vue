@@ -73,9 +73,7 @@ export default {
     },
 
     handleInput(item) {
-      if (item.isValid) {
-        console.log("valid");
-      }
+      item.isValid;
     },
   },
 };
