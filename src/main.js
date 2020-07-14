@@ -1,8 +1,7 @@
-import Vue from "vue";
-import TestBootstrap from "./TestBootstrap.vue";
+import VueFormTerminator from "./VueFormTerminator.vue";
 
-Vue.config.productionTip = false;
-
-new Vue({
-  render: (h) => h(TestBootstrap),
-}).$mount("#app");
+export default {
+  install(Vue) {
+    Vue.component("vue-form-terminator", VueFormTerminator);
+  },
+};
