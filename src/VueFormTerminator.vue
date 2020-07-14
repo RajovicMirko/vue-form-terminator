@@ -18,35 +18,33 @@
       }}</span>
     </div>
 
-    <div class="bodynator" :class="{ invalid: VueFormTerminator.haveErrors }">
+    <div
+      class="bodynator"
+      :class="{
+        invalid: VueFormTerminator.haveErrors,
+      }"
+    >
       <div
         v-for="item in VueFormTerminator.items"
         :key="item.name"
         class="inputnator"
-        :class="{ invalid: item.haveErrors, [item.type]: item.type }"
+        :class="{
+          invalid: item.haveErrors,
+          [item.type]: item.type,
+          [errorMessagePosition]: errorMessagePosition,
+        }"
       >
-        <div
-          class="lbl-err"
-          :class="{ [errorMessagePosition]: errorMessagePosition }"
+        <label
+          for="item.id"
+          v-if="item.label"
+          :class="{ invalid: item.haveErrors }"
+          >{{ item.label }}</label
         >
-          <label
-            for="item.id"
-            v-if="item.label"
-            :class="{ invalid: item.haveErrors }"
-            >{{ item.label }}</label
-          >
-          <small
-            class="errornator invalid"
-            :class="'top'"
-            v-if="errorMessagePosition === 'top'"
-            >{{ item.errorMessage }}</small
-          >
-        </div>
+
         <input
           :class="{
             [item.otherClasses]: item.otherClasses,
             invalid: item.haveErrors,
-            [errorMessagePosition]: errorMessagePosition,
           }"
           :type="item.type"
           :id="item.id"
@@ -54,23 +52,21 @@
           v-model="item.value"
           @input="handleInput(item)"
         />
-
-        <small
-          class="errornator invalid"
-          :class="'bottom'"
-          v-if="errorMessagePosition === 'bottom'"
-        >
-          {{ item.errorMessage }}
-        </small>
+        <div class="errornator">
+          <small class="invalid">{{ item.errorMessage }}</small>
+        </div>
       </div>
     </div>
 
-    <div class="buttonator">
+    <div
+      class="buttonator"
+      :class="{ [errorMessagePosition]: errorMessagePosition }"
+    >
       <button
         v-for="action in actions"
         :key="action.id"
         :type="action.type"
-        :class="action.class"
+        :class="action.otherClasses"
       >
         {{ action.name }}
       </button>
@@ -148,79 +144,91 @@ export default {
 .vue-form-terminator {
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
+  width: 100%;
 
   & .titlenator {
     align-self: center;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 
   & .inputnator {
     display: flex;
     flex-direction: column;
-    position: relative;
-    margin-bottom: 0.5rem;
 
-    & .lbl-err {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 0.1rem;
+    // GLOBAL ////////////////////////////////////////////////////////////////////////////
+    & input.invalid {
+      border-color: red;
 
-      &.top {
-        min-height: 1.4rem;
+      &:hover {
+        box-shadow: 0 0 2px 0.5px red;
       }
+
+      &:focus {
+        box-shadow: 0 0 0 2px red;
+      }
+    }
+
+    & small.invalid {
+      color: red;
+    }
+
+    & .errornator {
+      height: 0.8rem;
+      line-height: 0.8rem;
+    }
+
+    // TOP ////////////////////////////////////////////////////////////////////////////
+    &.top {
+      position: relative;
+      flex-direction: column-reverse;
+      margin-bottom: 0.8rem;
 
       & label {
-        margin: 0;
+        position: absolute;
+        top: -0.4rem;
       }
 
-      & .errornator.top {
+      & .errornator {
+        margin-bottom: 0.35rem;
         text-align: right;
-        font-size: 0.8rem;
-
-        &.invalid {
-          color: red;
-        }
       }
     }
 
-    & input {
-      border: 1px solid;
-      font-size: 1rem;
-      outline: none;
+    // BOTTOM ////////////////////////////////////////////////////////////////////////////
+    &.bottom {
+      position: relative;
+      margin-bottom: 1.5rem;
 
-      &.invalid {
-        border-color: red;
-
-        &:hover {
-          box-shadow: 0 0 2px 0.5px red;
-        }
-
-        &:focus {
-          box-shadow: 0 0 0 2px red;
-        }
+      & label {
+        position: absolute;
+        top: -1.5rem;
       }
-    }
 
-    & .errornator.bottom {
-      position: absolute;
-      bottom: -1rem;
-      right: 0;
-      font-size: 0.8rem;
+      & input {
+        outline: none;
+      }
 
-      &.invalid {
-        color: red;
+      & .errornator {
+        // margin-top: 0.1rem;
       }
     }
   }
 
   & .buttonator {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 
     & button {
       width: 100%;
-      margin: 0.5rem 0;
+    }
+
+    &.top {
+      margin-top: 1rem;
+    }
+
+    &.bottom {
+      margin: 0;
     }
   }
 }

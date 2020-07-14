@@ -21,14 +21,14 @@ export default {
     return {
       formSetup: {
         title: "Custom title",
-        errorMessagePosition: "bottom",
+        errorMessagePosition: "top",
         body: [
           {
             id: "email",
             name: "Email",
             type: "text",
             label: "",
-            placeholder: "",
+            placeholder: "Email",
             validations: {
               required: {
                 message: "Email is required",
@@ -40,21 +40,11 @@ export default {
             otherClasses: "form-control custom-input",
           },
           {
-            id: "active",
-            name: "Active",
-            type: "checkbox",
-            label: "Active",
-            placeholder: "",
-            validations: {},
-            value: true,
-            otherClasses: "",
-          },
-          {
             id: "username",
             name: "Username",
             type: "text",
-            label: "Username",
-            placeholder: "",
+            label: "",
+            placeholder: "Username",
             validations: {
               required: {
                 message: "Username is required",
@@ -118,19 +108,13 @@ export default {
             id: "submit",
             name: "Submit",
             type: "submit",
-            class: "btn btn-primary",
+            otherClasses: "btn btn-primary",
           },
           {
             id: "reset",
             name: "Reset",
             type: "reset",
-            class: "btn btn-warning",
-          },
-          {
-            id: "test",
-            name: "Test",
-            type: "button",
-            class: "btn btn-secondary",
+            otherClasses: "btn btn-warning",
           },
         ],
       },
@@ -145,68 +129,46 @@ export default {
 };
 </script>
 
-//
 <style lang="scss">
 body {
-  position: fixed;
+  display: grid;
   width: 100vw;
   height: 100vh;
+  min-width: 350px;
 
   & #test {
     display: grid;
     place-items: center;
-    height: 100%;
 
     & .vue-form-terminator {
-      width: 500px;
+      width: 40%;
+      min-width: 300px;
 
       & .inputnator {
-        // margin-bottom: 3rem;
-
-        &.checkbox {
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
-          margin: 1rem 0 0 0;
-
-          & label {
-            margin: 0 1rem;
-          }
-
-          & input {
-            transform: scale(1.5);
-          }
+        // margin-bottom: 1rem;
+        & label {
+          display: none;
         }
 
-        & input {
-        }
-      }
-
-      & .buttonator {
-        flex-direction: row;
-        justify-content: space-around;
-
-        & button {
-          width: 25%;
+        & .errornator {
+          align-self: center;
         }
       }
     }
   }
-}
 
-$custom-color: blue;
-.custom-input {
-  border-radius: 2rem;
-  line-height: 2.5rem;
-  height: 2.5rem;
-
-  &:hover {
-    box-shadow: 0 0 2px 0.5px $custom-color;
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 2px $custom-color;
-    border: none;
+  $custom-color: blue;
+  .custom-input {
+    border-radius: 2rem;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    &:hover {
+      box-shadow: 0 0 2px 0.5px $custom-color;
+    }
+    &:focus {
+      box-shadow: 0 0 0 2px $custom-color;
+      border: none;
+    }
   }
 }
 </style>

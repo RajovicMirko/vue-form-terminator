@@ -1,6 +1,6 @@
 export class VueFormTerminator {
   constructor(formBody) {
-    this.items = formBody.map((item) => new Item(item));
+    this.items = formBody.map((item) => new Item(this, item));
     this.haveErrors = false;
   }
 
@@ -49,8 +49,9 @@ class Error {
 /*************************************************************************************************************************/
 /*************************************************************************************************************************/
 class Item extends Error {
-  constructor(item) {
+  constructor(form, item) {
     super();
+    this.form = form;
 
     const {
       id,
@@ -90,8 +91,10 @@ class Item extends Error {
     return !emailReg.test(this.value);
   }
 
-  compareElements() {
-    return false;
+  compareElements(elId) {
+    console.log(this.form);
+    const comperedItem = this.form.items.filter((item) => item.id === elId);
+    return comperedItem[0].value !== this.value;
   }
 
   get haveErrors() {
