@@ -26,7 +26,7 @@ export default {
             id: "email",
             name: "Email",
             type: "text",
-            label: "",
+            label: "Email",
             placeholder: "Email",
             validations: {
               required: {
@@ -36,6 +36,7 @@ export default {
                 message: "Email must be a valid email",
               },
             },
+            style: "form-control",
           },
           {
             id: "username",
@@ -52,6 +53,7 @@ export default {
                 message: "Username must have less then 20 characters",
               },
             },
+            style: "form-control",
           },
           {
             id: "password",
@@ -72,6 +74,7 @@ export default {
                 message: "Pasword must have less then 20 characters",
               },
             },
+            style: "form-control",
           },
           {
             id: "repeatPassword",
@@ -96,14 +99,21 @@ export default {
                 message: "Repeat Password must be equal as password",
               },
             },
+            style: "form-control",
           },
         ],
         actions: [
           {
-            id: "btn1",
-            name: "Btn 1",
+            id: "submit",
+            name: "Submit",
             type: "submit",
-            class: "primary",
+            class: "btn btn-primary",
+          },
+          {
+            id: "reset",
+            name: "Reset",
+            type: "reset",
+            class: "btn btn-warning",
           },
         ],
       },
@@ -120,11 +130,62 @@ export default {
 
 <style lang="scss">
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, Geneva, Tahoma, sans-serif;
-  display: grid;
-  place-items: center;
+  position: fixed;
   width: 100vw;
   height: 100vh;
+}
+#test {
+  display: grid;
+  place-items: center;
+  height: 100%;
+
+  & .vue-form-terminator {
+    width: 60%;
+    min-width: 300px;
+    padding: 3rem;
+    border-radius: 5rem;
+    &.invalid {
+      box-shadow: 0 0 0 2px change-color($color: red, $alpha: 0.5);
+    }
+
+    & .titlenator {
+      text-align: center;
+      font-size: 2rem;
+      width: 100%;
+
+      & span {
+        font-weight: bold;
+      }
+    }
+
+    & .inputnator {
+      & label {
+      }
+      & input {
+        &.invalid {
+          border-color: red;
+
+          &:focus {
+            box-shadow: 0 0 0 2px red;
+          }
+        }
+      }
+      & small.errornator {
+      }
+    }
+
+    & .buttonator {
+      flex-direction: row;
+      justify-content: space-between;
+
+      & button {
+        width: 30%;
+      }
+    }
+  }
+}
+
+.invalid {
+  color: red;
 }
 </style>

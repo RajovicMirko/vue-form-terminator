@@ -18,9 +18,21 @@ export class Form {
       });
   }
 
+  reset() {
+    this.errors = {};
+    for (let item of this.items) {
+      item.reset();
+    }
+  }
+
+  get haveErrors() {
+    const test = Object.keys(this.errors).length !== 0;
+    return test;
+  }
+
   get isValid() {
     this.validate();
-    return Object.keys(this.errors).length === 0;
+    return !this.haveErrors;
   }
 
   get data() {
@@ -39,29 +51,32 @@ export class Item {
     this.label = el.label;
     this.placeholder = el.placeholder;
     this.validations = el.validations || {};
+    this.style = el.style;
 
     this.value = "";
     this.errors = [];
+  }
 
-    this.validationsLogic = {
-      required: () => {
-        return !this.value.length;
-      },
-      min: (val) => {
-        return this.value.length < val;
-      },
-      max: (val) => {
-        return this.value.length > val;
-      },
-      email: () => {
-        const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        return !emailReg.test(this.value);
-      },
-      compareElements: (elId) => {
-        const comperedItem = this.form.items.filter((item) => item.id === elId);
-        return comperedItem[0].value !== this.value;
-      },
-    };
+  required() {
+    return !this.value.length;
+  }
+
+  min(val) {
+    return this.value.length < val;
+  }
+
+  max(val) {
+    return this.value.length > val;
+  }
+
+  email() {
+    const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return !emailReg.test(this.value);
+  }
+
+  compareElements(elId) {
+    const comperedItem = this.form.items.filter((item) => item.id === elId);
+    return comperedItem[0].value !== this.value;
   }
 
   addErrorMessage(message) {
@@ -76,25 +91,32 @@ export class Item {
   validate() {
     Object.keys(this.validations).map((fn) => {
       const validationObj = this.validations[fn];
-      const validationFn = this.validationsLogic[fn];
 
-      if (validationFn) {
-        const result = validationFn(validationObj.value);
+      if (this[fn]) {
+        const result = this[fn](validationObj.value);
         const msg = validationObj.message;
-
-        if (result) {
-          this.addErrorMessage(msg);
-        } else {
-          this.removeErrorMessage(msg);
-        }
+        result ? this.addErrorMessage(msg) : this.removeErrorMessage(msg);
+      } else {
+        throw Error(
+          `At form definition, item ${this.name}, validation function ${fn} does not exists`
+        );
       }
     });
 
     return this.errors;
   }
 
+  reset() {
+    this.errors = [];
+    this.value = "";
+  }
+
+  get haveErrors() {
+    return this.errors.length !== 0;
+  }
+
   get isValid() {
     this.validate();
-    return Object.keys(this.errors).length === 0;
+    return !this.haveErrors;
   }
 }
