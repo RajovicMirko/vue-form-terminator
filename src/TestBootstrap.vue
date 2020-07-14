@@ -21,7 +21,7 @@ export default {
     return {
       formSetup: {
         title: "Custom title",
-        errorMessagePosition: "top",
+        errorMessagePosition: "bottom",
         body: [
           {
             id: "email",
@@ -147,7 +147,6 @@ body {
       & .inputnator {
         // margin-bottom: 1rem;
         & label {
-          display: none;
         }
 
         & .errornator {

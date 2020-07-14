@@ -85,15 +85,16 @@ export default {
       type: String,
     },
     errorMessagePosition: {
-      type: String,
+      required: true,
       validator: (value) => {
-        const test = ["top", "bottom"].indexOf(value) === -1 && value !== "";
-        if (test)
+        const test = ["top", "bottom"].indexOf(value) === -1;
+        if (test) {
           throw Error(
             `vue-form-terminator error: Property "errorMessagePosition" must be "top" or "bottom" value!!!`
           );
+        }
 
-        return true;
+        return "bottom";
       },
     },
     body: {

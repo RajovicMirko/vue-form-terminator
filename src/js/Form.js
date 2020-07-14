@@ -92,7 +92,6 @@ class Item extends Error {
   }
 
   compareElements(elId) {
-    console.log(this.form);
     const comperedItem = this.form.items.filter((item) => item.id === elId);
     return comperedItem[0].value !== this.value;
   }
