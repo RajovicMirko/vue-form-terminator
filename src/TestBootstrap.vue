@@ -21,13 +21,14 @@ export default {
     return {
       formSetup: {
         title: "Custom title",
+        errorMessagePosition: "bottom",
         body: [
           {
             id: "email",
             name: "Email",
             type: "text",
-            label: "Email",
-            placeholder: "Email",
+            label: "",
+            placeholder: "",
             validations: {
               required: {
                 message: "Email is required",
@@ -36,14 +37,24 @@ export default {
                 message: "Email must be a valid email",
               },
             },
-            style: "form-control",
+            otherClasses: "form-control custom-input",
+          },
+          {
+            id: "active",
+            name: "Active",
+            type: "checkbox",
+            label: "Active",
+            placeholder: "",
+            validations: {},
+            value: true,
+            otherClasses: "",
           },
           {
             id: "username",
             name: "Username",
             type: "text",
-            label: "",
-            placeholder: "Username",
+            label: "Username",
+            placeholder: "",
             validations: {
               required: {
                 message: "Username is required",
@@ -53,14 +64,14 @@ export default {
                 message: "Username must have less then 20 characters",
               },
             },
-            style: "form-control",
+            otherClasses: "form-control custom-input",
           },
           {
             id: "password",
             name: "Password",
             type: "password",
-            label: "",
-            placeholder: "Password",
+            label: "Password",
+            placeholder: "",
             validations: {
               required: {
                 message: "Password is required",
@@ -74,21 +85,21 @@ export default {
                 message: "Pasword must have less then 20 characters",
               },
             },
-            style: "form-control",
+            otherClasses: "form-control custom-input",
           },
           {
             id: "repeatPassword",
             name: "RepeatPassword",
             type: "password",
-            label: "",
-            placeholder: "Repeat Password",
+            label: "RepeatPassword label",
+            placeholder: "",
             validations: {
               required: {
                 message: "Repeat Pasword is required",
               },
               min: {
                 value: 5,
-                message: "Repeat Pasword must have more then 5 characters",
+                message: "Must have more then 5 characters",
               },
               max: {
                 value: 20,
@@ -99,7 +110,7 @@ export default {
                 message: "Repeat Password must be equal as password",
               },
             },
-            style: "form-control",
+            otherClasses: "form-control custom-input",
           },
         ],
         actions: [
@@ -115,6 +126,12 @@ export default {
             type: "reset",
             class: "btn btn-warning",
           },
+          {
+            id: "test",
+            name: "Test",
+            type: "button",
+            class: "btn btn-secondary",
+          },
         ],
       },
     };
@@ -128,64 +145,68 @@ export default {
 };
 </script>
 
+//
 <style lang="scss">
 body {
   position: fixed;
   width: 100vw;
   height: 100vh;
-}
-#test {
-  display: grid;
-  place-items: center;
-  height: 100%;
 
-  & .vue-form-terminator {
-    width: 60%;
-    min-width: 300px;
-    padding: 3rem;
-    border-radius: 5rem;
-    &.invalid {
-      box-shadow: 0 0 0 2px change-color($color: red, $alpha: 0.5);
-    }
+  & #test {
+    display: grid;
+    place-items: center;
+    height: 100%;
 
-    & .titlenator {
-      text-align: center;
-      font-size: 2rem;
-      width: 100%;
+    & .vue-form-terminator {
+      width: 500px;
 
-      & span {
-        font-weight: bold;
-      }
-    }
+      & .inputnator {
+        // margin-bottom: 3rem;
 
-    & .inputnator {
-      & label {
-      }
-      & input {
-        &.invalid {
-          border-color: red;
+        &.checkbox {
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          margin: 1rem 0 0 0;
 
-          &:focus {
-            box-shadow: 0 0 0 2px red;
+          & label {
+            margin: 0 1rem;
+          }
+
+          & input {
+            transform: scale(1.5);
           }
         }
-      }
-      & small.errornator {
-      }
-    }
 
-    & .buttonator {
-      flex-direction: row;
-      justify-content: space-between;
+        & input {
+        }
+      }
 
-      & button {
-        width: 30%;
+      & .buttonator {
+        flex-direction: row;
+        justify-content: space-around;
+
+        & button {
+          width: 25%;
+        }
       }
     }
   }
 }
 
-.invalid {
-  color: red;
+$custom-color: blue;
+.custom-input {
+  border-radius: 2rem;
+  line-height: 2.5rem;
+  height: 2.5rem;
+
+  &:hover {
+    box-shadow: 0 0 2px 0.5px $custom-color;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px $custom-color;
+    border: none;
+  }
 }
 </style>

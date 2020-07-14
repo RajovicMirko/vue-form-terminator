@@ -2,8 +2,7 @@
   <form
     class="vue-form-terminator"
     :class="{
-      clear: clearStyles,
-      invalid: FormClass.haveErrors,
+      invalid: VueFormTerminator.haveErrors,
     }"
     @submit="handleSubmit"
     @reset="handleReset"
@@ -11,35 +10,43 @@
     <div
       class="titlenator"
       :class="{
-        clear: clearStyles,
-        invalid: FormClass.haveErrors,
+        invalid: VueFormTerminator.haveErrors,
       }"
     >
-      <span :class="{ invalid: FormClass.haveErrors }">{{ title }}</span>
+      <span :class="{ invalid: VueFormTerminator.haveErrors }">{{
+        title
+      }}</span>
     </div>
 
-    <div
-      class="bodynator"
-      :class="{ clear: clearStyles, invalid: FormClass.haveErrors }"
-    >
+    <div class="bodynator" :class="{ invalid: VueFormTerminator.haveErrors }">
       <div
-        v-for="item in FormClass.items"
+        v-for="item in VueFormTerminator.items"
         :key="item.name"
         class="inputnator"
-        :class="{
-          invalid: item.haveErrors,
-        }"
+        :class="{ invalid: item.haveErrors, [item.type]: item.type }"
       >
-        <label
-          for="item.id"
-          v-if="item.label"
-          :class="{ invalid: item.haveErrors }"
-          >{{ item.label }}</label
+        <div
+          class="lbl-err"
+          :class="{ [errorMessagePosition]: errorMessagePosition }"
         >
+          <label
+            for="item.id"
+            v-if="item.label"
+            :class="{ invalid: item.haveErrors }"
+            >{{ item.label }}</label
+          >
+          <small
+            class="errornator invalid"
+            :class="'top'"
+            v-if="errorMessagePosition === 'top'"
+            >{{ item.errorMessage }}</small
+          >
+        </div>
         <input
           :class="{
-            [item.style]: item.style,
+            [item.otherClasses]: item.otherClasses,
             invalid: item.haveErrors,
+            [errorMessagePosition]: errorMessagePosition,
           }"
           :type="item.type"
           :id="item.id"
@@ -47,7 +54,14 @@
           v-model="item.value"
           @input="handleInput(item)"
         />
-        <small class="errornator invalid">{{ item.errors[0] }}</small>
+
+        <small
+          class="errornator invalid"
+          :class="'bottom'"
+          v-if="errorMessagePosition === 'bottom'"
+        >
+          {{ item.errorMessage }}
+        </small>
       </div>
     </div>
 
@@ -65,7 +79,7 @@
 </template>
 
 <script>
-import { Form } from "./js/Form.js";
+import { VueFormTerminator } from "./js/Form.js";
 
 export default {
   name: "VueFormTerminator",
@@ -73,6 +87,18 @@ export default {
   props: {
     title: {
       type: String,
+    },
+    errorMessagePosition: {
+      type: String,
+      validator: (value) => {
+        const test = ["top", "bottom"].indexOf(value) === -1 && value !== "";
+        if (test)
+          throw Error(
+            `vue-form-terminator error: Property "errorMessagePosition" must be "top" or "bottom" value!!!`
+          );
+
+        return true;
+      },
     },
     body: {
       type: Array,
@@ -82,40 +108,33 @@ export default {
       type: Array,
       required: true,
     },
-    clearStyles: {
-      type: Boolean,
-    },
-    styles: {
-      type: Object,
-    },
   },
 
   data() {
     return {
-      FormClass: {},
+      VueFormTerminator: {},
     };
   },
 
   computed: {
     invalidClass() {
-      console.log("invalidClass");
-      return { invalid: this.FormClass.haveErrors };
+      return { invalid: this.VueFormTerminator.haveErrors };
     },
   },
 
   mounted() {
-    this.FormClass = new Form(this.body);
+    this.VueFormTerminator = new VueFormTerminator(this.body);
   },
 
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      const test = this.FormClass.isValid;
-      if (test) this.$emit("submited", this.FormClass.data);
+      const test = this.VueFormTerminator.isValid;
+      if (test) this.$emit("submited", this.VueFormTerminator.data);
     },
 
     handleReset() {
-      this.FormClass.reset();
+      this.VueFormTerminator.reset();
     },
 
     handleInput(item) {
@@ -130,18 +149,68 @@ export default {
   display: flex;
   flex-direction: column;
 
-  & .inputnator {
-    position: relative;
-    margin-bottom: 1.3rem;
+  & .titlenator {
+    align-self: center;
+    font-size: 1.5rem;
+  }
 
-    & input {
-      font-size: 1rem;
+  & .inputnator {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 0.5rem;
+
+    & .lbl-err {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 0.1rem;
+
+      &.top {
+        min-height: 1.4rem;
+      }
+
+      & label {
+        margin: 0;
+      }
+
+      & .errornator.top {
+        text-align: right;
+        font-size: 0.8rem;
+
+        &.invalid {
+          color: red;
+        }
+      }
     }
 
-    & .errornator {
+    & input {
+      border: 1px solid;
+      font-size: 1rem;
+      outline: none;
+
+      &.invalid {
+        border-color: red;
+
+        &:hover {
+          box-shadow: 0 0 2px 0.5px red;
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 2px red;
+        }
+      }
+    }
+
+    & .errornator.bottom {
       position: absolute;
-      bottom: -1.1rem;
+      bottom: -1rem;
+      right: 0;
       font-size: 0.8rem;
+
+      &.invalid {
+        color: red;
+      }
     }
   }
 
@@ -151,6 +220,7 @@ export default {
 
     & button {
       width: 100%;
+      margin: 0.5rem 0;
     }
   }
 }

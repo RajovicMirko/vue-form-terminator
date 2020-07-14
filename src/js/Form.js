@@ -1,38 +1,18 @@
-export class Form {
-  constructor(formBodyElements) {
-    this.items = formBodyElements.map((el) => new Item(this, el));
-    this.errors = {};
-  }
-
-  validate() {
-    this.items
-      .filter((item) => item.validate)
-      .map((item) => {
-        let err = Object.assign([], item.validate());
-
-        if (err.length > 0) {
-          this.errors[item.name] = err;
-        } else {
-          delete this.errors[item.name];
-        }
-      });
-  }
-
-  reset() {
-    this.errors = {};
-    for (let item of this.items) {
-      item.reset();
-    }
-  }
-
-  get haveErrors() {
-    const test = Object.keys(this.errors).length !== 0;
-    return test;
+export class VueFormTerminator {
+  constructor(formBody) {
+    this.items = formBody.map((item) => new Item(item));
+    this.haveErrors = false;
   }
 
   get isValid() {
-    this.validate();
+    const test = this.items.map((item) => item.isValid);
+    this.haveErrors = test.indexOf(false) !== -1;
     return !this.haveErrors;
+  }
+
+  reset() {
+    this.items.map((item) => item.reset());
+    this.haveErrors = false;
   }
 
   get data() {
@@ -42,19 +22,55 @@ export class Form {
   }
 }
 
-export class Item {
-  constructor(form, el) {
-    this.form = form;
-    this.id = el.id;
-    this.name = el.name;
-    this.type = el.type;
-    this.label = el.label;
-    this.placeholder = el.placeholder;
-    this.validations = el.validations || {};
-    this.style = el.style;
-
-    this.value = "";
+/*************************************************************************************************************************/
+/*************************************************************************************************************************/
+class Error {
+  constructor() {
     this.errors = [];
+  }
+
+  errorExists(message) {
+    return this.errors.indexOf(message) !== -1;
+  }
+
+  addError(message) {
+    if (!this.errorExists(message)) this.errors.push(message);
+  }
+
+  removeError(message) {
+    this.errors = this.errors.filter((error) => error !== message);
+  }
+
+  resetErrors() {
+    this.errors = [];
+  }
+}
+
+/*************************************************************************************************************************/
+/*************************************************************************************************************************/
+class Item extends Error {
+  constructor(item) {
+    super();
+
+    const {
+      id,
+      name,
+      type,
+      label,
+      placeholder,
+      validations,
+      value,
+      otherClasses,
+    } = item;
+
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.label = label;
+    this.placeholder = placeholder;
+    this.validations = validations || {};
+    this.otherClasses = otherClasses;
+    this.value = value || "";
   }
 
   required() {
@@ -74,49 +90,42 @@ export class Item {
     return !emailReg.test(this.value);
   }
 
-  compareElements(elId) {
-    const comperedItem = this.form.items.filter((item) => item.id === elId);
-    return comperedItem[0].value !== this.value;
+  compareElements() {
+    return false;
   }
 
-  addErrorMessage(message) {
-    const msgIndex = this.errors.indexOf(message);
-    if (msgIndex === -1) this.errors.push(message);
+  get haveErrors() {
+    return this.errors.length > 0;
   }
 
-  removeErrorMessage(message) {
-    this.errors = this.errors.filter((err) => err !== message);
+  get errorMessage() {
+    return this.errors[0];
+  }
+
+  get isValid() {
+    this.validate();
+    return !this.haveErrors;
   }
 
   validate() {
+    this.resetErrors();
     Object.keys(this.validations).map((fn) => {
-      const validationObj = this.validations[fn];
+      const { value, message } = this.validations[fn];
 
       if (this[fn]) {
-        const result = this[fn](validationObj.value);
-        const msg = validationObj.message;
-        result ? this.addErrorMessage(msg) : this.removeErrorMessage(msg);
+        const isError = this[fn](value);
+        const msg = message;
+        isError ? this.addError(msg) : this.removeError(msg);
       } else {
         throw Error(
           `At form definition, item ${this.name}, validation function ${fn} does not exists`
         );
       }
     });
-
-    return this.errors;
   }
 
   reset() {
-    this.errors = [];
     this.value = "";
-  }
-
-  get haveErrors() {
-    return this.errors.length !== 0;
-  }
-
-  get isValid() {
-    this.validate();
-    return !this.haveErrors;
+    this.resetErrors();
   }
 }
