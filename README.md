@@ -319,11 +319,17 @@ This is complete scss structure for vue-form-terminator:
     // single label, input, errornator wrapper
     & .inputnator {
       // input label
-      & .label {
+      & label {
       }
 
-      // input
-      & .input {
+      // input for bootstrap
+      & input {
+      }
+
+      // input for semanticUi
+      & .semanticui {
+        & input {
+        }
       }
 
       // input error wrapper
@@ -346,7 +352,7 @@ This is complete scss structure for vue-form-terminator:
   // buttons wrapper
   & .buttonator {
     // form button
-    & .button {
+    & button {
     }
   }
 }
