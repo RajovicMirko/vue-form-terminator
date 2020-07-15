@@ -2,6 +2,7 @@
 
 - [vue-form-terminator](#vue-form-terminator)
   - [INTRODUCTION](#introduction)
+  - [SAMPLES CURRENTLY IN DEVELOP](#samples-currently-in-develop)
   - [INSTALLATION](#installation)
   - [IMPORT](#import)
   - [USAGE](#usage)
@@ -18,6 +19,13 @@ This is Vue.js form component with the smallest possible styling.
 Is created in a way to be easy integrated with third party CSS libraries like Bootstrap, SemanticUI...
 
 More about that in the styling section.
+
+## SAMPLES CURRENTLY IN DEVELOP
+
+On link you can find Heroku live samples for:
+
+- Bootstrap
+- SemanticUI
 
 ## INSTALLATION
 

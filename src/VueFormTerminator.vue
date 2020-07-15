@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { VueFormTerminator } from "./js/Form.js";
+import { VueFormTerminator } from "@js/Form.js";
 
 export default {
   name: "VueFormTerminator",
@@ -160,98 +160,5 @@ export default {
 </script>
 
 <style lang="scss">
-.vue-form-terminator {
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  width: 100%;
-
-  & .titlenator {
-    display: flex;
-    align-self: center;
-    font-size: 1.7rem;
-  }
-
-  & .inputnator {
-    display: flex;
-    flex-direction: column;
-
-    // GLOBAL ////////////////////////////////////////////////////////////////////////////
-    & input.invalid {
-      box-shadow: 0 0 0 0.5px red;
-      border: none;
-
-      &:hover {
-        box-shadow: 0 0 3px 1px red;
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 2px red;
-      }
-    }
-
-    & .errornator {
-      display: flex;
-      height: 0.8rem;
-      line-height: 0.8rem;
-
-      & small.invalid {
-        color: red;
-      }
-    }
-
-    // TOP ////////////////////////////////////////////////////////////////////////////
-    &.top {
-      position: relative;
-      flex-direction: column-reverse;
-      margin-bottom: 0.8rem;
-
-      & label {
-        position: absolute;
-        top: -0.4rem;
-      }
-
-      & .errornator {
-        margin-bottom: 0.35rem;
-        text-align: right;
-      }
-    }
-
-    // BOTTOM ////////////////////////////////////////////////////////////////////////////
-    &.bottom {
-      position: relative;
-      margin-bottom: 1.5rem;
-
-      & label {
-        position: absolute;
-        top: -1.5rem;
-      }
-
-      & input {
-        outline: none;
-      }
-
-      & .errornator {
-        margin-top: 0.2rem;
-      }
-    }
-  }
-
-  & .buttonator {
-    display: flex;
-    justify-content: space-between;
-
-    & button {
-      width: 100%;
-    }
-
-    &.top {
-      margin-top: 1rem;
-    }
-
-    &.bottom {
-      margin: 0;
-    }
-  }
-}
+@import "@sc/vue-form-terminator.scss";
 </style>

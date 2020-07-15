@@ -6,13 +6,8 @@ module.exports = {
     resolve: {
       alias: {
         "@c": path.resolve(__dirname, "src/components"),
+        "@js": path.resolve(__dirname, "src/js"),
         "@sc": path.resolve(__dirname, "src/scss"),
-
-        // "@m": path.resolve(__dirname, "src/mixins"),
-        // "@r": path.resolve(__dirname, "src/router"),
-        // "@st": path.resolve(__dirname, "src/store"),
-        // "@v": path.resolve(__dirname, "src/views"),
-        // "@pj": path.resolve(__dirname, "package.json"),
       },
     },
   },
