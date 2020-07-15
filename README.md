@@ -2,7 +2,7 @@
 
 - [vue-form-terminator](#vue-form-terminator)
   - [INTRODUCTION](#introduction)
-  - [SAMPLES CURRENTLY IN DEVELOP](#samples-currently-in-develop)
+  - [SAMPLES](#samples)
   - [INSTALLATION](#installation)
   - [IMPORT](#import)
   - [USAGE](#usage)
@@ -20,9 +20,11 @@ Is created in a way to be easy integrated with third party CSS libraries like Bo
 
 More about that in the styling section.
 
-## SAMPLES CURRENTLY IN DEVELOP
+## SAMPLES
 
-On link you can find Heroku live samples for:
+Git project - https://github.com/RajovicMirko/vue-form-terminator-live
+
+On link you can find Vue project with sample pages for:
 
 - Bootstrap
 - SemanticUI
