@@ -7,23 +7,19 @@
     @submit="handleSubmit"
     @reset="handleReset"
   >
-    <div
-      class="titlenator"
-      :class="{
+    <div class="titlenator" :class="{
         invalid: VueFormTerminator.haveErrors,
-      }"
-    >
-      <span :class="{ invalid: VueFormTerminator.haveErrors }">{{
+      }">
+      <span :class="{ invalid: VueFormTerminator.haveErrors }">
+        {{
         title
-      }}</span>
+        }}
+      </span>
     </div>
 
-    <div
-      class="bodynator"
-      :class="{
+    <div class="bodynator" :class="{
         invalid: VueFormTerminator.haveErrors,
-      }"
-    >
+      }">
       <div
         v-for="item in VueFormTerminator.items"
         :key="item.name"
@@ -38,8 +34,7 @@
           for="item.id"
           v-if="item.label"
           :class="{ invalid: item.haveErrors }"
-          >{{ item.label }}</label
-        >
+        >{{ item.label }}</label>
 
         <input
           :class="{
@@ -48,6 +43,7 @@
           }"
           :type="item.type"
           :id="item.id"
+          :name="item.name"
           :placeholder="item.placeholder"
           v-model="item.value"
           @input="handleInput(item)"
@@ -58,18 +54,13 @@
       </div>
     </div>
 
-    <div
-      class="buttonator"
-      :class="{ [errorMessagePosition]: errorMessagePosition }"
-    >
+    <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
       <button
         v-for="action in actions"
         :key="action.id"
         :type="action.type"
         :class="action.otherClasses"
-      >
-        {{ action.name }}
-      </button>
+      >{{ action.name }}</button>
     </div>
   </form>
 </template>
@@ -82,11 +73,11 @@ export default {
 
   props: {
     title: {
-      type: String,
+      type: String
     },
     errorMessagePosition: {
       required: true,
-      validator: (value) => {
+      validator: value => {
         const test = ["top", "bottom"].indexOf(value) === -1;
         if (test) {
           throw Error(
@@ -95,28 +86,28 @@ export default {
         }
 
         return "bottom";
-      },
+      }
     },
     body: {
       type: Array,
-      required: true,
+      required: true
     },
     actions: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
-      VueFormTerminator: {},
+      VueFormTerminator: {}
     };
   },
 
   computed: {
     invalidClass() {
       return { invalid: this.VueFormTerminator.haveErrors };
-    },
+    }
   },
 
   mounted() {
@@ -136,8 +127,8 @@ export default {
 
     handleInput(item) {
       item.isValid;
-    },
-  },
+    }
+  }
 };
 </script>
 
