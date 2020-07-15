@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import VueFormTerminator from "./VueFormTerminator.vue";
+import VueFormTerminator from "./components/VueFormTerminator.vue";
 
 export default {
   name: "test",
