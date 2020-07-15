@@ -172,7 +172,7 @@ export default {
             id: "submit",
             name: "Submit",
             type: "submit",
-            otherClasses: "btn btn-outline-primary"
+            otherClasses: "btn btn-outline-primary custom-button"
           }
         ]
       }

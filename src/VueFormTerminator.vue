@@ -61,6 +61,7 @@
         >
           <input
             :class="{ invalid: item.haveErrors }"
+            class="semanticui"
             :type="item.type"
             :id="item.id"
             :name="item.name"
