@@ -43,6 +43,8 @@ Now the component is available in the whole vue app.
 
 **_In the following sections, a simple registration page will be presented_**
 
+**_Styling with Bootstrap_**
+
 First create file named "Registration.vue" in src/view folder
 
 ### Template section
