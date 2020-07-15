@@ -37,7 +37,7 @@ export default {
                 message: "Email must be a valid email",
               },
             },
-            otherClasses: "form-control custom-input",
+            otherClasses: "ui input custom-input",
           },
           {
             id: "username",
@@ -158,16 +158,30 @@ body {
 
   $custom-color: blue;
   .custom-input {
-    border-radius: 2rem;
-    line-height: 2.5rem;
-    height: 2.5rem;
-    &:hover {
-      box-shadow: 0 0 2px 0.5px $custom-color;
-    }
-    &:focus {
-      box-shadow: 0 0 0 2px $custom-color;
-      border: none;
-    }
+    // border-radius: 2rem;
+    // line-height: 2.5rem;
+    // height: 2.5rem;
+    // &:hover {
+    //   box-shadow: 0 0 2px 0.5px $custom-color;
+    // }
+    // &:focus {
+    //   box-shadow: 0 0 0 2px $custom-color;
+    //   border: none;
+    // }
+
+    // & input {
+    //   border-radius: 2rem !important;
+    //   line-height: 2.5rem !important;
+    //   height: 2.5rem !important;
+
+    //   &:hover {
+    //     box-shadow: 0 0 2px 0.5px $custom-color !important;
+    //   }
+    //   &:focus {
+    //     box-shadow: 0 0 0 2px $custom-color !important;
+    //     border: none;
+    //   }
+    // }
   }
 }
 </style>

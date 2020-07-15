@@ -293,35 +293,33 @@ It's not tested with other CSS libraries but as we did it in a sample, you can t
 This is complete scss structure for vue-form-terminator:
 
 ```scss
+// form
 .vue-form-terminator {
-  // form
+  // title wrapper
   & .titlenator {
-    // title wrapper
+    // title
     & span {
-      // title
     }
   }
 
+  // mid form section - inputs wrapper
   & .bodynator {
-    // mid form section - inputs wrapper
+    // single label, input, errornator wrapper
     & .inputnator {
-      // single label, input, errornator wrapper
+      // input label
       & .label {
-        // input label
       }
 
+      // input
       & .input {
-        // input
       }
 
+      // input error wrapper
       & .errornator {
-        // input error wrapper
+        // input error message
         & small {
-          // input error message
-
+          // input error message class
           & .invalid {
-            // input error message class
-
             &:hover {
             }
 
@@ -333,10 +331,10 @@ This is complete scss structure for vue-form-terminator:
     }
   }
 
+  // buttons wrapper
   & .buttonator {
-    // buttons wrapper
+    // form button
     & .button {
-      // form button
     }
   }
 }

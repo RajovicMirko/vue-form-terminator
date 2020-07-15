@@ -7,19 +7,23 @@
     @submit="handleSubmit"
     @reset="handleReset"
   >
-    <div class="titlenator" :class="{
+    <div
+      class="titlenator"
+      :class="{
         invalid: VueFormTerminator.haveErrors,
-      }">
+      }"
+    >
       <span :class="{ invalid: VueFormTerminator.haveErrors }">
-        {{
-        title
-        }}
+        {{ title }}
       </span>
     </div>
 
-    <div class="bodynator" :class="{
+    <div
+      class="bodynator"
+      :class="{
         invalid: VueFormTerminator.haveErrors,
-      }">
+      }"
+    >
       <div
         v-for="item in VueFormTerminator.items"
         :key="item.name"
@@ -34,9 +38,11 @@
           for="item.id"
           v-if="item.label"
           :class="{ invalid: item.haveErrors }"
-        >{{ item.label }}</label>
+          >{{ item.label }}</label
+        >
 
         <input
+          v-if="item.otherClasses.substring(0, 2) !== 'ui'"
           :class="{
             [item.otherClasses]: item.otherClasses,
             invalid: item.haveErrors,
@@ -48,19 +54,40 @@
           v-model="item.value"
           @input="handleInput(item)"
         />
+
+        <div
+          v-if="item.otherClasses.substring(0, 2) === 'ui'"
+          :class="{ [item.otherClasses]: item.otherClasses }"
+        >
+          <input
+            :class="{ invalid: item.haveErrors }"
+            :type="item.type"
+            :id="item.id"
+            :name="item.name"
+            :placeholder="item.placeholder"
+            v-model="item.value"
+            @input="handleInput(item)"
+          />
+        </div>
+
         <div class="errornator">
           <small class="invalid">{{ item.errorMessage }}</small>
         </div>
       </div>
     </div>
 
-    <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
+    <div
+      class="buttonator"
+      :class="{ [errorMessagePosition]: errorMessagePosition }"
+    >
       <button
         v-for="action in actions"
         :key="action.id"
         :type="action.type"
         :class="action.otherClasses"
-      >{{ action.name }}</button>
+      >
+        {{ action.name }}
+      </button>
     </div>
   </form>
 </template>
@@ -73,11 +100,11 @@ export default {
 
   props: {
     title: {
-      type: String
+      type: String,
     },
     errorMessagePosition: {
       required: true,
-      validator: value => {
+      validator: (value) => {
         const test = ["top", "bottom"].indexOf(value) === -1;
         if (test) {
           throw Error(
@@ -86,28 +113,28 @@ export default {
         }
 
         return "bottom";
-      }
+      },
     },
     body: {
       type: Array,
-      required: true
+      required: true,
     },
     actions: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
-      VueFormTerminator: {}
+      VueFormTerminator: {},
     };
   },
 
   computed: {
     invalidClass() {
       return { invalid: this.VueFormTerminator.haveErrors };
-    }
+    },
   },
 
   mounted() {
@@ -127,8 +154,8 @@ export default {
 
     handleInput(item) {
       item.isValid;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -140,6 +167,7 @@ export default {
   width: 100%;
 
   & .titlenator {
+    display: flex;
     align-self: center;
     font-size: 1.7rem;
   }
@@ -150,10 +178,11 @@ export default {
 
     // GLOBAL ////////////////////////////////////////////////////////////////////////////
     & input.invalid {
-      border-color: red;
+      box-shadow: 0 0 0 0.5px red;
+      border: none;
 
       &:hover {
-        box-shadow: 0 0 2px 0.5px red;
+        box-shadow: 0 0 3px 1px red;
       }
 
       &:focus {
@@ -161,13 +190,14 @@ export default {
       }
     }
 
-    & small.invalid {
-      color: red;
-    }
-
     & .errornator {
+      display: flex;
       height: 0.8rem;
       line-height: 0.8rem;
+
+      & small.invalid {
+        color: red;
+      }
     }
 
     // TOP ////////////////////////////////////////////////////////////////////////////
@@ -202,7 +232,7 @@ export default {
       }
 
       & .errornator {
-        // margin-top: 0.1rem;
+        margin-top: 0.2rem;
       }
     }
   }
