@@ -13,37 +13,45 @@
   - [GIT PROJECT](#git-project)
 
 ## INTRODUCTION
+
 This is Vue.js form component with the smallest possible styling.
 Is created in a way to be easy integrated with third party CSS libraries like Bootstrap, SemanticUI...
 
 More about that in the styling section.
 
 ## INSTALLATION
+
 ```
 npm i --save vue-form-terminator
 ```
 
 ## IMPORT
+
 In the primary vue project file main.js, index.js or whatever use the code
 
-***if vue-form-terminator.common is not imported, no initial style will be active. Is recommended to import it for the best experience***
+**_if vue-form-terminator.common is not imported, no initial style will be active. Is recommended to import it for the best experience_**
+
 ```js
 import VueFormTerminator from "vue-form-terminator";
 import "vue-form-terminator/dist/vue-form-terminator.common";
 Vue.use(VueFormTerminator);
 ```
+
 Now the component is available in the whole vue app.
 
 ## USAGE
-***In the following sections, a simple registration page will be presented***
+
+**_In the following sections, a simple registration page will be presented_**
 
 First create file named "Registration.vue" in src/view folder
 
 ### Template section
+
 In the template section, call the component
+
 ```js
 <template>
-  <div id="register">
+  <div id="registration">
     <vue-form-terminator
       v-bind="formSetup"
       @submited="handleSubmit"
@@ -51,13 +59,14 @@ In the template section, call the component
   </div>
 </template>
 ```
+
 For proper component functioning, we need to bind object (in this case "formSetup") and submit event controller (in this case "handleSubmit")
 
-***More about them in the script section***
+**_More about them in the script section_**
 
 ### Script section
 
-***Description of script section is after the code***
+**_Description of script section is after the code_**
 
 ```js
 <script>
@@ -167,66 +176,73 @@ export default {
 };
 </script>
 ```
+
 I know it's ugly, but wait for it :D
-***So what is happening here***
 
-*"formSetup" object attributes explained:*
+**_So what is happening here_**
 
-* ***title*** - form title (not requiered)
-* ***errorMessagePosition*** - does input error validation message is on top of the input or on the bottom (requiered) 
-  * valid values: top or bottom
-* ***body*** - array of objects for form inputs. Available atributes are:
-  * id - required (form return object keys depends on it)
-  * name - not required
-  * type - required (for now available values are text, password, email)
-  * label - not required
-  * placeholder - not required
-  * validations - not required. Available validations are:
-    * required { message: 'return this error message'}
-    * min { value: 'Number of min string length' message: 'return this error message'}
-    * max { value: 'Number of max string length' message: 'return this error message'}
-    * email { message: 'return this error message' }
-    * compareElements { value: 'id of body object to compare with' message: 'return this error message'}
-  * otherClasses - not required (use to integrate thired party class names)
-* ***actions*** - array of objects for form buttons
-  * id - required
-  * name - required
-  * type - required (for now available values are submit, reset)
-  * otherClasses - not required (use to integrate thired party class names)
+_"formSetup" object attributes explained:_
+
+- **_title_** - form title (not requiered)
+- **_errorMessagePosition_** - does input error validation message is on top of the input or on the bottom (requiered)
+  - valid values: top or bottom
+- **_body_** - array of objects for form inputs. Available atributes are:
+  - id - required (form return object keys depends on it)
+  - name - not required
+  - type - required (for now available values are text, password, email)
+  - label - not required
+  - placeholder - not required
+  - validations - not required. Available validations are:
+    - required { message: 'return this error message'}
+    - min { value: 'Number of min string length' message: 'return this error message'}
+    - max { value: 'Number of max string length' message: 'return this error message'}
+    - email { message: 'return this error message' }
+    - compareElements { value: 'id of body object to compare with' message: 'return this error message'}
+  - otherClasses - not required (use to integrate thired party class names)
+- **_actions_** - array of objects for form buttons
+  - id - required
+  - name - required
+  - type - required (for now available values are submit, reset)
+  - otherClasses - not required (use to integrate thired party class names)
 
 methods explained:
-* handleSubmit - when we submit vue-form-terminator the "data" key:value pairs object is returned from the form in the way that inputs id is key and value is well input value :D
+
+- handleSubmit - when we submit vue-form-terminator the "data" key:value pairs object is returned from the form in the way that inputs id is key and value is well input value :D
 
 ### Style section
+
 Now let's make it look better
 
 Sample bootstrap:
 
 In the public/index.html in < head> section use bootstrap CDN, or import it in any other way.
 Is just important that we need to make bootstrap classes available to us
+
 ```html
 <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+  crossorigin="anonymous"
+/>
 ```
 
 After that, define classes you want to use in the otherClass attribute of objects.
 
 In this sample we already defined in the script section:
+
 ```js
 // FOR INPUTS IN body ATRIBUTE
-otherClasses: "form-control custom-input"
+otherClasses: "form-control custom-input";
 
 // FOR BUTTONS IN actions ATRIBUTE
-otherClasses: "btn btn-outline-primary"
+otherClasses: "btn btn-outline-primary";
 ```
 
 Check the result, is much better now :D.
 
 Let's customize it a bit to make it awesome:
+
 ```css
 <style lang="scss">
 #registration {
@@ -265,42 +281,51 @@ Let's customize it a bit to make it awesome:
 }
 </style>
 ```
+
 And vue-la. That was it.
 
 #### Thired party
+
 It's not tested with other CSS libraries but as we did it in a sample, you can try.
 
 #### Complet scss vue-form-terminator schema
-This is complete scss structure for vue-form-terminator:
-```scss
-.vue-form-terminator{ // form
-  & .titlenator{ // title wrapper
-    & span{ // title
 
+This is complete scss structure for vue-form-terminator:
+
+```scss
+.vue-form-terminator {
+  // form
+  & .titlenator {
+    // title wrapper
+    & span {
+      // title
     }
   }
 
-  & .bodynator{ // mid form section - inputs wrapper
-    & .inputnator{ // single label, input, errornator wrapper
-      & .label{ // input label
-
+  & .bodynator {
+    // mid form section - inputs wrapper
+    & .inputnator {
+      // single label, input, errornator wrapper
+      & .label {
+        // input label
       }
 
-      & .input{ // input
-
+      & .input {
+        // input
       }
 
-      & .errornator{  // input error wrapper
-        & small{ // input error message
+      & .errornator {
+        // input error wrapper
+        & small {
+          // input error message
 
-          & .invalid{ // input error message class
+          & .invalid {
+            // input error message class
 
-            &:hover{
-
+            &:hover {
             }
 
-            &:focus{
-
+            &:focus {
             }
           }
         }
@@ -308,13 +333,15 @@ This is complete scss structure for vue-form-terminator:
     }
   }
 
-  & .buttonator{ // buttons wrapper
-    & .button{ // form button
-
+  & .buttonator {
+    // buttons wrapper
+    & .button {
+      // form button
     }
   }
 }
 ```
 
 ## GIT PROJECT
+
 https://github.com/RajovicMirko/vue-form-terminator
