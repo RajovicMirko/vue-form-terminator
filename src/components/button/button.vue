@@ -1,13 +1,16 @@
 <template>
-  <button :type="type" :class="otherClasses">
-    <i class="icon" :class="icon" v-if="icon   === 1"></i>
+  <button :type="type" :class="{[otherClasses]: otherClasses, [cssType]: cssType}">
+    <i class="icon" :class="icon" v-if="icon"></i>
     <span class="name" v-if="name">{{ name }}</span>
   </button>
 </template>
 
 <script>
+import componentMixin from "@m/component-mixin.js";
+
 export default {
   name: "Button",
+  mixins: [componentMixin],
   props: {
     type: {
       type: String,
@@ -37,24 +40,26 @@ button {
   display: flex !important;
   align-items: center !important;
   width: 100%;
-
-  // & .btn {
-  //   margin: 0;
-  //   padding: 0;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: space-between;
-  //   flex-direction: row-reverse;
-  //   width: 100%;
-  // }
+  height: 2.5rem;
+  width: 40%;
+  padding: 0 !important;
 
   & .name {
     text-align: center;
-    flex: 7;
+    flex: 1;
   }
 
   & .icon {
-    flex: 1;
+    margin: 0 0.5rem;
+  }
+
+  &.semanticui {
+    & .name {
+    }
+
+    & .icon {
+      margin-left: 0.8rem !important;
+    }
   }
 }
 </style>

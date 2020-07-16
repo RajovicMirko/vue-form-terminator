@@ -178,10 +178,10 @@ export default {
     width: 40%;
     min-width: 300px;
 
-    & input,
-    & button {
-      border: 1px solid gray;
-    }
+    // & input,
+    // & button {
+    //   border: 1px solid gray;
+    // }
   }
 }
 </style>

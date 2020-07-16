@@ -174,9 +174,4 @@ export default {
     // width: 40%;
   }
 }
-
-button {
-  background-color: green !important;
-  color: white;
-}
 </style>

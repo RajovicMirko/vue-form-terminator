@@ -25,40 +25,6 @@ export default {
         title: "Bootstrap sample",
         errorMessagePosition: "bottom",
         body: [
-          [
-            {
-              id: "firstName",
-              name: "FirstName",
-              type: "text",
-              label: "",
-              placeholder: "First name",
-              validations: {
-                required: {
-                  message: "First name is required"
-                },
-                max: {
-                  value: 30,
-                  message: "First name must have less then 20 characters"
-                }
-              }
-            },
-            {
-              id: "lastName",
-              name: "LastName",
-              type: "text",
-              label: "",
-              placeholder: "Last name",
-              validations: {
-                required: {
-                  message: "Last name is required"
-                },
-                max: {
-                  value: 30,
-                  message: "Last name must have less then 20 characters"
-                }
-              }
-            }
-          ],
           {
             id: "username",
             name: "Username",
