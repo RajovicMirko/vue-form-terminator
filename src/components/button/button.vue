@@ -9,8 +9,10 @@
 import componentMixin from "@m/component-mixin.js";
 
 export default {
-  name: "Button",
+  name: "custom-button",
+
   mixins: [componentMixin],
+
   props: {
     type: {
       type: String,

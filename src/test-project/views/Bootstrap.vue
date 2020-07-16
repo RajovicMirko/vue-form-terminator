@@ -1,10 +1,26 @@
 <template>
   <div id="bootstrap">
-    <a
-      class="git-link"
-      target="_blank"
-      href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/Bootstrap.vue"
-    >Git page code sample</a>
+    <div style="width: 100%; display: flex; justify-content: space-evenly; align-items: center;">
+      <a
+        class="git-link"
+        target="_blank"
+        href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/Bootstrap.vue"
+      >Git page code sample</a>
+
+      <div>
+        <label for="errorMessagePosition" style="margin-right: 0.5rem">Error message position</label>
+        <select
+          name="errorMessagePosition"
+          id="errorMessagePosition"
+          v-model="formSetup.errorMessagePosition"
+          style="border: none; color: inherit;"
+        >
+          <option value="top" selected>Top</option>
+          <option value="bottom">Bottom</option>
+        </select>
+      </div>
+    </div>
+
     <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
@@ -29,7 +45,7 @@ export default {
             id: "username",
             name: "Username",
             type: "text",
-            label: "",
+            label: "Username",
             placeholder: "Username",
             validations: {
               required: {
@@ -43,13 +59,13 @@ export default {
                 message: "No space character allowed"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control"
           },
           {
             id: "email",
             name: "Email",
             type: "text",
-            label: "",
+            label: "Email",
             placeholder: "Email",
             validations: {
               required: {
@@ -59,7 +75,7 @@ export default {
                 message: "Email must be a valid email"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control"
           },
           {
             id: "password",
@@ -80,7 +96,7 @@ export default {
                 message: "Pasword must have less then 20 characters"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control"
           },
           {
             id: "repeatPassword",
@@ -105,7 +121,7 @@ export default {
                 message: "Repeat Password must be equal as password"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control custom-input-bootstrap"
           }
         ],
         actions: [
@@ -144,30 +160,21 @@ export default {
   & .vue-form-terminator {
     width: 40%;
     min-width: 300px;
+  }
+}
 
-    & .titlenator {
-      margin-bottom: 1.5rem;
-      font-weight: bold;
-      color: #007bff;
-    }
+.custom-input-bootstrap {
+  border-radius: 2rem;
+  text-align: center;
 
-    & .inputnator {
-      margin-bottom: 0.5rem;
-
-      & .errornator {
-        & small {
-          font-size: 0.9rem;
-        }
-      }
-    }
+  &:hover {
+    border-color: transparent;
+    box-shadow: 0 0 2px 0.5px #2185d0;
   }
 
-  & .custom-input {
-    // border-radius: 2rem;
-  }
-  & .custom-button {
-    // border-radius: 2rem;
-    // width: 40%;
+  &:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 1.5px #2185d0;
   }
 }
 </style>

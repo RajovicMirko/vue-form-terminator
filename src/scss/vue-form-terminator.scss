@@ -8,7 +8,8 @@
   & .titlenator {
     display: flex;
     align-self: center;
-    font-size: 1.7rem;
+    font-size: 2rem;
+    margin: 0.5rem 0;
   }
 
   & .inputnator {
@@ -16,85 +17,85 @@
     flex-direction: column;
 
     & .invalid {
-      color: red;
     }
 
-    & input {
-      height: 2rem;
-      width: 100%;
+    // & input {
+    //   height: 2rem;
+    //   width: 100%;
 
-      &.invalid {
-        box-shadow: 0 0 0 0.5px red;
-        border: 1px solid transparent;
+    //   &.invalid {
+    //     box-shadow: 0 0 0 0.5px red;
+    //     border: 1px solid transparent;
 
-        &:hover {
-          box-shadow: 0 0 3px 1px red;
-        }
+    //     &:hover {
+    //       box-shadow: 0 0 3px 1px red;
+    //     }
 
-        &:focus {
-          box-shadow: 0 0 0 2px red;
-        }
-      }
-    }
+    //     &:focus {
+    //       box-shadow: 0 0 0 2px red;
+    //     }
+    //   }
+    // }
 
-    & .errornator {
-      display: flex;
-      height: 0.8rem;
-      line-height: 0.8rem;
+    // & .errornator {
+    //   display: flex;
+    //   height: 0.8rem;
+    //   line-height: 0.8rem;
 
-      & small.invalid {
-        color: red;
-      }
-    }
+    //   & small.invalid {
+    //     color: red;
+    //   }
+    // }
 
     // TOP ////////////////////////////////////////////////////////////////////////////
-    &.top {
-      position: relative;
-      flex-direction: column-reverse;
-      margin-bottom: 0.8rem;
+    // &.top {
+    //   position: relative;
+    //   flex-direction: column-reverse;
+    //   margin-bottom: 0.8rem;
 
-      & label {
-        position: absolute;
-        top: -0.4rem;
-      }
+    //   & label {
+    //     position: absolute;
+    //     top: -0.4rem;
+    //   }
 
-      & .errornator {
-        margin-bottom: 0.35rem;
-        text-align: right;
-      }
-    }
+    //   & .errornator {
+    //     margin-bottom: 0.35rem;
+    //     text-align: right;
+    //   }
+    // }
 
     // BOTTOM ////////////////////////////////////////////////////////////////////////////
-    &.bottom {
-      position: relative;
-      margin-bottom: 1.5rem;
+    // &.bottom {
+    //   position: relative;
+    //   margin-bottom: 1.5rem;
 
-      & label {
-        position: absolute;
-        top: -1.5rem;
-      }
+    //   & label {
+    //     position: absolute;
+    //     top: -1.5rem;
+    //   }
 
-      & input {
-        outline: none;
-      }
+    //   & input {
+    //     outline: none;
+    //   }
 
-      & .errornator {
-        margin-top: 0.2rem;
-      }
-    }
+    //   & .errornator {
+    //     margin-top: 0.2rem;
+    //   }
+    // }
   }
 
   & .buttonator {
     display: flex;
     justify-content: space-evenly;
+    margin: 0.5rem 0;
 
-    &.top {
-      margin-top: 1rem;
-    }
+    // &.top {
+    //   margin-top: 1rem;
+    // }
 
-    &.bottom {
-      margin: 0;
-    }
+    // &.bottom {
+    //   margin: 0;
+    // }
 
     // & button {
     //   display: flex !important;

@@ -16,11 +16,12 @@ export class VueFormTerminator {
   get isValid() {
     const test = this.items.map((item) => {
       if (item.isGroup) {
-        item.items.map((itm) => itm.isValid);
+        return item.items.map((itm) => itm.isValid);
       } else {
-        item.isValid;
+        return item.isValid;
       }
     });
+
     this.haveErrors = test.indexOf(false) !== -1;
     return !this.haveErrors;
   }

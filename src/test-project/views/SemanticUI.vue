@@ -1,10 +1,26 @@
 <template>
   <div id="semanticui">
-    <a
-      class="git-link"
-      target="_blank"
-      href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/SemanticUI.vue"
-    >Git page code sample</a>
+    <div style="width: 100%; display: flex; justify-content: space-evenly; align-items: center;">
+      <a
+        class="git-link"
+        target="_blank"
+        href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/SemanticUI.vue"
+      >Git page code sample</a>
+
+      <div>
+        <label for="errorMessagePosition" style="margin-right: 0.5rem">Error message position</label>
+        <select
+          name="errorMessagePosition"
+          id="errorMessagePosition"
+          v-model="formSetup.errorMessagePosition"
+          style="border: none; color: inherit;"
+        >
+          <option value="top" selected>Top</option>
+          <option value="bottom">Bottom</option>
+        </select>
+      </div>
+    </div>
+
     <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
@@ -23,13 +39,13 @@ export default {
     return {
       formSetup: {
         title: "SemanticUI sample",
-        errorMessagePosition: "top",
+        errorMessagePosition: "bottom",
         body: [
           {
             id: "username",
             name: "Username",
             type: "text",
-            label: "",
+            label: "Username",
             placeholder: "Username",
             validations: {
               required: {
@@ -40,13 +56,13 @@ export default {
                 message: "Username must have less then 20 characters"
               }
             },
-            otherClasses: "ui input custom-input"
+            otherClasses: "ui input"
           },
           {
             id: "email",
             name: "Email",
             type: "text",
-            label: "",
+            label: "Email",
             placeholder: "Email",
             validations: {
               required: {
@@ -56,7 +72,7 @@ export default {
                 message: "Email must be a valid email"
               }
             },
-            otherClasses: "ui input custom-input"
+            otherClasses: "ui input"
           },
           {
             id: "password",
@@ -77,7 +93,7 @@ export default {
                 message: "Pasword must have less then 20 characters"
               }
             },
-            otherClasses: "ui input custom-input"
+            otherClasses: "ui input"
           },
           {
             id: "repeatPassword",
@@ -102,7 +118,7 @@ export default {
                 message: "Repeat Password must be equal as password"
               }
             },
-            otherClasses: "ui input custom-input"
+            otherClasses: "ui input custom-input-semanticui"
           }
         ],
         actions: [
@@ -143,35 +159,23 @@ export default {
   & .vue-form-terminator {
     width: 40%;
     min-width: 300px;
-
-    & .titlenator {
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #007bff;
-    }
-
-    & .inputnator {
-      margin-bottom: 0.5rem;
-
-      & .errornator {
-        justify-content: flex-end;
-
-        & small {
-          font-size: 0.9rem;
-        }
-      }
-    }
   }
+}
 
-  & .custom-input {
-    & input {
-      // border-radius: 2rem !important;
+.custom-input-semanticui {
+  & input {
+    border-radius: 2rem !important;
+    text-align: center !important;
+
+    &:hover {
+      border-color: transparent;
+      box-shadow: 0 0 2px 0.5px #2185d0;
     }
-  }
 
-  & .custom-button {
-    // border-radius: 2rem;
-    // width: 40%;
+    &:focus {
+      border-color: transparent !important;
+      box-shadow: 0 0 0 1.5px #2185d0 !important;
+    }
   }
 }
 </style>

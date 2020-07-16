@@ -13,8 +13,6 @@
 
 ## noSpace input validation
 
-- add validation - done
-- add to documentation - done
 - add to sample affter publishing npm
 
 ## Add group inputs logic
