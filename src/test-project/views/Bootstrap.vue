@@ -12,9 +12,17 @@
     ></vue-form-terminator>
   </div>
 </template>
+
 <script>
+import VueFormTerminator from "@/VueFormTerminator.vue";
+
 export default {
   name: "Bootstrap",
+
+  components: {
+    "vue-form-terminator": VueFormTerminator,
+  },
+
   data() {
     return {
       formSetup: {
@@ -126,8 +134,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootstrap-vue/src/index.scss";
+// @import "node_modules/bootstrap/scss/bootstrap";
+// @import "node_modules/bootstrap-vue/src/index.scss";
 
 #bootstrap {
   display: grid;

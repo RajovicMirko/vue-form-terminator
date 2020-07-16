@@ -14,8 +14,14 @@
 </template>
 
 <script>
+import VueFormTerminator from "@/VueFormTerminator.vue";
+
 export default {
   name: "SemanticUI",
+
+  components: {
+    "vue-form-terminator": VueFormTerminator,
+  },
 
   data() {
     return {
