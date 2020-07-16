@@ -4,12 +4,8 @@
       class="git-link"
       target="_blank"
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/SemanticUI.vue"
-      >Git page code sample</a
-    >
-    <vue-form-terminator
-      v-bind="formSetup"
-      @submited="handleSubmit"
-    ></vue-form-terminator>
+    >Git page code sample</a>
+    <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
 
@@ -20,7 +16,7 @@ export default {
   name: "SemanticUI",
 
   components: {
-    "vue-form-terminator": VueFormTerminator,
+    "vue-form-terminator": VueFormTerminator
   },
 
   data() {
@@ -37,14 +33,14 @@ export default {
             placeholder: "Username",
             validations: {
               required: {
-                message: "Username is required",
+                message: "Username is required"
               },
               max: {
                 value: 20,
-                message: "Username must have less then 20 characters",
-              },
+                message: "Username must have less then 20 characters"
+              }
             },
-            otherClasses: "ui input custom-input",
+            otherClasses: "ui input custom-input"
           },
           {
             id: "email",
@@ -54,13 +50,13 @@ export default {
             placeholder: "Email",
             validations: {
               required: {
-                message: "Email is required",
+                message: "Email is required"
               },
               email: {
-                message: "Email must be a valid email",
-              },
+                message: "Email must be a valid email"
+              }
             },
-            otherClasses: "ui input custom-input",
+            otherClasses: "ui input custom-input"
           },
           {
             id: "password",
@@ -70,18 +66,18 @@ export default {
             placeholder: "Password",
             validations: {
               required: {
-                message: "Password is required",
+                message: "Password is required"
               },
               min: {
                 value: 5,
-                message: "Pasword must have more then 5 characters",
+                message: "Pasword must have more then 5 characters"
               },
               max: {
                 value: 20,
-                message: "Pasword must have less then 20 characters",
-              },
+                message: "Pasword must have less then 20 characters"
+              }
             },
-            otherClasses: "ui input custom-input",
+            otherClasses: "ui input custom-input"
           },
           {
             id: "repeatPassword",
@@ -91,47 +87,49 @@ export default {
             placeholder: "Repeat Password",
             validations: {
               required: {
-                message: "Repeat Pasword is required",
+                message: "Repeat Pasword is required"
               },
               min: {
                 value: 5,
-                message: "Must have more then 5 characters",
+                message: "Must have more then 5 characters"
               },
               max: {
                 value: 20,
-                message: "Repeat Pasword must have less then 20 characters",
+                message: "Repeat Pasword must have less then 20 characters"
               },
               compareElements: {
                 value: "password",
-                message: "Repeat Password must be equal as password",
-              },
+                message: "Repeat Password must be equal as password"
+              }
             },
-            otherClasses: "ui input custom-input",
-          },
+            otherClasses: "ui input custom-input"
+          }
         ],
         actions: [
           {
             id: "submit",
             name: "Submit",
             type: "submit",
-            otherClasses: "ui primary button custom-button",
+            icon: "fas fa-plus",
+            otherClasses: "ui primary button custom-button"
           },
           {
             id: "reset",
             name: "Reset",
             type: "Reset",
-            otherClasses: "ui yellow basic button custom-button",
-          },
-        ],
-      },
+            icon: "fas fa-camera",
+            otherClasses: "ui yellow basic button custom-button"
+          }
+        ]
+      }
     };
   },
 
   methods: {
     handleSubmit(data) {
       console.log(data);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -163,21 +161,22 @@ export default {
         }
       }
     }
-
-    & .buttonator {
-      justify-content: space-evenly;
-    }
   }
 
   & .custom-input {
     & input {
-      border-radius: 2rem !important;
+      // border-radius: 2rem !important;
     }
   }
 
   & .custom-button {
-    border-radius: 2rem;
-    width: 40%;
+    // border-radius: 2rem;
+    // width: 40%;
   }
+}
+
+button {
+  background-color: green !important;
+  color: white;
 }
 </style>

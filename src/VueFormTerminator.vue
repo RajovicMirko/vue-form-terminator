@@ -7,23 +7,15 @@
     @submit="handleSubmit"
     @reset="handleReset"
   >
-    <div
-      class="titlenator"
-      :class="{
+    <div class="titlenator" :class="{
         invalid: VueFormTerminator.haveErrors,
-      }"
-    >
-      <span :class="{ invalid: VueFormTerminator.haveErrors }">
-        {{ title }}
-      </span>
+      }">
+      <span :class="{ invalid: VueFormTerminator.haveErrors }">{{ title }}</span>
     </div>
 
-    <div
-      class="bodynator"
-      :class="{
+    <div class="bodynator" :class="{
         invalid: VueFormTerminator.haveErrors,
-      }"
-    >
+      }">
       <div
         v-for="item in VueFormTerminator.items"
         :key="item.name"
@@ -34,33 +26,27 @@
           [errorMessagePosition]: errorMessagePosition,
         }"
       >
-        <label
-          for="item.id"
-          v-if="item.label"
-          :class="{ invalid: item.haveErrors }"
-          >{{ item.label }}</label
-        >
+        <div v-if="item.isGroup">
+          <div
+            v-for="itm in item.items"
+            :key="itm.name"
+            :class="{invalid: itm.haveErrors}"
+          >{{`${itm.name} - ${itm.errorMessage}`}}</div>
+        </div>
 
-        <input
-          v-if="item.otherClasses.substring(0, 2) !== 'ui'"
-          :class="{
+        <div v-if="!item.isGroup">
+          <label
+            for="item.id"
+            v-if="item.label"
+            :class="{ invalid: item.haveErrors }"
+          >{{ item.label }}</label>
+
+          <input
+            v-if="item.otherClasses.substring(0, 2) !== 'ui'"
+            :class="{
             [item.otherClasses]: item.otherClasses,
             invalid: item.haveErrors,
           }"
-          :type="item.type"
-          :id="item.id"
-          :name="item.name"
-          :placeholder="item.placeholder"
-          v-model="item.value"
-          @input="handleInput(item)"
-        />
-
-        <div
-          v-if="item.otherClasses.substring(0, 2) === 'ui'"
-          :class="{ [item.otherClasses]: item.otherClasses }"
-        >
-          <input
-            :class="{ invalid: item.haveErrors }"
             :type="item.type"
             :id="item.id"
             :name="item.name"
@@ -68,43 +54,52 @@
             v-model="item.value"
             @input="handleInput(item)"
           />
-        </div>
 
-        <div class="errornator">
-          <small class="invalid">{{ item.errorMessage }}</small>
+          <div
+            v-if="item.otherClasses.substring(0, 2) === 'ui'"
+            :class="{ [item.otherClasses]: item.otherClasses }"
+          >
+            <input
+              :class="{ invalid: item.haveErrors }"
+              :type="item.type"
+              :id="item.id"
+              :name="item.name"
+              :placeholder="item.placeholder"
+              v-model="item.value"
+              @input="handleInput(item)"
+            />
+          </div>
+
+          <div class="errornator">
+            <small class="invalid">{{ item.errorMessage }}</small>
+          </div>
         </div>
       </div>
     </div>
 
-    <div
-      class="buttonator"
-      :class="{ [errorMessagePosition]: errorMessagePosition }"
-    >
-      <button
-        v-for="action in actions"
-        :key="action.id"
-        :type="action.type"
-        :class="action.otherClasses"
-      >
-        {{ action.name }}
-      </button>
+    <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
+      <btn v-for="action in actions" :key="action.id" v-bind="action"></btn>
     </div>
   </form>
 </template>
 
 <script>
 import { VueFormTerminator } from "@js/Form.js";
+import button from "@c/button/button.vue";
 
 export default {
   name: "VueFormTerminator",
+  components: {
+    btn: button
+  },
 
   props: {
     title: {
-      type: String,
+      type: String
     },
     errorMessagePosition: {
       required: true,
-      validator: (value) => {
+      validator: value => {
         const test = ["top", "bottom"].indexOf(value) === -1;
         if (test) {
           throw Error(
@@ -113,28 +108,28 @@ export default {
         }
 
         return "bottom";
-      },
+      }
     },
     body: {
       type: Array,
-      required: true,
+      required: true
     },
     actions: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
-      VueFormTerminator: {},
+      VueFormTerminator: {}
     };
   },
 
   computed: {
     invalidClass() {
       return { invalid: this.VueFormTerminator.haveErrors };
-    },
+    }
   },
 
   mounted() {
@@ -154,8 +149,8 @@ export default {
 
     handleInput(item) {
       item.isValid;
-    },
-  },
+    }
+  }
 };
 </script>
 

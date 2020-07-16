@@ -1,17 +1,38 @@
 export class VueFormTerminator {
   constructor(formBody) {
-    this.items = formBody.map((item) => new Item(this, item));
+    this.items = formBody.map((item) => {
+      const isArray = item instanceof Array;
+
+      if (isArray) {
+        return new GroupItem(this, item);
+      } else {
+        return new Item(this, item);
+      }
+    });
+
     this.haveErrors = false;
   }
 
   get isValid() {
-    const test = this.items.map((item) => item.isValid);
+    const test = this.items.map((item) => {
+      if (item.isGroup) {
+        item.items.map((itm) => itm.isValid);
+      } else {
+        item.isValid;
+      }
+    });
     this.haveErrors = test.indexOf(false) !== -1;
     return !this.haveErrors;
   }
 
   reset() {
-    this.items.map((item) => item.reset());
+    this.items.map((item) => {
+      if (item.isGroup) {
+        item.items.map((itm) => itm.reset());
+      } else {
+        item.reset();
+      }
+    });
     this.haveErrors = false;
   }
 
@@ -47,12 +68,12 @@ class Error {
 }
 
 /*************************************************************************************************************************/
+/* SINGLE ITEM */
 /*************************************************************************************************************************/
 class Item extends Error {
   constructor(form, item) {
     super();
     this.form = form;
-
     const {
       id,
       name,
@@ -133,5 +154,15 @@ class Item extends Error {
   reset() {
     this.value = "";
     this.resetErrors();
+  }
+}
+
+/*************************************************************************************************************************/
+/* GROUP ITEM */
+/*************************************************************************************************************************/
+class GroupItem {
+  constructor(form, items) {
+    this.isGroup = true;
+    this.items = items.map((item) => new Item(form, item));
   }
 }

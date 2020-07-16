@@ -15,10 +15,10 @@
 
 - add validation - done
 - add to documentation - done
-- add to sample
+- add to sample affter publishing npm
 
 ## Add group inputs logic
 
 - add logic for multiple inputs in one line
 - add to documentation
-- add to sample
+- add to sample affter publishing npm

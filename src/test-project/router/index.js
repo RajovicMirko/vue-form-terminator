@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import NoStyle from "../views/NoStyle.vue";
 import Bootstrap from "../views/Bootstrap.vue";
 import SemanticUI from "../views/SemanticUI.vue";
 
@@ -11,6 +12,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/nostyle",
+    name: "NoStyle",
+    component: NoStyle,
   },
   {
     path: "/bootstrap",

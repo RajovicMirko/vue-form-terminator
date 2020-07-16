@@ -1,5 +1,5 @@
 <template>
-  <div id="bootstrap">
+  <div id="nostyle">
     <a
       class="git-link"
       target="_blank"
@@ -13,7 +13,7 @@
 import VueFormTerminator from "@/VueFormTerminator.vue";
 
 export default {
-  name: "Bootstrap",
+  name: "NoStyle",
 
   components: {
     "vue-form-terminator": VueFormTerminator
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       formSetup: {
-        title: "Bootstrap sample",
+        title: "NoStyle sample",
         errorMessagePosition: "bottom",
         body: [
           [
@@ -77,7 +77,7 @@ export default {
                 message: "No space character allowed"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: ""
           },
           {
             id: "email",
@@ -93,7 +93,7 @@ export default {
                 message: "Email must be a valid email"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: ""
           },
           {
             id: "password",
@@ -114,7 +114,7 @@ export default {
                 message: "Pasword must have less then 20 characters"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: ""
           },
           {
             id: "repeatPassword",
@@ -139,7 +139,7 @@ export default {
                 message: "Repeat Password must be equal as password"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: ""
           }
         ],
         actions: [
@@ -148,14 +148,13 @@ export default {
             name: "Submit",
             type: "submit",
             icon: "fas fa-plus",
-            otherClasses: "btn btn-outline-primary custom-button"
+            otherClasses: ""
           },
           {
             id: "reset",
             name: "Reset",
             type: "reset",
-            icon: "fas fa-camera",
-            otherClasses: "btn btn-outline-warning custom-button"
+            otherClasses: ""
           }
         ]
       }
@@ -169,7 +168,7 @@ export default {
 };
 </script>
 <style lang="scss">
-#bootstrap {
+#nostyle {
   display: grid;
   grid-template-rows: auto 1fr;
   place-items: center;
@@ -179,29 +178,10 @@ export default {
     width: 40%;
     min-width: 300px;
 
-    & .titlenator {
-      margin-bottom: 1.5rem;
-      font-weight: bold;
-      color: #007bff;
+    & input,
+    & button {
+      border: 1px solid gray;
     }
-
-    & .inputnator {
-      margin-bottom: 0.5rem;
-
-      & .errornator {
-        & small {
-          font-size: 0.9rem;
-        }
-      }
-    }
-  }
-
-  & .custom-input {
-    // border-radius: 2rem;
-  }
-  & .custom-button {
-    // border-radius: 2rem;
-    // width: 40%;
   }
 }
 </style>
