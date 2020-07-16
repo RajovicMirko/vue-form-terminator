@@ -7,36 +7,54 @@
     @submit="handleSubmit"
     @reset="handleReset"
   >
-    <div class="titlenator" :class="{
+    <div
+      class="titlenator"
+      :class="{
         invalid: VueFormTerminator.haveErrors,
-      }">
-      <span :class="{ invalid: VueFormTerminator.haveErrors }">{{ title }}</span>
+      }"
+    >
+      <span :class="{ invalid: VueFormTerminator.haveErrors }">{{
+        title
+      }}</span>
     </div>
 
-    <div class="bodynator" :class="{
+    <div
+      class="bodynator"
+      :class="{
         invalid: VueFormTerminator.haveErrors,
-      }">
-      <!-- Group items -->
-      <!-- <div v-if="item.isGroup">
-          <div
-            v-for="itm in item.items"
-            :key="itm.name"
-            :class="{invalid: itm.haveErrors}"
-          >{{`${itm.name} - ${itm.errorMessage}`}}</div>
-      </div>-->
-
-      <div v-for="item in VueFormTerminator.items" :key="item.name" class="inputnator">
+      }"
+    >
+      <div
+        v-for="item in VueFormTerminator.items"
+        :key="item.name"
+        class="inputnator"
+      >
         <!-- Single item -->
         <custom-input
           :item="item"
           v-if="!item.isGroup"
           :errorMessagePosition="errorMessagePosition"
         ></custom-input>
+
+        <!-- Group items -->
+        <div v-if="item.isGroup">
+          <custom-input-group
+            :items="item.items"
+            :errorMessagePosition="errorMessagePosition"
+          ></custom-input-group>
+        </div>
       </div>
     </div>
 
-    <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
-      <custom-button v-for="action in actions" :key="action.id" v-bind="action"></custom-button>
+    <div
+      class="buttonator"
+      :class="{ [errorMessagePosition]: errorMessagePosition }"
+    >
+      <custom-button
+        v-for="action in actions"
+        :key="action.id"
+        v-bind="action"
+      ></custom-button>
     </div>
   </form>
 </template>
@@ -45,21 +63,23 @@
 import { VueFormTerminator } from "@js/Form.js";
 import button from "@c/button/button.vue";
 import input from "@c/input/input.vue";
+import inputGroup from "@c/input/input-group.vue";
 
 export default {
   name: "VueFormTerminator",
   components: {
     "custom-button": button,
-    "custom-input": input
+    "custom-input": input,
+    "custom-input-group": inputGroup,
   },
 
   props: {
     title: {
-      type: String
+      type: String,
     },
     errorMessagePosition: {
       required: true,
-      validator: value => {
+      validator: (value) => {
         const test = ["top", "bottom"].indexOf(value) === -1;
         if (test) {
           throw Error(
@@ -68,28 +88,28 @@ export default {
         }
 
         return "bottom";
-      }
+      },
     },
     body: {
       type: Array,
-      required: true
+      required: true,
     },
     actions: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
-      VueFormTerminator: {}
+      VueFormTerminator: {},
     };
   },
 
   computed: {
     invalidClass() {
       return { invalid: this.VueFormTerminator.haveErrors };
-    }
+    },
   },
 
   mounted() {
@@ -105,8 +125,8 @@ export default {
 
     handleReset() {
       this.VueFormTerminator.reset();
-    }
-  }
+    },
+  },
 };
 </script>
 

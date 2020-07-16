@@ -39,7 +39,13 @@ export class VueFormTerminator {
 
   get data() {
     const data = {};
-    this.items.map((item) => (data[item.id] = item.value));
+    this.items.map((item) => {
+      if (item.isGroup) {
+        item.items.map((itm) => (data[itm.id] = itm.value));
+      } else {
+        data[item.id] = item.value;
+      }
+    });
     return data;
   }
 }
@@ -84,6 +90,7 @@ class Item extends Error {
       validations,
       value,
       otherClasses,
+      customClasses,
     } = item;
 
     this.id = id;
@@ -93,6 +100,7 @@ class Item extends Error {
     this.placeholder = placeholder;
     this.validations = validations || {};
     this.otherClasses = otherClasses;
+    this.customClasses = customClasses;
     this.value = value || "";
   }
 

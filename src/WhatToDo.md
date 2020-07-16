@@ -17,6 +17,5 @@
 
 ## Add group inputs logic
 
-- add logic for multiple inputs in one line
 - add to documentation
 - add to sample affter publishing npm

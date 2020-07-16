@@ -4,8 +4,9 @@
     :class="{
       [cssType]: cssType,
       [item.otherClasses]: item.otherClasses && cssType,
+      [item.customClasses]: item.customClasses,
       [errorMessagePosition]: errorMessagePosition,
-      'custom-item': true
+      'custom-item': true,
     }"
   >
     <!-- INPUT LABEL -->
@@ -14,13 +15,14 @@
       :for="item.id"
       v-if="item.label"
       :class="{ invalid: item.haveErrors }"
-    >{{ item.label }}</label>
+      >{{ item.label }}</label
+    >
 
     <input
       v-if="cssType"
       :class="{
-            invalid: item.haveErrors,
-          }"
+        invalid: item.haveErrors,
+      }"
       :type="item.type"
       :id="item.id"
       :name="item.name"
@@ -32,9 +34,9 @@
     <input
       v-if="!cssType"
       :class="{
-            [item.otherClasses]: item.otherClasses && !cssType,
-            invalid: item.haveErrors,
-          }"
+        [item.otherClasses]: item.otherClasses && !cssType,
+        invalid: item.haveErrors,
+      }"
       :type="item.type"
       :id="item.id"
       :name="item.name"
@@ -57,28 +59,33 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true
+      required: true,
     },
     errorMessagePosition: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {
     cssType() {
-      const validUi = ["ui"];
-      return validUi.indexOf(this.item.otherClasses.substring(0, 2)) !== -1
-        ? "semanticui-test"
-        : "";
-    }
+      if (this.item.otherClasses) {
+        const validUi = ["ui"];
+
+        return validUi.indexOf(this.item.otherClasses.substring(0, 2)) !== -1
+          ? "semanticui-test"
+          : "";
+      }
+
+      return "";
+    },
   },
 
   methods: {
     handleInput(item) {
       item.isValid;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -135,7 +142,7 @@ $err-msg-font-size: 0.79rem;
 
       &:focus {
         border-color: transparent;
-        box-shadow: 0 0 0 1.5px $invalid-color;
+        box-shadow: 0 0 0 2px $invalid-color;
       }
     }
   }
@@ -144,6 +151,7 @@ $err-msg-font-size: 0.79rem;
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    white-space: nowrap;
 
     & small.invalid {
       height: $err-msg-font-size;
