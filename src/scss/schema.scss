@@ -1,0 +1,67 @@
+// form
+.vue-form-terminator {
+  // title wrapper
+  & .titlenator {
+    // titlenator if invalid
+    &.invalid {
+    }
+
+    // title
+    & span {
+      // span if invalid
+      &.invalid {
+      }
+    }
+  }
+
+  // mid form section - inputs wrapper
+  & .bodynator {
+    // bodynator if invalid
+    &.invalid {
+    }
+
+    // single label, input, errornator wrapper
+    & .inputnator {
+      // inputnator if invalid
+      &.invalid {
+      }
+
+      // input label
+      & label {
+        // input label if invalid
+        &.invalid {
+        }
+      }
+
+      // input for bootstrap
+      & input {
+        // input for bootstrap if invalid
+        &.invalid {
+        }
+      }
+
+      // input for semanticUi
+      & div {
+        & input {
+          // input for semanticUi if invalid
+          &.invalid {
+          }
+        }
+      }
+
+      // input error wrapper
+      & .errornator {
+        // input error message
+        & small.invalid {
+        }
+      }
+    }
+  }
+
+  // buttons wrapper
+  & .buttonator {
+    // form button
+    & button {
+    }
+  }
+}

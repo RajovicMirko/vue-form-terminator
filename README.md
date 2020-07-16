@@ -9,14 +9,14 @@
     - [Template section](#template-section)
     - [Script section](#script-section)
     - [Style section](#style-section)
-      - [Thired party](#thired-party)
-      - [Complet scss vue-form-terminator schema](#complet-scss-vue-form-terminator-schema)
+      - [Third-party](#third-party)
+      - [Complete scss vue-form-terminator schema](#complete-scss-vue-form-terminator-schema)
   - [GIT PROJECT](#git-project)
 
 ## INTRODUCTION
 
 This is Vue.js form component with the smallest possible styling.
-Is created in a way to be easy integrated with third party CSS libraries like Bootstrap, SemanticUI...
+Is created in a way to be easily integrated with third party CSS libraries like Bootstrap, SemanticUI...
 
 More about that in the styling section.
 
@@ -24,7 +24,7 @@ More about that in the styling section.
 
 Git project - https://github.com/RajovicMirko/vue-form-terminator-live
 
-On link you can find Vue project with sample pages for:
+Git project contains sample pages for:
 
 - Bootstrap
 - SemanticUI
@@ -47,7 +47,7 @@ import "vue-form-terminator/dist/vue-form-terminator.common";
 Vue.use(VueFormTerminator);
 ```
 
-Now the component is available in the whole vue app.
+Now the vue-form-terminator component is available in the whole vue app.
 
 ## USAGE
 
@@ -189,9 +189,9 @@ export default {
 </script>
 ```
 
-I know it's ugly, but wait for it :D
+I know it looks ugly, but wait for it :D
 
-**_So what is happening here_**
+**_So what's happening here_**
 
 _"formSetup" object attributes explained:_
 
@@ -228,7 +228,8 @@ Now let's make it look better
 Sample bootstrap:
 
 In the public/index.html in < head> section use bootstrap CDN, or import it in any other way.
-Is just important that we need to make bootstrap classes available to us
+
+Is just important that we need to make bootstrap classes available to us in the project
 
 ```html
 <link
@@ -248,7 +249,7 @@ In this sample we already defined in the script section:
 otherClasses: "form-control custom-input";
 
 // FOR BUTTONS IN actions ATRIBUTE
-otherClasses: "btn btn-outline-primary";
+otherClasses: "btn btn-outline-primary custom-button";
 ```
 
 Check the result, is much better now :D.
@@ -294,56 +295,72 @@ Let's customize it a bit to make it awesome:
 </style>
 ```
 
-And vue-la. That was it.
+And vue-la. That was it. :D :D :D :D
 
-#### Thired party
+#### Third-party
 
-It's not tested with other CSS libraries but as we did it in a sample, you can try.
+It's not tested with other CSS libraries except Bootstrap and SemanticUI.
 
-#### Complet scss vue-form-terminator schema
+#### Complete scss vue-form-terminator schema
 
-This is complete scss structure for vue-form-terminator:
+This is a complete scss structure for vue-form-terminator:
 
 ```scss
 // form
 .vue-form-terminator {
   // title wrapper
   & .titlenator {
+    // titlenator if invalid
+    &.invalid {
+    }
+
     // title
     & span {
+      // span if invalid
+      &.invalid {
+      }
     }
   }
 
   // mid form section - inputs wrapper
   & .bodynator {
+    // bodynator if invalid
+    &.invalid {
+    }
+
     // single label, input, errornator wrapper
     & .inputnator {
+      // inputnator if invalid
+      &.invalid {
+      }
+
       // input label
       & label {
+        // input label if invalid
+        &.invalid {
+        }
       }
 
       // input for bootstrap
       & input {
+        // input for bootstrap if invalid
+        &.invalid {
+        }
       }
 
       // input for semanticUi
-      & .semanticui {
+      & div {
         & input {
+          // input for semanticUi if invalid
+          &.invalid {
+          }
         }
       }
 
       // input error wrapper
       & .errornator {
         // input error message
-        & small {
-          // input error message class
-          & .invalid {
-            &:hover {
-            }
-
-            &:focus {
-            }
-          }
+        & small.invalid {
         }
       }
     }
