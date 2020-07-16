@@ -13,6 +13,12 @@
 
 ## noSpace input validation
 
+- add validation - done
+- add to documentation - done
+- add to sample
+
 ## Add group inputs logic
 
-if someone need in line multiple inputs
+- add logic for multiple inputs in one line
+- add to documentation
+- add to sample

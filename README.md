@@ -102,7 +102,10 @@ export default {
               max: {
                 value: 20,
                 message: "Username must have less then 20 characters"
-              }
+              },
+              noWhiteSpace: {
+                message: "No space alowed",
+              },
             },
             otherClasses: "form-control custom-input"
           },
@@ -205,11 +208,12 @@ _"formSetup" object attributes explained:_
   - label - not required
   - placeholder - not required
   - validations - not required. Available validations are:
-    - required { message: 'return this error message'}
+    - compareElements { value: 'id of body object to compare with' message: 'return this error message'}
+    - email { message: 'return this error message' }
     - min { value: 'Number of min string length' message: 'return this error message'}
     - max { value: 'Number of max string length' message: 'return this error message'}
-    - email { message: 'return this error message' }
-    - compareElements { value: 'id of body object to compare with' message: 'return this error message'}
+    - noWhiteSpace { message: 'return this error message'}
+    - required { message: 'return this error message'}
   - otherClasses - not required (use to integrate thired party class names)
 - **_actions_** - array of objects for form buttons
   - id - required

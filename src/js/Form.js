@@ -74,8 +74,14 @@ class Item extends Error {
     this.value = value || "";
   }
 
-  required() {
-    return !this.value.length;
+  compareElements(elId) {
+    const comperedItem = this.form.items.filter((item) => item.id === elId);
+    return comperedItem[0].value !== this.value;
+  }
+
+  email() {
+    const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return !emailReg.test(this.value);
   }
 
   min(val) {
@@ -86,14 +92,12 @@ class Item extends Error {
     return this.value.length > val;
   }
 
-  email() {
-    const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return !emailReg.test(this.value);
+  noWhiteSpace() {
+    return this.value.indexOf(" ") !== -1;
   }
 
-  compareElements(elId) {
-    const comperedItem = this.form.items.filter((item) => item.id === elId);
-    return comperedItem[0].value !== this.value;
+  required() {
+    return !this.value.length;
   }
 
   get haveErrors() {
