@@ -1,5 +1,6 @@
 <template>
   <form
+    ref="VueFormTerminator"
     class="vue-form-terminator"
     :class="{
       invalid: VueFormTerminator.haveErrors,
@@ -116,17 +117,28 @@ export default {
 
   mounted() {
     this.VueFormTerminator = new VueFormTerminator(this.body);
+    this.focusFirstElement();
   },
 
   methods: {
+    focusFirstElement() {
+      setTimeout(() => {
+        this.$refs.VueFormTerminator[0].focus();
+      }, 10);
+    },
     handleSubmit(e) {
       e.preventDefault();
       const test = this.VueFormTerminator.isValid;
-      if (test) this.$emit("submited", this.VueFormTerminator.data);
+      if (test) {
+        this.$emit("submited", this.VueFormTerminator.data);
+        this.VueFormTerminator.reset();
+        this.focusFirstElement();
+      }
     },
 
     handleReset() {
       this.VueFormTerminator.reset();
+      this.focusFirstElement();
     },
   },
 };

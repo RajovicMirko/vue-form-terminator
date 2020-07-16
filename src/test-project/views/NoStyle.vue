@@ -47,7 +47,7 @@ export default {
     return {
       formSetup: {
         title: "NoStyle sample",
-        errorMessagePosition: "bottom",
+        errorMessagePosition: "top",
         body: [
           [
             {
