@@ -47,7 +47,7 @@ export default {
     return {
       formSetup: {
         title: "Bootstrap sample",
-        errorMessagePosition: "top",
+        errorMessagePosition: "bottom",
         body: [
           [
             {
@@ -105,7 +105,7 @@ export default {
             id: "username",
             name: "Username",
             type: "text",
-            label: "Username",
+            label: "",
             placeholder: "Username",
             validations: {
               required: {
@@ -125,7 +125,7 @@ export default {
             id: "email",
             name: "Email",
             type: "text",
-            label: "Email",
+            label: "",
             placeholder: "Email",
             validations: {
               required: {
@@ -222,6 +222,7 @@ export default {
     min-width: 300px;
 
     & .group {
+      margin-bottom: 0.8rem;
       & .first-name {
         width: 25%;
       }
@@ -234,12 +235,23 @@ export default {
         width: 40%;
       }
     }
+
+    & .inputnator {
+      margin: -0.7rem 0;
+    }
+
+    & .buttonator {
+      margin-top: 1.3rem;
+
+      & button {
+        width: 48%;
+      }
+    }
   }
 }
 
 .custom-input-bootstrap {
   border-radius: 2rem;
-  text-align: center;
 
   &:hover {
     border-color: transparent;

@@ -24,10 +24,10 @@
         invalid: VueFormTerminator.haveErrors,
       }"
     >
-      <div
+      <fragment
         v-for="item in VueFormTerminator.items"
         :key="item.name"
-        class="inputnator"
+        :class="errorMessagePosition"
       >
         <!-- Single item -->
         <custom-input
@@ -37,13 +37,15 @@
         ></custom-input>
 
         <!-- Group items -->
-        <div v-if="item.isGroup">
+        <!-- <div v-if="item.isGroup"> -->
+        <fragment v-if="item.isGroup">
           <custom-input-group
             :items="item.items"
             :errorMessagePosition="errorMessagePosition"
           ></custom-input-group>
-        </div>
-      </div>
+        </fragment>
+        <!-- </div> -->
+      </fragment>
     </div>
 
     <div

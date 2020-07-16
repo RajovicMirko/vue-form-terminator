@@ -47,7 +47,7 @@ export default {
     return {
       formSetup: {
         title: "SemanticUI sample",
-        errorMessagePosition: "top",
+        errorMessagePosition: "bottom",
         body: [
           [
             {
@@ -205,18 +205,6 @@ export default {
   & .vue-form-terminator {
     width: 40%;
     min-width: 300px;
-
-    & .group {
-      justify-content: space-between;
-
-      & .first-name {
-        width: 40%;
-      }
-
-      & .last-name {
-        width: 40%;
-      }
-    }
   }
 }
 

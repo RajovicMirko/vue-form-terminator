@@ -47,7 +47,7 @@ export default {
     return {
       formSetup: {
         title: "NoStyle sample",
-        errorMessagePosition: "top",
+        errorMessagePosition: "bottom",
         body: [
           [
             {
@@ -204,16 +204,6 @@ export default {
   & .vue-form-terminator {
     width: 40%;
     min-width: 300px;
-
-    & .group {
-      & .first-name {
-        width: 40%;
-      }
-
-      & .last-name {
-        width: 40%;
-      }
-    }
   }
 }
 

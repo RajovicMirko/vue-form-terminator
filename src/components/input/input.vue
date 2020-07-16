@@ -1,17 +1,16 @@
 <template>
   <!-- LABEL INPUT ERROR -->
   <div
+    class="inputnator"
     :class="{
       [cssType]: cssType,
       [item.otherClasses]: item.otherClasses && cssType,
       [item.customClasses]: item.customClasses,
       [errorMessagePosition]: errorMessagePosition,
-      'custom-item': true,
     }"
   >
     <!-- INPUT LABEL -->
     <label
-      class="labelnator"
       :for="item.id"
       v-if="item.label"
       :class="{ invalid: item.haveErrors }"
@@ -93,44 +92,20 @@ export default {
 $invalid-color: red;
 $err-msg-font-size: 0.79rem;
 
-.custom-item {
+.inputnator {
   position: relative;
   display: flex;
+  flex-direction: column;
   font-size: 1rem;
-  margin-top: 0.6rem;
 
   & label {
     position: absolute;
-  }
-
-  // SemanticUI definition
-  &.semanticui-test {
-    display: flex;
-    flex-direction: column;
-    color: inherit !important;
-
-    &.top {
-      & label {
-        top: -0.3rem;
-      }
-
-      & small.invalid {
-        margin-bottom: 0.2rem;
-      }
-    }
-
-    &.bottom {
-      & label {
-        top: -1.2rem;
-      }
-    }
   }
 
   & input {
     height: 2rem;
     line-height: 2rem;
     width: 100%;
-    margin: 0.2rem 0 0 0;
 
     &.invalid {
       box-shadow: 0 0 0 1px $invalid-color;
@@ -166,7 +141,10 @@ $err-msg-font-size: 0.79rem;
     flex-direction: column-reverse;
 
     & label {
-      top: -0.3rem;
+      top: -0.2rem;
+    }
+    & input {
+      margin: 0.2rem 0 1rem 0;
     }
   }
 
@@ -175,12 +153,17 @@ $err-msg-font-size: 0.79rem;
     flex-direction: column;
 
     & label {
-      top: -1rem;
+      top: -0.2rem;
     }
+    & input {
+      margin: 1rem 0 0.2rem 0;
+    }
+  }
 
-    & small.invalid {
-      margin-top: 0.1rem;
-    }
+  // SemanticUI definition ////////////////////////////////////////////////////////////////////////////////
+  &.semanticui-test {
+    display: flex;
+    color: inherit !important;
   }
 }
 </style>

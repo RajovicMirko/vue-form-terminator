@@ -55,13 +55,14 @@ export default {
 <style lang="scss">
 .group {
   display: flex;
+
   justify-content: space-between;
   width: 100%;
 
-  & .custom-item {
-    width: 100%;
-    margin: 0;
-  }
+  // & .custom-item {
+  //   width: 100%;
+  //   margin: 0;
+  // }
 }
 
 @media (max-width: 930px) {
