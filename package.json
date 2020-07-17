@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "vue-form-terminator",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Vue form with validation",
   "author": "Rajović Mirko",
   "license": "MIT",

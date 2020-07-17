@@ -1,6 +1,7 @@
 # vue-form-terminator
 
 - [vue-form-terminator](#vue-form-terminator)
+  - [DEPENDANCIES](#dependancies)
   - [INTRODUCTION](#introduction)
   - [GIT SAMPLE](#git-sample)
   - [INSTALLATION](#installation)
@@ -15,6 +16,12 @@
     - [Style section](#style-section)
       - [Third-party](#third-party)
 
+## DEPENDANCIES
+
+For proper functioning of vue-form-terminator please install dependencies
+
+- vue-fragment - https://www.npmjs.com/package/vue-fragment
+
 ## INTRODUCTION
 
 This component contains a functional part of the form, and styling is left as customizable.
@@ -24,6 +31,7 @@ Is created in a way to be easily integrated with third party CSS libraries like 
 More about that in the styling section.
 
 ## GIT SAMPLE
+
 Sample - https://github.com/RajovicMirko/vue-form-terminator-live
 
 Git sample contains sample pages for:
@@ -277,14 +285,18 @@ I know it looks ugly, but wait for it :D
 _"formSetup" object attributes explained:_
 
 #### title
+
 - form title (not requiered)
-  
+
 #### errorMessagePosition
+
 - does input error validation message is on top of the input or on the bottom (requiered)
 - valid values: top or bottom
 
 #### body - array of objects for form inputs.
+
 **The first level**
+
 - Available atributes are:
   - id - required (form return object keys depends on it)
   - name - not required
@@ -302,14 +314,16 @@ _"formSetup" object attributes explained:_
   - otherClasses - not required (use to integrate thired party class names)
 
 **The second level (GROUPING)**
+
 - if you create another array of objects like "The first level", it will be presented as a group element (single line elements)
 - Groups are automatically separated by class "group group-{counter number}"
 
 #### actions - array of objects for form buttons
-  - id - required
-  - name - required
-  - type - required (for now available values are submit, reset)
-  - otherClasses - not required (use to integrate thired party class names)
+
+- id - required
+- name - required
+- type - required (for now available values are submit, reset)
+- otherClasses - not required (use to integrate thired party class names)
 
 methods explained:
 
@@ -433,5 +447,6 @@ And Vue-la. That was it. :D :D :D :D
 #### Third-party
 
 For now:
+
 - Bootstrap
 - SemanticUI
