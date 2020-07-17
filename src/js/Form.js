@@ -1,39 +1,30 @@
 export class VueFormTerminator {
-  constructor(formBody) {
-    this.items = formBody.map((item) => {
-      const isArray = item instanceof Array;
-
-      if (isArray) {
-        return new GroupItem(this, item);
+  constructor(title, errorMessagePosition, body, actions) {
+    this.title = title;
+    this.errorMessagePosition = errorMessagePosition;
+    this.groupsCounter = 0;
+    this.items = body.map((item) => {
+      if (item instanceof Array) {
+        this.groupsCounter += 1;
+        return new GroupItems(this, item, this.groupsCounter);
       } else {
         return new Item(this, item);
       }
     });
+    this.actions = actions;
 
+    //custom atributes
     this.haveErrors = false;
   }
 
   get isValid() {
-    const test = this.items.map((item) => {
-      if (item.isGroup) {
-        return item.items.map((itm) => itm.isValid);
-      } else {
-        return item.isValid;
-      }
-    });
-
+    const test = this.items.map((item) => item.isValid);
     this.haveErrors = test.indexOf(false) !== -1;
     return !this.haveErrors;
   }
 
   reset() {
-    this.items.map((item) => {
-      if (item.isGroup) {
-        item.items.map((itm) => itm.reset());
-      } else {
-        item.reset();
-      }
-    });
+    this.items.map((item) => item.reset());
     this.haveErrors = false;
   }
 
@@ -90,7 +81,6 @@ class Item extends Error {
       validations,
       value,
       otherClasses,
-      customClasses,
     } = item;
 
     this.id = id;
@@ -100,7 +90,6 @@ class Item extends Error {
     this.placeholder = placeholder;
     this.validations = validations || {};
     this.otherClasses = otherClasses;
-    this.customClasses = customClasses;
     this.value = value || "";
   }
 
@@ -124,6 +113,11 @@ class Item extends Error {
 
   noWhiteSpace() {
     return this.value.indexOf(" ") !== -1;
+  }
+
+  numberOnly() {
+    const reg = /^\d+$/;
+    return !reg.test(this.value);
   }
 
   required() {
@@ -169,9 +163,22 @@ class Item extends Error {
 /*************************************************************************************************************************/
 /* GROUP ITEM */
 /*************************************************************************************************************************/
-class GroupItem {
-  constructor(form, items) {
+class GroupItems {
+  constructor(form, items, groupId) {
     this.isGroup = true;
+    this.class = `group group-${groupId}`;
     this.items = items.map((item) => new Item(form, item));
+    this.errors = false;
+  }
+
+  get isValid() {
+    const test = this.items.map((item) => item.isValid);
+    this.haveErrors = test.indexOf(false) !== -1;
+    return !this.haveErrors;
+  }
+
+  reset() {
+    this.items.map((item) => item.reset());
+    this.errors = false;
   }
 }

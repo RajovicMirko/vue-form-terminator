@@ -8,18 +8,18 @@
     @submit="handleSubmit"
     @reset="handleReset"
   >
-    <div
-      class="titlenator"
-      :class="{
+    <div class="titlenator" :class="{
         invalid: VueFormTerminator.haveErrors,
-      }"
-    >
-      <span :class="{ invalid: VueFormTerminator.haveErrors }">{{
+      }">
+      <span :class="{ invalid: VueFormTerminator.haveErrors }">
+        {{
         title
-      }}</span>
+        }}
+      </span>
     </div>
 
     <div
+      ref="formBody"
       class="bodynator"
       :class="{
         invalid: VueFormTerminator.haveErrors,
@@ -40,24 +40,14 @@
         <!-- Group items -->
         <!-- <div v-if="item.isGroup"> -->
         <fragment v-if="item.isGroup">
-          <custom-input-group
-            :items="item.items"
-            :errorMessagePosition="errorMessagePosition"
-          ></custom-input-group>
+          <custom-input-group :group="item" :errorMessagePosition="errorMessagePosition"></custom-input-group>
         </fragment>
         <!-- </div> -->
       </fragment>
     </div>
 
-    <div
-      class="buttonator"
-      :class="{ [errorMessagePosition]: errorMessagePosition }"
-    >
-      <custom-button
-        v-for="action in actions"
-        :key="action.id"
-        v-bind="action"
-      ></custom-button>
+    <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
+      <custom-button v-for="action in actions" :key="action.id" v-bind="action"></custom-button>
     </div>
   </form>
 </template>
@@ -73,16 +63,16 @@ export default {
   components: {
     "custom-button": button,
     "custom-input": input,
-    "custom-input-group": inputGroup,
+    "custom-input-group": inputGroup
   },
 
   props: {
     title: {
-      type: String,
+      type: String
     },
     errorMessagePosition: {
       required: true,
-      validator: (value) => {
+      validator: value => {
         const test = ["top", "bottom"].indexOf(value) === -1;
         if (test) {
           throw Error(
@@ -91,41 +81,75 @@ export default {
         }
 
         return "bottom";
-      },
+      }
     },
     body: {
       type: Array,
-      required: true,
+      required: true
     },
     actions: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
-      VueFormTerminator: {},
+      VueFormTerminator: {}
     };
   },
 
   computed: {
     invalidClass() {
       return { invalid: this.VueFormTerminator.haveErrors };
-    },
+    }
   },
 
   mounted() {
-    this.VueFormTerminator = new VueFormTerminator(this.body);
+    this.VueFormTerminator = new VueFormTerminator(
+      this.title,
+      this.errorMessagePosition,
+      this.body,
+      this.actions
+    );
     this.focusFirstElement();
   },
 
   methods: {
+    resetTabIndex() {
+      const errorElements = this.$refs.formBody.querySelectorAll("input");
+      for (let el of errorElements) {
+        el.tabIndex = 0;
+      }
+    },
+
     focusFirstElement() {
       setTimeout(() => {
         this.$refs.VueFormTerminator[0].focus();
+        this.resetTabIndex();
       }, 10);
     },
+
+    fixErrorTabIndex() {
+      const errorElements = this.$refs.formBody.querySelectorAll(
+        "input.invalid"
+      );
+
+      let counter = 1;
+      for (let el of errorElements) {
+        el.tabIndex = counter.toString();
+        counter += 1;
+      }
+    },
+
+    focusFirstErrorElement() {
+      setTimeout(() => {
+        const errorElement = this.$refs.formBody.querySelector("input.invalid");
+        errorElement.focus();
+        this.fixErrorTabIndex();
+      }, 10);
+    },
+
     handleSubmit(e) {
       e.preventDefault();
       const test = this.VueFormTerminator.isValid;
@@ -133,14 +157,16 @@ export default {
         this.$emit("submited", this.VueFormTerminator.data);
         this.VueFormTerminator.reset();
         this.focusFirstElement();
+      } else {
+        this.focusFirstErrorElement();
       }
     },
 
     handleReset() {
       this.VueFormTerminator.reset();
       this.focusFirstElement();
-    },
-  },
+    }
+  }
 };
 </script>
 

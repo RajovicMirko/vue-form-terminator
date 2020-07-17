@@ -38,29 +38,35 @@ export default {
 </script>
 
 <style lang="scss">
-button {
-  display: flex !important;
-  align-items: center !important;
-  width: 100%;
-  height: 2.5rem;
-  width: 40%;
-  padding: 0 !important;
+.buttonator {
+  display: flex;
+  justify-content: space-between;
 
-  & .name {
-    text-align: center;
-    flex: 1;
-  }
+  & button {
+    display: flex !important;
+    align-items: center !important;
+    width: 100%;
+    height: 2.5rem;
+    width: 40%;
+    padding: 0 !important;
 
-  & .icon {
-    margin: 0 0.5rem;
-  }
-
-  &.semanticui {
     & .name {
+      text-align: center;
+      flex: 1;
     }
 
     & .icon {
-      margin-left: 0.8rem !important;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+    }
+
+    &.semanticui {
+      & .name {
+      }
+
+      & .icon {
+        margin-left: 0.8rem !important;
+      }
     }
   }
 }

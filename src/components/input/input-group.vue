@@ -1,7 +1,7 @@
 <template>
-  <div class="group">
+  <div :class="group.class">
     <custom-input
-      v-for="item in items"
+      v-for="item in group.items"
       :key="item.name"
       :item="item"
       :errorMessagePosition="errorMessagePosition"
@@ -16,18 +16,18 @@ export default {
   name: "custom-input-group",
 
   components: {
-    "custom-input": input,
+    "custom-input": input
   },
 
   props: {
-    items: {
-      type: Array,
-      required: true,
+    group: {
+      type: Object,
+      required: true
     },
     errorMessagePosition: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   computed: {
@@ -41,38 +41,33 @@ export default {
       }
 
       return "";
-    },
+    }
   },
 
   methods: {
     handleInput(item) {
       item.isValid;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .group {
+  margin: 0;
+  padding: 0;
+
   display: flex;
-
   justify-content: space-between;
-  width: 100%;
 
-  // & .custom-item {
-  //   width: 100%;
-  //   margin: 0;
-  // }
+  & input {
+    margin: 0;
+  }
 }
 
 @media (max-width: 930px) {
   .group {
     flex-direction: column;
-
-    & .custom-item {
-      width: 100% !important;
-      margin: 0 !important;
-    }
   }
 }
 </style>

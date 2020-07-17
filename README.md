@@ -2,30 +2,33 @@
 
 - [vue-form-terminator](#vue-form-terminator)
   - [INTRODUCTION](#introduction)
-  - [SAMPLES](#samples)
+  - [GIT SAMPLE](#git-sample)
   - [INSTALLATION](#installation)
   - [IMPORT](#import)
   - [USAGE](#usage)
     - [Template section](#template-section)
     - [Script section](#script-section)
+      - [title](#title)
+      - [errorMessagePosition](#errormessageposition)
+      - [body - array of objects for form inputs.](#body---array-of-objects-for-form-inputs)
+      - [actions - array of objects for form buttons](#actions---array-of-objects-for-form-buttons)
     - [Style section](#style-section)
       - [Third-party](#third-party)
-      - [Complete scss vue-form-terminator schema](#complete-scss-vue-form-terminator-schema)
-  - [GIT PROJECT](#git-project)
 
 ## INTRODUCTION
 
-This is Vue.js form component with the smallest possible styling.
-Is created in a way to be easily integrated with third party CSS libraries like Bootstrap, SemanticUI...
+This component contains a functional part of the form, and styling is left as customizable.
+
+Is created in a way to be easily integrated with third party CSS libraries like Bootstrap and SemanticUI.
 
 More about that in the styling section.
 
-## SAMPLES
+## GIT SAMPLE
+Sample - https://github.com/RajovicMirko/vue-form-terminator-live
 
-Git project - https://github.com/RajovicMirko/vue-form-terminator-live
+Git sample contains sample pages for:
 
-Git project contains sample pages for:
-
+- NoStyle
 - Bootstrap
 - SemanticUI
 
@@ -83,12 +86,79 @@ For proper component functioning, we need to bind object (in this case "formSetu
 ```js
 <script>
 export default {
-  data() {
+ data() {
     return {
       formSetup: {
-        title: "Registration page",
-        errorMessagePosition: "bottom",
+        title: "Bootstrap sample",
+        errorMessagePosition: "top",
         body: [
+          [
+            {
+              id: "firstName",
+              name: "FirstName",
+              type: "text",
+              label: "",
+              placeholder: "First name",
+              validations: {
+                required: {
+                  message: "First name is required"
+                },
+                max: {
+                  value: 30,
+                  message: "First name must have less then 20 characters"
+                }
+              },
+              otherClasses: "form-control"
+            },
+            {
+              id: "lastName",
+              name: "LastName",
+              type: "text",
+              label: "",
+              placeholder: "Last name",
+              validations: {
+                required: {
+                  message: "Last name is required"
+                },
+                max: {
+                  value: 30,
+                  message: "Last name must have less then 20 characters"
+                }
+              },
+              otherClasses: "form-control"
+            }
+          ],
+          [
+            {
+              id: "address",
+              name: "Address",
+              type: "text",
+              label: "",
+              placeholder: "Address",
+              validations: {
+                required: {
+                  message: "Address is required"
+                }
+              },
+              otherClasses: "form-control"
+            },
+            {
+              id: "houseNumber",
+              name: "HouseNumber",
+              type: "text",
+              label: "",
+              placeholder: "No.",
+              validations: {
+                required: {
+                  message: "No. is required"
+                },
+                numberOnly: {
+                  message: "No. must be string"
+                }
+              },
+              otherClasses: "form-control"
+            }
+          ],
           {
             id: "username",
             name: "Username",
@@ -104,10 +174,10 @@ export default {
                 message: "Username must have less then 20 characters"
               },
               noWhiteSpace: {
-                message: "No space alowed",
-              },
+                message: "No space character allowed"
+              }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control"
           },
           {
             id: "email",
@@ -123,7 +193,7 @@ export default {
                 message: "Email must be a valid email"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control"
           },
           {
             id: "password",
@@ -144,7 +214,7 @@ export default {
                 message: "Pasword must have less then 20 characters"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control"
           },
           {
             id: "repeatPassword",
@@ -169,7 +239,7 @@ export default {
                 message: "Repeat Password must be equal as password"
               }
             },
-            otherClasses: "form-control custom-input"
+            otherClasses: "form-control custom-input-bootstrap"
           }
         ],
         actions: [
@@ -177,7 +247,15 @@ export default {
             id: "submit",
             name: "Submit",
             type: "submit",
+            icon: "fas fa-plus",
             otherClasses: "btn btn-outline-primary custom-button"
+          },
+          {
+            id: "reset",
+            name: "Reset",
+            type: "reset",
+            icon: "fas fa-camera",
+            otherClasses: "btn btn-outline-warning custom-button"
           }
         ]
       }
@@ -198,10 +276,16 @@ I know it looks ugly, but wait for it :D
 
 _"formSetup" object attributes explained:_
 
-- **_title_** - form title (not requiered)
-- **_errorMessagePosition_** - does input error validation message is on top of the input or on the bottom (requiered)
-  - valid values: top or bottom
-- **_body_** - array of objects for form inputs. Available atributes are:
+#### title
+- form title (not requiered)
+  
+#### errorMessagePosition
+- does input error validation message is on top of the input or on the bottom (requiered)
+- valid values: top or bottom
+
+#### body - array of objects for form inputs.
+**The first level**
+- Available atributes are:
   - id - required (form return object keys depends on it)
   - name - not required
   - type - required (for now available values are text, password, email)
@@ -213,9 +297,15 @@ _"formSetup" object attributes explained:_
     - min { value: 'Number of min string length' message: 'return this error message'}
     - max { value: 'Number of max string length' message: 'return this error message'}
     - noWhiteSpace { message: 'return this error message'}
+    - numberOnly { message: 'return this error message'}
     - required { message: 'return this error message'}
   - otherClasses - not required (use to integrate thired party class names)
-- **_actions_** - array of objects for form buttons
+
+**The second level (GROUPING)**
+- if you create another array of objects like "The first level", it will be presented as a group element (single line elements)
+- Groups are automatically separated by class "group group-{counter number}"
+
+#### actions - array of objects for form buttons
   - id - required
   - name - required
   - type - required (for now available values are submit, reset)
@@ -223,17 +313,17 @@ _"formSetup" object attributes explained:_
 
 methods explained:
 
-- handleSubmit - when we submit vue-form-terminator the "data" key:value pairs object is returned from the form in the way that inputs id is key and value is well input value :D
+- handleSubmit - when we submit vue-form-terminator the "data" key:value pairs object is returned from the form in a way that inputs id is key and value is ... well input value :D
 
 ### Style section
 
-Now let's make it look better
+Now let's make it looks better
 
 Sample bootstrap:
 
 In the public/index.html in < head> section use bootstrap CDN, or import it in any other way.
 
-Is just important that we need to make bootstrap classes available to us in the project
+It's important that we make bootstrap classes available to us in the project.
 
 ```html
 <link
@@ -244,13 +334,13 @@ Is just important that we need to make bootstrap classes available to us in the 
 />
 ```
 
-After that, define classes you want to use in the otherClass attribute of objects.
+After that, define classes you want to use in the otherClasses attribute of body and action objects.
 
 In this sample we already defined in the script section:
 
 ```js
 // FOR INPUTS IN body ATRIBUTE
-otherClasses: "form-control custom-input";
+otherClasses: "form-control custom-input-bootstrap";
 
 // FOR BUTTONS IN actions ATRIBUTE
 otherClasses: "btn btn-outline-primary custom-button";
@@ -260,125 +350,88 @@ Check the result, is much better now :D.
 
 Let's customize it a bit to make it awesome:
 
-```css
+```scss
 <style lang="scss">
 #registration {
   display: grid;
+  grid-template-rows: auto 1fr;
   place-items: center;
-  height: 100vh;
   min-width: 350px;
 
+  & .inputnator {
+    margin-bottom: 0.6rem;
+  }
+
+  & .errornator {
+    justify-content: flex-start;
+  }
+
   & .vue-form-terminator {
-    width: 40%;
+    width: 50%;
     min-width: 300px;
 
-    & .titlenator {
-      margin-bottom: 1.5rem;
-      font-weight: bold;
-      color: #007bff;
+    & .group-1 {
+      & .firstName,
+      & .lastName {
+        width: 100%;
+      }
     }
 
-    & .inputnator {
-      margin-bottom: 0.5rem;
+    & .group-2 {
+      flex-direction: row;
+      & .address {
+        width: 65%;
+      }
+
+      & .houseNumber {
+        width: 30%;
+      }
     }
 
     & .buttonator {
-      justify-content: center;
+      & button {
+        width: 48%;
+      }
     }
   }
+}
 
-  & .custom-input {
-    border-radius: 2rem;
+@media (min-width: 930px) {
+  #bootstrap {
+    & .vue-form-terminator {
+      & .group-1 {
+        & .firstName {
+          width: 47.5%;
+        }
+
+        & .lastName {
+          width: 47.5%;
+        }
+      }
+    }
+  }
+}
+
+.custom-input-bootstrap {
+  border-radius: 2rem;
+
+  &:hover {
+    border-color: transparent;
+    box-shadow: 0 0 2px 0.5px #2185d0;
   }
 
-  & .custom-button {
-    border-radius: 2rem;
-    width: 40%;
+  &:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 1.5px #2185d0;
   }
 }
 </style>
 ```
 
-And vue-la. That was it. :D :D :D :D
+And Vue-la. That was it. :D :D :D :D
 
 #### Third-party
 
-It's not tested with other CSS libraries except Bootstrap and SemanticUI.
-
-#### Complete scss vue-form-terminator schema
-
-This is a complete scss structure for vue-form-terminator:
-
-```scss
-// form
-.vue-form-terminator {
-  // title wrapper
-  & .titlenator {
-    // titlenator if invalid
-    &.invalid {
-    }
-
-    // title
-    & span {
-      // span if invalid
-      &.invalid {
-      }
-    }
-  }
-
-  // mid form section - inputs wrapper
-  & .bodynator {
-    // bodynator if invalid
-    &.invalid {
-    }
-
-    // single label, input, errornator wrapper
-    & .inputnator {
-      // inputnator if invalid
-      &.invalid {
-      }
-
-      // input label
-      & label {
-        // input label if invalid
-        &.invalid {
-        }
-      }
-
-      // input for bootstrap
-      & input {
-        // input for bootstrap if invalid
-        &.invalid {
-        }
-      }
-
-      // input for semanticUi
-      & div {
-        & input {
-          // input for semanticUi if invalid
-          &.invalid {
-          }
-        }
-      }
-
-      // input error wrapper
-      & .errornator {
-        // input error message
-        & small.invalid {
-        }
-      }
-    }
-  }
-
-  // buttons wrapper
-  & .buttonator {
-    // form button
-    & button {
-    }
-  }
-}
-```
-
-## GIT PROJECT
-
-https://github.com/RajovicMirko/vue-form-terminator
+For now:
+- Bootstrap
+- SemanticUI

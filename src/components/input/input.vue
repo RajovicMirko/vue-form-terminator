@@ -7,15 +7,11 @@
       [item.otherClasses]: item.otherClasses && cssType,
       [item.customClasses]: item.customClasses,
       [errorMessagePosition]: errorMessagePosition,
+      [item.id]: item.id,
     }"
   >
     <!-- INPUT LABEL -->
-    <label
-      :for="item.id"
-      v-if="item.label"
-      :class="{ invalid: item.haveErrors }"
-      >{{ item.label }}</label
-    >
+    <label :for="item.id" v-if="item.label" :class="{ invalid: item.haveErrors }">{{ item.label }}</label>
 
     <input
       v-if="cssType"
@@ -58,12 +54,12 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
+      required: true
     },
     errorMessagePosition: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   computed: {
@@ -77,14 +73,14 @@ export default {
       }
 
       return "";
-    },
+    }
   },
 
   methods: {
     handleInput(item) {
       item.isValid;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -93,6 +89,9 @@ $invalid-color: red;
 $err-msg-font-size: 0.79rem;
 
 .inputnator {
+  margin: 0;
+  margin-bottom: 1rem;
+  padding: 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -143,8 +142,9 @@ $err-msg-font-size: 0.79rem;
     & label {
       top: -0.2rem;
     }
-    & input {
-      margin: 0.2rem 0 1rem 0;
+
+    & .errornator {
+      margin-bottom: 0.2rem;
     }
   }
 
@@ -153,10 +153,11 @@ $err-msg-font-size: 0.79rem;
     flex-direction: column;
 
     & label {
-      top: -0.2rem;
+      top: -1.2rem;
     }
-    & input {
-      margin: 1rem 0 0.2rem 0;
+
+    & .errornator {
+      margin-top: 0.2rem;
     }
   }
 
@@ -165,5 +166,7 @@ $err-msg-font-size: 0.79rem;
     display: flex;
     color: inherit !important;
   }
+
+  // Window size controll ////////////////////////////////////////////////////////////////////////////////
 }
 </style>
