@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
 
@@ -37,6 +37,16 @@ export default {
 
   data() {
     return {
+      model: {
+        firstName: "Mirko",
+        lastName: "Rajovic",
+        username: "Mirkasin",
+        email: "mirko@gmail.com",
+        password: "12345",
+        repeatPassword: "12345",
+        address: "Pastirska",
+        addressNumber: 123
+      },
       formSetup: {
         title: "Bootstrap sample",
         errorMessagePosition: "top",
@@ -92,9 +102,9 @@ export default {
               otherClasses: "form-control"
             },
             {
-              id: "houseNumber",
+              id: "addressNumber",
               name: "HouseNumber",
-              type: "text",
+              type: "number",
               label: "",
               placeholder: "No.",
               validations: {
@@ -218,6 +228,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "@sc/variables.scss";
 #bootstrap {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -262,7 +273,7 @@ export default {
   }
 }
 
-@media (min-width: 930px) {
+@media (min-width: $min-width) {
   #bootstrap {
     & .vue-form-terminator {
       & .group-1 {

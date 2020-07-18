@@ -26,7 +26,7 @@
       }"
     >
       <fragment
-        v-for="item in VueFormTerminator.items"
+        v-for="item in VueFormTerminator.body.elements"
         :key="item.name"
         :class="errorMessagePosition"
       >
@@ -38,11 +38,9 @@
         ></custom-input>
 
         <!-- Group items -->
-        <!-- <div v-if="item.isGroup"> -->
         <fragment v-if="item.isGroup">
           <custom-input-group :group="item" :errorMessagePosition="errorMessagePosition"></custom-input-group>
         </fragment>
-        <!-- </div> -->
       </fragment>
     </div>
 
@@ -53,7 +51,7 @@
 </template>
 
 <script>
-import { VueFormTerminator } from "@js/Form.js";
+import VueFormTerminator from "@js/Form.js";
 import button from "@c/button/button.vue";
 import input from "@c/input/input.vue";
 import inputGroup from "@c/input/input-group.vue";
@@ -90,6 +88,9 @@ export default {
     actions: {
       type: Array,
       required: true
+    },
+    model: {
+      type: Object
     }
   },
 
@@ -107,10 +108,13 @@ export default {
 
   mounted() {
     this.VueFormTerminator = new VueFormTerminator(
-      this.title,
-      this.errorMessagePosition,
-      this.body,
-      this.actions
+      {
+        title: this.title,
+        errorMessagePosition: this.errorMessagePosition,
+        body: this.body,
+        actions: this.actions
+      },
+      this.model
     );
     this.focusFirstElement();
   },
@@ -127,7 +131,7 @@ export default {
       setTimeout(() => {
         this.$refs.VueFormTerminator[0].focus();
         this.resetTabIndex();
-      }, 10);
+      }, 100);
     },
 
     fixErrorTabIndex() {
@@ -152,9 +156,9 @@ export default {
 
     handleSubmit(e) {
       e.preventDefault();
-      const test = this.VueFormTerminator.isValid;
+      const test = this.VueFormTerminator.isValid();
       if (test) {
-        this.$emit("submited", this.VueFormTerminator.data);
+        this.$emit("submited", this.VueFormTerminator.getModel());
         this.VueFormTerminator.reset();
         this.focusFirstElement();
       } else {

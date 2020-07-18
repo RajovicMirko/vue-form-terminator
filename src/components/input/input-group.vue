@@ -42,17 +42,13 @@ export default {
 
       return "";
     }
-  },
-
-  methods: {
-    handleInput(item) {
-      item.isValid;
-    }
   }
 };
 </script>
 
 <style lang="scss">
+@import "@sc/variables.scss";
+
 .group {
   margin: 0;
   padding: 0;
@@ -65,7 +61,7 @@ export default {
   }
 }
 
-@media (max-width: 930px) {
+@media (max-width: $min-width) {
   .group {
     flex-direction: column;
   }

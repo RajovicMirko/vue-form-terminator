@@ -42,7 +42,7 @@
 
     <!-- INPUT ERROR MESSAGE -->
     <div class="errornator">
-      <small class="invalid">{{ item.errorMessage }}</small>
+      <small class="invalid">{{ item.errorMessage() }}</small>
     </div>
   </div>
 </template>
@@ -78,15 +78,28 @@ export default {
 
   methods: {
     handleInput(item) {
-      item.isValid;
+      item.isValid();
     }
   }
 };
 </script>
 
 <style lang="scss">
-$invalid-color: red;
-$err-msg-font-size: 0.79rem;
+@import "@sc/variables.scss";
+
+.group {
+  & .inputnator {
+    width: 100%;
+  }
+}
+
+@media (min-width: $min-width) {
+  .group {
+    & .inputnator {
+      width: 47.5%;
+    }
+  }
+}
 
 .inputnator {
   margin: 0;
@@ -96,6 +109,7 @@ $err-msg-font-size: 0.79rem;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
+  width: 100%;
 
   & label {
     position: absolute;

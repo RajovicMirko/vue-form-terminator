@@ -2,8 +2,8 @@
 
 - [WHAT TO DO](#what-to-do)
   - [Some live preview](#some-live-preview)
-  - [noSpace input validation](#nospace-input-validation)
-  - [Add group inputs logic](#add-group-inputs-logic)
+  - [Add data model](#add-data-model)
+  - [add call back function for validations](#add-call-back-function-for-validations)
 
 ## Some live preview
 
@@ -11,11 +11,9 @@
 - deploy it
 - add live preview to documentation
 
-## noSpace input validation
+## Add data model
 
-- add to sample affter publishing npm
+- initial values
+- sync data with data model
 
-## Add group inputs logic
-
-- add to documentation
-- add to sample affter publishing npm
+## add call back function for validations

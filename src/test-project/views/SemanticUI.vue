@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
 
@@ -37,6 +37,15 @@ export default {
 
   data() {
     return {
+      model: {
+        firstName: "Mirko",
+        lastName: "Rajovic",
+        username: "Mirkasin",
+        email: "mirko@gmail.com",
+        password: "12345",
+        repeatPassword: "12345"
+      },
+
       formSetup: {
         title: "SemanticUI sample",
         errorMessagePosition: "top",
