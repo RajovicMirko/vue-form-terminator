@@ -96,7 +96,9 @@ export default {
 
   data() {
     return {
-      VueFormTerminator: {}
+      VueFormTerminator: {
+        body: {}
+      }
     };
   },
 
