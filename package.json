@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "vue-form-terminator",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "Vue form with validation",
   "author": "Rajović Mirko",
   "license": "MIT",
@@ -13,35 +13,19 @@
   },
   "keywords": [
     "vue",
+    "vuejs",
     "form",
-    "npm"
+    "vue-form-terminator"
   ],
   "files": [
     "dist/*"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
     "build": "vue-cli-service build --target lib --name vue-form-terminator ./src/main-npm.js"
   },
   "dependencies": {
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-unit-jest": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "@vue/test-utils": "^1.0.3",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.12.0",
-    "rollup-plugin-vue": "^5.1.9",
-    "sass-loader": "^8.0.2",
-    "vue-router": "^3.3.4",
-    "vue-template-compiler": "^2.6.11"
   }
 }
