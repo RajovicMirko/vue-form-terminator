@@ -159,7 +159,7 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
       otherClasses,
     } = element;
 
-    const errorRequiredProperties = `Missing property in form setup: in "body" schema required properties are:
+    const errorRequiredProperties = `Missing property in form setup: in "body" schema required properties in element object are:
     - id
     - type`;
     if (!id || !type) throw new TerminatorError(errorRequiredProperties);
