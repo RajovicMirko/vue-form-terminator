@@ -16,8 +16,7 @@
       :for="element.id"
       v-if="element.label"
       :class="{ invalid: element.haveErrors }"
-      >{{ element.label }}</label
-    >
+    >{{ element.label }}</label>
 
     <!-- Others input type -->
     <input
@@ -61,19 +60,28 @@ export default {
   props: {
     element: {
       type: Object,
-      required: true,
+      required: true
+      // validator: function(value) {
+      //   switch (true) {
+      //     case !value["id"]:
+      //       throw Error("There is a missing property 'id' in body schema");
+
+      //     default:
+      //       return true;
+      //   }
+      // }
     },
     errorMessagePosition: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   methods: {
     handleInput(element) {
       element.isValid();
-    },
-  },
+    }
+  }
 };
 </script>
 

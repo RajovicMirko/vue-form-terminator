@@ -88,6 +88,10 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
 
     _config = config;
 
+    if (!body)
+      throw new TerminatorError(
+        `Missing property in form setup: "body" is required property`
+      );
     this.body = body.map((element) =>
       element instanceof Array ? new Group(element) : new Element(element)
     );
@@ -98,6 +102,10 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
         : _elements.push(el);
     });
 
+    if (!actions)
+      throw new TerminatorError(
+        `Missing property in form setup: "actions" is required property`
+      );
     _actions = actions;
   }
 
@@ -150,6 +158,11 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
       value,
       otherClasses,
     } = element;
+
+    const errorRequiredProperties = `Missing property in form setup: in "body" schema required properties are:
+    - id
+    - type`;
+    if (!id || !type) throw new TerminatorError(errorRequiredProperties);
 
     this.id = id;
     this.name = name;
