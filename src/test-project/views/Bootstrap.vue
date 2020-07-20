@@ -45,7 +45,7 @@ export default {
         password: "12345",
         repeatPassword: "12345",
         address: "Pastirska",
-        addressNumber: 123
+        addressNumber: "123"
       },
       formSetup: {
         title: "Bootstrap sample",
@@ -247,27 +247,17 @@ export default {
     width: 50%;
     min-width: 300px;
 
-    & .group-1 {
-      & .firstName,
-      & .lastName {
-        width: 100%;
-      }
-    }
-
     & .group-2 {
       flex-direction: row;
-      & .address {
-        width: 65%;
-      }
-
-      & .houseNumber {
-        width: 30%;
+      & .address,
+      & .addressNumber {
+        width: 47.5%;
       }
     }
 
     & .buttonator {
       & button {
-        width: 48%;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -283,6 +273,22 @@ export default {
 
         & .lastName {
           width: 47.5%;
+        }
+      }
+
+      & .group-2 {
+        & .address {
+          width: 75%;
+        }
+        & .addressNumber {
+          width: 20%;
+        }
+      }
+
+      & .buttonator {
+        flex-direction: row;
+        & button {
+          width: 48%;
         }
       }
     }

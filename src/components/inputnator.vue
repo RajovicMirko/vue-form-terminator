@@ -3,56 +3,59 @@
   <div
     class="inputnator"
     :class="{
-      [cssType]: cssType,
-      [item.otherClasses]: item.otherClasses && cssType,
-      [item.customClasses]: item.customClasses,
+      [element.inputComponentClass]: element.inputComponentClass,
+      [element.otherClasses]: element.otherClasses && element.inputComponentClass,
+      [element.customClasses]: element.customClasses,
       [errorMessagePosition]: errorMessagePosition,
-      [item.id]: item.id,
+      [element.id]: element.id,
     }"
   >
     <!-- INPUT LABEL -->
-    <label :for="item.id" v-if="item.label" :class="{ invalid: item.haveErrors }">{{ item.label }}</label>
+    <label
+      :for="element.id"
+      v-if="element.label"
+      :class="{ invalid: element.haveErrors }"
+    >{{ element.label }}</label>
 
+    <!-- Others input type -->
     <input
-      v-if="cssType"
-      :class="{
-        invalid: item.haveErrors,
-      }"
-      :type="item.type"
-      :id="item.id"
-      :name="item.name"
-      :placeholder="item.placeholder"
-      v-model="item.value"
-      @input="handleInput(item)"
+      v-if="element.inputComponentClass"
+      :class="{ invalid: element.haveErrors }"
+      :type="element.type"
+      :id="element.id"
+      :name="element.name"
+      :placeholder="element.placeholder"
+      v-model="element.value"
+      @input="handleInput(element)"
     />
 
+    <!-- SemanticUI input type -->
     <input
-      v-if="!cssType"
+      v-if="!element.inputComponentClass"
       :class="{
-        [item.otherClasses]: item.otherClasses && !cssType,
-        invalid: item.haveErrors,
+        [element.otherClasses]: element.otherClasses && !element.inputComponentClass,
+        invalid: element.haveErrors,
       }"
-      :type="item.type"
-      :id="item.id"
-      :name="item.name"
-      :placeholder="item.placeholder"
-      v-model="item.value"
-      @input="handleInput(item)"
+      :type="element.type"
+      :id="element.id"
+      :name="element.name"
+      :placeholder="element.placeholder"
+      v-model="element.value"
+      @input="handleInput(element)"
     />
-
     <!-- INPUT ERROR MESSAGE -->
     <div class="errornator">
-      <small class="invalid">{{ item.errorMessage() }}</small>
+      <small class="invalid">{{ element.errorMessage() }}</small>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "custom-input",
+  name: "Inputnator",
 
   props: {
-    item: {
+    element: {
       type: Object,
       required: true
     },
@@ -62,23 +65,9 @@ export default {
     }
   },
 
-  computed: {
-    cssType() {
-      if (this.item.otherClasses) {
-        const validUi = ["ui"];
-
-        return validUi.indexOf(this.item.otherClasses.substring(0, 2)) !== -1
-          ? "semanticui-test"
-          : "";
-      }
-
-      return "";
-    }
-  },
-
   methods: {
-    handleInput(item) {
-      item.isValid();
+    handleInput(element) {
+      element.isValid();
     }
   }
 };
@@ -86,20 +75,6 @@ export default {
 
 <style lang="scss">
 @import "@sc/variables.scss";
-
-.group {
-  & .inputnator {
-    width: 100%;
-  }
-}
-
-@media (min-width: $min-width) {
-  .group {
-    & .inputnator {
-      width: 47.5%;
-    }
-  }
-}
 
 .inputnator {
   margin: 0;
@@ -176,7 +151,7 @@ export default {
   }
 
   // SemanticUI definition ////////////////////////////////////////////////////////////////////////////////
-  &.semanticui-test {
+  &.input-ui {
     display: flex;
     color: inherit !important;
   }

@@ -1,23 +1,21 @@
 <template>
   <div :class="group.class">
-    <custom-input
-      v-for="item in group.items"
-      :key="item.name"
-      :item="item"
+    <inputnator
+      v-for="element in group.elements"
+      :key="element.name"
+      :element="element"
       :errorMessagePosition="errorMessagePosition"
-    ></custom-input>
+    ></inputnator>
   </div>
 </template>
 
 <script>
-import input from "@c/input/input.vue";
+import inputnator from "@c/inputnator.vue";
 
 export default {
-  name: "custom-input-group",
+  name: "Group",
 
-  components: {
-    "custom-input": input
-  },
+  components: { inputnator },
 
   props: {
     group: {
@@ -27,20 +25,6 @@ export default {
     errorMessagePosition: {
       type: String,
       required: true
-    }
-  },
-
-  computed: {
-    cssType() {
-      if (this.item.otherClasses) {
-        const validUi = ["ui"];
-
-        return validUi.indexOf(this.item.otherClasses.substring(0, 2)) !== -1
-          ? "semanticui-test"
-          : "";
-      }
-
-      return "";
     }
   }
 };
@@ -55,6 +39,7 @@ export default {
 
   display: flex;
   justify-content: space-between;
+  width: 100%;
 
   & input {
     margin: 0;

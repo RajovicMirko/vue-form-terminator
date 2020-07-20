@@ -21,7 +21,10 @@
       </div>
     </div>
 
-    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
+    <div class="forms">
+      <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
+      <vue-form-terminator v-bind="formSetup2" :model="model2" @submited="handleSubmit"></vue-form-terminator>
+    </div>
   </div>
 </template>
 
@@ -182,6 +185,44 @@ export default {
             otherClasses: "ui yellow basic button custom-button"
           }
         ]
+      },
+
+      model2: {
+        test: "Nije nego"
+      },
+
+      formSetup2: {
+        title: "Test form",
+        errorMessagePosition: "top",
+        body: [
+          {
+            id: "test",
+            name: "Test",
+            placeholder: "test",
+            otherClasses: "ui input",
+            validations: {
+              required: {
+                message: "Nije dobro"
+              }
+            }
+          }
+        ],
+        actions: [
+          {
+            id: "submit2",
+            name: "Submit",
+            type: "submit",
+            icon: "fas fa-check-circle",
+            otherClasses: "ui primary button custom-button"
+          },
+          {
+            id: "reset2",
+            name: "Reset",
+            type: "reset",
+            icon: "fas fa-times-circle",
+            otherClasses: "ui yellow basic button custom-button"
+          }
+        ]
       }
     };
   },
@@ -195,15 +236,25 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@sc/variables.scss";
+
 #semanticui {
   display: grid;
   grid-template-rows: auto 1fr;
-  place-items: center;
+  // place-items: center;
   min-width: 350px;
 
   & .vue-form-terminator {
-    width: 40%;
+    width: 80%;
     min-width: 300px;
+
+    & .buttonator {
+      flex-direction: row;
+      & button {
+        margin: 0;
+        width: 40%;
+      }
+    }
   }
 }
 
@@ -220,6 +271,26 @@ export default {
     &:focus {
       border-color: transparent !important;
       box-shadow: 0 0 0 1.5px #2185d0 !important;
+    }
+  }
+}
+
+.forms {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  & .vue-form-terminator {
+    flex: 0 1 40%;
+    margin-bottom: 10%;
+  }
+}
+
+@media (min-width: $min-width) {
+  .forms {
+    & .vue-form-terminator {
+      margin-bottom: 0;
     }
   }
 }

@@ -1,13 +1,8 @@
-const VueFormTerminator = (function() {
-  /////////////////////////////////////////////////////////////////////////////
-  /* HELPERS */
-  /////////////////////////////////////////////////////////////////////////////
-  const extendObj = function(child, parent) {
-    const tmpObj = function() {};
-    tmpObj.prototype = parent.prototype;
-    child.prototype = new tmpObj();
-    child.prototype.constructor = child;
-  };
+export const VueFormTerminator = function(setup, config, body, actions, model) {
+  // HELPERS //////////////////////////////////////////////////////////////////////////////////////
+  function applyMixin(object, mixin) {
+    Object.assign(object.prototype, mixin);
+  }
 
   class TerminatorError extends Error {
     constructor(message) {
@@ -16,191 +11,143 @@ const VueFormTerminator = (function() {
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // FORM ERROR LOGIC /////////////////////////////////////////
-  const Errornator = function() {};
-  Errornator.prototype = {
-    errors: {},
+  // PRIVATE VARIABLES //////////////////////////////////////////////////////////////////////////////////////
+  let _model = {};
+  let _config = {};
+  let _setup = {};
+  let _body = [];
+  let _actions = [];
+
+  let _groupCount = 1;
+  const _elements = [];
+  const _errors = {};
+
+  // MIXINS //////////////////////////////////////////////////////////////////////////////////////
+  const ElementErrorMixin = {
+    _haveErrors: false,
 
     addError: function(errorMessage) {
-      if (this.constructor.name !== "Item")
-        throw new TerminatorError(
-          "Function removeError can be used only with constructor Item"
-        );
-      this.errors.push(errorMessage);
+      _errors[this.id].push(errorMessage);
     },
 
     removeError: function(errorMessage) {
-      if (this.constructor.name !== "Item")
-        throw new TerminatorError(
-          "Function removeError can be used only with constructor Item"
-        );
-
-      this.errors = this.errors.filter((msg) => msg !== errorMessage);
+      _errors[this.id] = _errors[this.id].filter((msg) => msg !== errorMessage);
     },
 
     errorMessage: function() {
-      if (this.constructor.name !== "Item")
-        throw new TerminatorError(
-          "Function removeError can be used only with constructor Item"
-        );
-
-      return this.errors[0];
+      return _errors[this.id][0];
     },
 
     isValid: function() {
-      let test = [];
-
-      switch (this.constructor.name) {
-        case "Item":
-          this.validate();
-          this.haveErrors = this.errors.length > 0;
-          return !this.haveErrors;
-
-        case "VueFormTerminator":
-          test = this.body.getElements.map((item) => item.isValid());
-          this.haveErrors = test.indexOf(false) !== -1;
-          return !this.haveErrors;
-
-        default:
-          throw new TerminatorError(
-            "Function isValid can be used only with constructors Item and Form"
-          );
-      }
+      this.validate();
+      this._haveErrors = _errors[this.id].length > 0;
+      return !this.haveErrors;
     },
 
     clearErrors: function() {
-      if (this.constructor.name !== "Item")
-        throw new TerminatorError(
-          "Function removeError can be used only with constructor Item"
-        );
-
-      this.errors = [];
-      this.haveErrors = false;
+      _errors[this.id] = [];
+      this._haveErrors = false;
     },
   };
 
-  // FORM LOGIC /////////////////////////////////////////
-  const Setup = function(setup) {
-    this.setup = setup;
+  const ElementValidationsMixin = {
+    compareElements: function(elId) {
+      const comperingElement = _elements.find((el) => el.id === elId);
+      return this.value !== comperingElement.value;
+    },
+
+    email: function() {
+      const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return !emailReg.test(this.value);
+    },
+
+    min: function(val) {
+      return this.value.length < val;
+    },
+
+    max: function(val) {
+      return this.value.length > val;
+    },
+
+    noWhiteSpace: function() {
+      return this.value.indexOf(" ") !== -1;
+    },
+
+    numberOnly: function() {
+      const reg = /^\d+$/;
+      return !reg.test(this.value);
+    },
+
+    required: function() {
+      return !this.value.length;
+    },
   };
 
-  const Config = function(config) {
-    this.config = config;
-  };
+  // CLASSES //////////////////////////////////////////////////////////////////////////////////////
+  // FORM LOGIC //////////////////////////////////
+  function Form({ setup, config, body, actions, model = {} }) {
+    _model = model;
 
-  const Body = function(body, model) {
-    let _groupCount = 0;
-    const _elements = [];
-    this.getElements = _elements;
+    _setup = setup;
 
-    this.elements = body.map((item) => {
-      if (item instanceof Array) {
-        // GROUP ITEMS LOGIC
-        _groupCount += 1;
-        const groupItem = new Group(item, model, _groupCount);
-        groupItem.items.map((itm) => _elements.push(itm));
+    _config = config;
 
-        return groupItem;
-      } else {
-        // SINGLE ITEM LOGIC
-        if (model[item.id]) item.value = model[item.id];
-        const singleItem = new Item(item);
+    _body = body.map((element) =>
+      element instanceof Array ? new Group(element) : new Element(element)
+    );
 
-        _elements.push(singleItem);
-        return singleItem;
-      }
-    });
+    _actions = actions;
+  }
 
-    this.reset = function() {
-      this.getElements.map((item) => {
-        item.reset();
-      });
-    };
+  Form.prototype = {
+    get errors() {
+      return _errors;
+    },
 
-    const data = {};
-    this.getData = function() {
-      _elements.map((item) => (data[item.id] = item.value));
+    get setup() {
+      return _setup;
+    },
+
+    get config() {
+      return _config;
+    },
+
+    get body() {
+      return _body;
+    },
+
+    get actions() {
+      return _actions;
+    },
+
+    get model() {
+      const data = {};
+      _elements.map((el) => (data[el.id] = el.value));
       return data;
-    };
+    },
+
+    validate: function() {
+      const elValidationArr = _elements.map((el) => el.isValid());
+      return elValidationArr.indexOf(false) === -1;
+    },
+
+    reset: () => {
+      _elements.map((el) => el.reset());
+    },
   };
 
-  // const Actions = function (actions) {};
-
-  const VueFormTerminator = function(
-    { setup, config, body, actions },
-    model = {}
-  ) {
-    this.setup = new Setup(setup);
-    this.config = new Config(config);
-    this.body = new Body(body, model);
-    this.actions = actions; //new Actions(actions);
-    this.haveErrors = false;
-
-    this.getModel = function() {
-      return this.body.getData();
-    };
-
-    this.reset = function() {
-      this.body.reset();
-    };
-
-    // HELPER FOR ITEMS VALUE COMPARE (VALIDATION "compareElements")
-    Item.prototype.getItemToCompare = (itemId) => {
-      return this.body.getData()[itemId];
-    };
-  };
-  extendObj(VueFormTerminator, Errornator);
-
-  // GROUP ITEMS LOGIC //////////////////////////////////
-  const Group = function(items, model, groupId) {
+  // GROUP ELEMENTS LOGIC //////////////////////////////////
+  const Group = function(elements) {
     this.isGroup = true;
-    this.class = `group group-${groupId}`;
-    this.items = items.map((item) => {
-      // SINGLE ITEM LOGIC
-      if (model[item.id]) item.value = model[item.id];
-      return new Item(item);
-    });
+    this.class = `group group-${_groupCount}`;
+    this.elements = elements.map((el) => new Element(el));
+
+    // Prepare data for next group elements
+    _groupCount += 1;
   };
 
-  // ITEM AND VALIDATION LOGIC /////////////////////////////////////////
-  // VALIDATIONS
-  const InputValidations = function() {};
-  extendObj(InputValidations, Errornator);
-
-  InputValidations.prototype.compareElements = function(elId) {
-    const comperedItemValue = this.getItemToCompare(elId);
-    return comperedItemValue !== this.value;
-  };
-
-  InputValidations.prototype.email = function() {
-    const emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return !emailReg.test(this.value);
-  };
-
-  InputValidations.prototype.min = function(val) {
-    return this.value.length < val;
-  };
-
-  InputValidations.prototype.max = function(val) {
-    return this.value.length > val;
-  };
-
-  InputValidations.prototype.noWhiteSpace = function() {
-    return this.value.indexOf(" ") !== -1;
-  };
-
-  InputValidations.prototype.numberOnly = function() {
-    const reg = /^\d+$/;
-    return !reg.test(this.value);
-  };
-
-  InputValidations.prototype.required = function() {
-    return !this.value.length;
-  };
-
-  // ITEM
-  const Item = function(item) {
+  // SINGLE ELEMENT LOGIC //////////////////////////////////
+  function Element(element) {
     const {
       id,
       name,
@@ -210,7 +157,7 @@ const VueFormTerminator = (function() {
       validations,
       value,
       otherClasses,
-    } = item;
+    } = element;
 
     this.id = id;
     this.name = name;
@@ -219,12 +166,50 @@ const VueFormTerminator = (function() {
     this.placeholder = placeholder;
     this.validations = validations || {};
     this.otherClasses = otherClasses;
-    this.value = value || (item.type === "number" ? 0 : "");
+    this.value = _model[id] = _model[id] || value || "";
 
-    this.errors = this.errors[id] = [];
-    this.haveErrors = false;
+    // Initialize element error array
+    _errors[this.id] = [];
 
-    this.validate = function() {
+    // Added _elements private variable for easier data extraction and elements manipulation
+    _elements.push(this);
+  }
+
+  Element.prototype = {
+    get value() {
+      return _model[this.id];
+    },
+    set value(val) {
+      _model[this.id] = val;
+    },
+
+    get haveErrors() {
+      return this._haveErrors;
+    },
+
+    // Control of element input component (Bootstrap or SemanticUI) logic
+    get inputComponentClass() {
+      if (this.otherClasses) {
+        switch (true) {
+          // SemanticUI logic
+          case this.otherClasses.substring(0, 2).toLowerCase() === "ui":
+            return "input-ui";
+
+          // Others logic
+          default:
+            return "";
+        }
+      }
+
+      return "";
+    },
+
+    reset: function() {
+      this.value = "";
+      this.clearErrors();
+    },
+
+    validate() {
       this.clearErrors();
 
       Object.keys(this.validations).map((fn) => {
@@ -233,25 +218,20 @@ const VueFormTerminator = (function() {
         if (this[fn]) {
           const isError = this[fn](value);
           const msg = message;
+
           isError ? this.addError(msg) : this.removeError(msg);
         } else {
           throw new TerminatorError(
-            `At form definition, item ${this.name}, validation function ${fn} does not exists`
+            `At form definition, element ${this.name}, validation function ${fn} does not exists`
           );
         }
       });
-    };
-
-    this.reset = function() {
-      this.value = "";
-      this.clearErrors();
-    };
+    },
   };
-  extendObj(Item, InputValidations);
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // RETURN MODUL
-  return VueFormTerminator;
-})();
+  applyMixin(Element, ElementErrorMixin);
+  applyMixin(Element, ElementValidationsMixin);
 
-export default VueFormTerminator;
+  // RETURN MODUL RESULT
+  return new Form(setup, config, body, actions, model);
+};

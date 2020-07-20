@@ -1,37 +1,32 @@
 <template>
-  <button :type="type" :class="{[otherClasses]: otherClasses, [cssType]: cssType}">
-    <i class="icon" :class="icon" v-if="icon"></i>
-    <span class="name" v-if="name">{{ name }}</span>
-  </button>
+  <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
+    <button
+      v-for="action in actions"
+      :key="action.id"
+      :type="action.type"
+      :class="{[action.otherClasses]: action.otherClasses}"
+    >
+      <i class="iconator" :class="action.icon" v-if="action.icon"></i>
+      <span class="name" v-if="action.name">{{ action.name }}</span>
+    </button>
+  </div>
 </template>
 
 <script>
 import componentMixin from "@m/component-mixin.js";
 
 export default {
-  name: "custom-button",
+  name: "Buttonator",
 
   mixins: [componentMixin],
 
   props: {
-    type: {
-      type: String,
-      required: true
+    actions: {
+      type: Array,
+      default: () => []
     },
-    otherClasses: {
-      type: String,
-      required: false,
-      default: ""
-    },
-    name: {
-      type: String,
-      required: false,
-      default: ""
-    },
-    icon: {
-      type: String,
-      required: false,
-      default: ""
+    errorMessagePosition: {
+      type: String
     }
   }
 };
@@ -40,14 +35,15 @@ export default {
 <style lang="scss">
 .buttonator {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 
   & button {
     display: flex !important;
     align-items: center !important;
     width: 100%;
     height: 2.5rem;
-    width: 40%;
     padding: 0 !important;
 
     & .name {
@@ -55,7 +51,7 @@ export default {
       flex: 1;
     }
 
-    & .icon {
+    & .iconator {
       font-size: 1.5rem;
       margin: 0 0.5rem;
     }
@@ -64,7 +60,7 @@ export default {
       & .name {
       }
 
-      & .icon {
+      & .iconator {
         margin-left: 0.8rem !important;
       }
     }

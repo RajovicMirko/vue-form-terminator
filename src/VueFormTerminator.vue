@@ -1,67 +1,54 @@
 <template>
+  <!-- FORM -->
   <form
     ref="VueFormTerminator"
     class="vue-form-terminator"
-    :class="{
-      invalid: VueFormTerminator.haveErrors,
-    }"
     @submit="handleSubmit"
     @reset="handleReset"
   >
-    <div class="titlenator" :class="{
-        invalid: VueFormTerminator.haveErrors,
-      }">
-      <span :class="{ invalid: VueFormTerminator.haveErrors }">
-        {{
-        title
-        }}
-      </span>
-    </div>
+    <!-- TITLE -->
+    <titlenator :title="title"></titlenator>
 
-    <div
-      ref="formBody"
-      class="bodynator"
-      :class="{
-        invalid: VueFormTerminator.haveErrors,
-      }"
-    >
+    <!-- FORM BODY -->
+    <div ref="formBody" class="bodynator">
       <fragment
-        v-for="item in VueFormTerminator.body.elements"
-        :key="item.name"
+        v-for="element in VueFormTerminator.body"
+        :key="element.name"
         :class="errorMessagePosition"
       >
-        <!-- Single item -->
-        <custom-input
-          :item="item"
-          v-if="!item.isGroup"
+        <!-- SINGLE ELEMENT -->
+        <inputnator
+          :element="element"
+          v-if="!element.isGroup"
           :errorMessagePosition="errorMessagePosition"
-        ></custom-input>
+        ></inputnator>
 
-        <!-- Group items -->
-        <fragment v-if="item.isGroup">
-          <custom-input-group :group="item" :errorMessagePosition="errorMessagePosition"></custom-input-group>
+        <!-- GROUP ELEMENTS -->
+        <fragment v-if="element.isGroup">
+          <group :group="element" :errorMessagePosition="errorMessagePosition"></group>
         </fragment>
       </fragment>
     </div>
 
-    <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
-      <custom-button v-for="action in actions" :key="action.id" v-bind="action"></custom-button>
-    </div>
+    <!-- BUTTONS -->
+    <buttonator :actions="actions" :errorMessagePosition="errorMessagePosition"></buttonator>
   </form>
 </template>
 
 <script>
-import VueFormTerminator from "@js/Form.js";
-import button from "@c/button/button.vue";
-import input from "@c/input/input.vue";
-import inputGroup from "@c/input/input-group.vue";
+import { VueFormTerminator } from "@js/Form.js";
+import titlenator from "@c/titlenator.vue";
+import inputnator from "@c/inputnator.vue";
+import group from "@c/group.vue";
+import buttonator from "@c/buttonator.vue";
 
 export default {
   name: "VueFormTerminator",
   components: {
-    "custom-button": button,
-    "custom-input": input,
-    "custom-input-group": inputGroup
+    titlenator,
+    inputnator,
+    group,
+    buttonator
   },
 
   props: {
@@ -81,6 +68,7 @@ export default {
         return "bottom";
       }
     },
+
     body: {
       type: Array,
       required: true
@@ -102,22 +90,14 @@ export default {
     };
   },
 
-  computed: {
-    invalidClass() {
-      return { invalid: this.VueFormTerminator.haveErrors };
-    }
-  },
-
   mounted() {
-    this.VueFormTerminator = new VueFormTerminator(
-      {
-        title: this.title,
-        errorMessagePosition: this.errorMessagePosition,
-        body: this.body,
-        actions: this.actions
-      },
-      this.model
-    );
+    this.VueFormTerminator = new VueFormTerminator({
+      title: this.title,
+      errorMessagePosition: this.errorMessagePosition,
+      body: this.body,
+      actions: this.actions,
+      model: this.model
+    });
     this.focusFirstElement();
   },
 
@@ -151,16 +131,16 @@ export default {
     focusFirstErrorElement() {
       setTimeout(() => {
         const errorElement = this.$refs.formBody.querySelector("input.invalid");
-        errorElement.focus();
+        if (errorElement) errorElement.focus();
         this.fixErrorTabIndex();
       }, 10);
     },
 
     handleSubmit(e) {
       e.preventDefault();
-      const test = this.VueFormTerminator.isValid();
-      if (test) {
-        this.$emit("submited", this.VueFormTerminator.getModel());
+      const formIsValid = this.VueFormTerminator.validate();
+      if (formIsValid) {
+        this.$emit("submited", this.VueFormTerminator.model);
         this.VueFormTerminator.reset();
         this.focusFirstElement();
       } else {
@@ -177,5 +157,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@sc/vue-form-terminator.scss";
+.vue-form-terminator {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  width: 100%;
+}
 </style>
