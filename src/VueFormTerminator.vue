@@ -25,13 +25,20 @@
 
         <!-- GROUP ELEMENTS -->
         <fragment v-if="element.isGroup">
-          <group :group="element" :errorMessagePosition="errorMessagePosition"></group>
+          <group
+            :group="element"
+            :errorMessagePosition="errorMessagePosition"
+          ></group>
         </fragment>
       </fragment>
     </div>
 
     <!-- BUTTONS -->
-    <buttonator :actions="actions" :errorMessagePosition="errorMessagePosition"></buttonator>
+    <buttonator
+      :actions="actions"
+      :errorMessagePosition="errorMessagePosition"
+      :formCleared="VueFormTerminator.formCleared"
+    ></buttonator>
   </form>
 </template>
 
@@ -48,16 +55,16 @@ export default {
     titlenator,
     inputnator,
     group,
-    buttonator
+    buttonator,
   },
 
   props: {
     title: {
-      type: String
+      type: String,
     },
     errorMessagePosition: {
       required: true,
-      validator: value => {
+      validator: (value) => {
         const test = ["top", "bottom"].indexOf(value) === -1;
         if (test) {
           throw Error(
@@ -66,27 +73,27 @@ export default {
         }
 
         return "bottom";
-      }
+      },
     },
 
     body: {
       type: Array,
-      required: true
+      required: true,
     },
     actions: {
       type: Array,
-      required: true
+      required: true,
     },
     model: {
-      type: Object
-    }
+      type: Object,
+    },
   },
 
   data() {
     return {
       VueFormTerminator: {
-        body: {}
-      }
+        body: {},
+      },
     };
   },
 
@@ -96,7 +103,7 @@ export default {
       errorMessagePosition: this.errorMessagePosition,
       body: this.body,
       actions: this.actions,
-      model: this.model
+      model: this.model,
     });
     this.focusFirstElement();
   },
@@ -151,8 +158,8 @@ export default {
     handleReset() {
       this.VueFormTerminator.reset();
       this.focusFirstElement();
-    }
-  }
+    },
+  },
 };
 </script>
 

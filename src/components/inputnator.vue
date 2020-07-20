@@ -4,7 +4,8 @@
     class="inputnator"
     :class="{
       [element.inputComponentClass]: element.inputComponentClass,
-      [element.otherClasses]: element.otherClasses && element.inputComponentClass,
+      [element.otherClasses]:
+        element.otherClasses && element.inputComponentClass,
       [element.customClasses]: element.customClasses,
       [errorMessagePosition]: errorMessagePosition,
       [element.id]: element.id,
@@ -15,7 +16,8 @@
       :for="element.id"
       v-if="element.label"
       :class="{ invalid: element.haveErrors }"
-    >{{ element.label }}</label>
+      >{{ element.label }}</label
+    >
 
     <!-- Others input type -->
     <input
@@ -33,7 +35,8 @@
     <input
       v-if="!element.inputComponentClass"
       :class="{
-        [element.otherClasses]: element.otherClasses && !element.inputComponentClass,
+        [element.otherClasses]:
+          element.otherClasses && !element.inputComponentClass,
         invalid: element.haveErrors,
       }"
       :type="element.type"
@@ -43,6 +46,7 @@
       v-model="element.value"
       @input="handleInput(element)"
     />
+
     <!-- INPUT ERROR MESSAGE -->
     <div class="errornator">
       <small class="invalid">{{ element.errorMessage() }}</small>
@@ -57,19 +61,19 @@ export default {
   props: {
     element: {
       type: Object,
-      required: true
+      required: true,
     },
     errorMessagePosition: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
     handleInput(element) {
       element.isValid();
-    }
-  }
+    },
+  },
 };
 </script>
 

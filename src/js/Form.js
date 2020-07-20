@@ -15,38 +15,34 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
   let _model = {};
   let _config = {};
   let _setup = {};
-  let _body = [];
   let _actions = [];
 
   let _groupCount = 1;
   const _elements = [];
-  const _errors = {};
 
   // MIXINS //////////////////////////////////////////////////////////////////////////////////////
   const ElementErrorMixin = {
-    _haveErrors: false,
-
     addError: function(errorMessage) {
-      _errors[this.id].push(errorMessage);
+      this.errors.push(errorMessage);
     },
 
     removeError: function(errorMessage) {
-      _errors[this.id] = _errors[this.id].filter((msg) => msg !== errorMessage);
+      this.errors = this.errors.filter((msg) => msg !== errorMessage);
     },
 
     errorMessage: function() {
-      return _errors[this.id][0];
+      return this.errors[0];
     },
 
     isValid: function() {
       this.validate();
-      this._haveErrors = _errors[this.id].length > 0;
+      this.haveErrors = this.errors.length > 0;
       return !this.haveErrors;
     },
 
     clearErrors: function() {
-      _errors[this.id] = [];
-      this._haveErrors = false;
+      this.errors = [];
+      this.haveErrors = false;
     },
   };
 
@@ -92,38 +88,34 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
 
     _config = config;
 
-    _body = body.map((element) =>
+    this.body = body.map((element) =>
       element instanceof Array ? new Group(element) : new Element(element)
     );
+
+    this.body.map((el) => {
+      el instanceof Group
+        ? el.elements.map((e) => _elements.push(e))
+        : _elements.push(el);
+    });
 
     _actions = actions;
   }
 
   Form.prototype = {
-    get errors() {
-      return _errors;
+    get model() {
+      const data = {};
+      _elements.map((el) => (data[el.id] = el.value));
+      return data;
     },
 
     get setup() {
       return _setup;
     },
-
     get config() {
       return _config;
     },
-
-    get body() {
-      return _body;
-    },
-
     get actions() {
       return _actions;
-    },
-
-    get model() {
-      const data = {};
-      _elements.map((el) => (data[el.id] = el.value));
-      return data;
     },
 
     validate: function() {
@@ -131,7 +123,7 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
       return elValidationArr.indexOf(false) === -1;
     },
 
-    reset: () => {
+    reset: function() {
       _elements.map((el) => el.reset());
     },
   };
@@ -169,7 +161,8 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
     this.value = _model[id] = _model[id] || value || "";
 
     // Initialize element error array
-    _errors[this.id] = [];
+    this.errors = [];
+    this.haveErrors = false;
 
     // Added _elements private variable for easier data extraction and elements manipulation
     _elements.push(this);
@@ -181,10 +174,6 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
     },
     set value(val) {
       _model[this.id] = val;
-    },
-
-    get haveErrors() {
-      return this._haveErrors;
     },
 
     // Control of element input component (Bootstrap or SemanticUI) logic

@@ -1,10 +1,14 @@
 <template>
-  <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
+  <div
+    class="buttonator"
+    :class="{ [errorMessagePosition]: errorMessagePosition }"
+  >
     <button
       v-for="action in actions"
       :key="action.id"
       :type="action.type"
-      :class="{[action.otherClasses]: action.otherClasses}"
+      :class="{ [action.otherClasses]: action.otherClasses }"
+      :disabled="action.type.toLowerCase() === 'reset' && formCleared"
     >
       <i class="iconator" :class="action.icon" v-if="action.icon"></i>
       <span class="name" v-if="action.name">{{ action.name }}</span>
@@ -23,12 +27,15 @@ export default {
   props: {
     actions: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     errorMessagePosition: {
-      type: String
-    }
-  }
+      type: String,
+    },
+    formCleared: {
+      type: Boolean,
+    },
+  },
 };
 </script>
 
