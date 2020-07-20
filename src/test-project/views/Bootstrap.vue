@@ -54,7 +54,7 @@ export default {
         password: "12345",
         repeatPassword: "12345",
         address: "Pastirska",
-        addressNumber: undefined,
+        addressNumber: "123",
       },
       formSetup: {
         title: "Bootstrap sample",

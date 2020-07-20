@@ -214,7 +214,7 @@ export default {
             placeholder: "test",
             validations: {
               required: {
-                message: "Nije dobro",
+                message: "Test is required",
               },
             },
             otherClasses: "ui input custom-input-semanticui",
