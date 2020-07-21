@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import NoStyle from "../views/NoStyle.vue";
 import Bootstrap from "../views/Bootstrap.vue";
 import SemanticUI from "../views/SemanticUI.vue";
+import Test from "../views/test.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/semanticui",
     name: "SemanticUI",
     component: SemanticUI,
+  },
+  {
+    path: "/test",
+    name: "Test",
+    component: Test,
   },
 ];
 

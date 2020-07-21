@@ -1,11 +1,10 @@
 <template>
-  <div :class="group.class">
-    <inputnator
-      v-for="element in group.elements"
-      :key="element.name"
-      :element="element"
-      :errorMessagePosition="errorMessagePosition"
-    ></inputnator>
+  <div :class="{
+    [group.class]: group.class,
+    outlined: group.title
+  }">
+    <span class="title" v-if="group.title">{{ group.title }}</span>
+    <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
   </div>
 </template>
 
@@ -21,28 +20,35 @@ export default {
     group: {
       type: Object,
       required: true
-    },
-    errorMessagePosition: {
-      type: String,
-      required: true
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import "@sc/variables.scss";
-
 .group {
-  margin: 0;
-  padding: 0;
-
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
 
-  & input {
-    margin: 0;
+  &.outlined {
+    padding: 1.5rem 1rem 0.5rem 1rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 1rem;
+    background-color: rgba(128, 128, 128, 0.02);
+  }
+
+  & .title {
+    position: absolute;
+    top: -0.8rem;
+    padding: 0 0.5rem;
+    font-size: 1.3rem;
+    justify-self: flex-end;
+    color: rgba(128, 128, 128, 1);
+    background-color: white;
+    border-radius: 2rem;
   }
 }
 

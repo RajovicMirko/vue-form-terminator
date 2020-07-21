@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="buttonator"
-    :class="{ [errorMessagePosition]: errorMessagePosition }"
-  >
+  <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
     <button
       v-for="action in actions"
       :key="action.id"
@@ -27,15 +24,15 @@ export default {
   props: {
     actions: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     errorMessagePosition: {
-      type: String,
+      type: String
     },
     formCleared: {
-      type: Boolean,
-    },
-  },
+      type: Boolean
+    }
+  }
 };
 </script>
 
@@ -45,6 +42,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  margin: 0.5rem 0;
 
   & button {
     display: flex !important;

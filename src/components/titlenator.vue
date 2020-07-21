@@ -1,5 +1,5 @@
 <template>
-  <div class="titlenator">
+  <div class="titlenator" :class="{ [titlePosition]: titlePosition }">
     <span>{{ title }}</span>
   </div>
 </template>
@@ -9,8 +9,10 @@ export default {
   name: "Titlenator",
   props: {
     title: {
-      type: String,
-      default: ""
+      type: String
+    },
+    titlePosition: {
+      type: String
     }
   }
 };
@@ -19,9 +21,20 @@ export default {
 <style lang="scss">
 .titlenator {
   display: flex;
-  align-self: center;
   width: 100%;
   font-size: 2rem;
   margin: 0.5rem 0;
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.left {
+    justify-content: flex-start;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
 }
 </style>

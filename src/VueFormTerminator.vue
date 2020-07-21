@@ -3,37 +3,34 @@
   <form
     ref="VueFormTerminator"
     class="vue-form-terminator"
+    method
+    action
     @submit="handleSubmit"
     @reset="handleReset"
   >
     <!-- TITLE -->
-    <titlenator :title="title"></titlenator>
+    <titlenator
+      :title="VueFormTerminator.title"
+      :titlePosition="VueFormTerminator.positioning.title"
+    ></titlenator>
 
     <!-- FORM BODY -->
     <div ref="formBody" class="bodynator">
-      <fragment
-        v-for="element in VueFormTerminator.body"
-        :key="element.name"
-        :class="errorMessagePosition"
-      >
+      <fragment v-for="element in VueFormTerminator.body" :key="element.name">
         <!-- SINGLE ELEMENT -->
-        <inputnator
-          :element="element"
-          v-if="!element.isGroup"
-          :errorMessagePosition="errorMessagePosition"
-        ></inputnator>
+        <inputnator :element="element" v-if="!element.isGroup"></inputnator>
 
         <!-- GROUP ELEMENTS -->
         <fragment v-if="element.isGroup">
-          <group :group="element" :errorMessagePosition="errorMessagePosition"></group>
+          <group :group="element" :errorMessagePosition="'test'"></group>
         </fragment>
       </fragment>
     </div>
 
-    <!-- BUTTONS -->
+    <!-- FORM ACTIONS -->
     <buttonator
       :actions="actions"
-      :errorMessagePosition="errorMessagePosition"
+      :errorMessagePosition="'test'"
       :formCleared="VueFormTerminator.formCleared"
     ></buttonator>
   </form>
@@ -59,28 +56,21 @@ export default {
     title: {
       type: String
     },
-    errorMessagePosition: {
-      required: true,
-      validator: value => {
-        const test = ["top", "bottom"].indexOf(value) === -1;
-        if (test) {
-          throw Error(
-            `vue-form-terminator error: Property "errorMessagePosition" must be "top" or "bottom" value!!!`
-          );
-        }
 
-        return "bottom";
-      }
+    positioning: {
+      type: Object
     },
 
     body: {
       type: Array,
       required: true
     },
+
     actions: {
       type: Array,
       required: true
     },
+
     model: {
       type: Object
     }
@@ -89,6 +79,15 @@ export default {
   data() {
     return {
       VueFormTerminator: {
+        title: "",
+        positioning: {
+          title: "",
+          input: {
+            label: "",
+            text: "",
+            errorMessage: ""
+          }
+        },
         body: {}
       }
     };
@@ -97,7 +96,7 @@ export default {
   mounted() {
     this.VueFormTerminator = new VueFormTerminator({
       title: this.title,
-      errorMessagePosition: this.errorMessagePosition,
+      positioning: this.positioning,
       body: this.body,
       actions: this.actions,
       model: this.model
@@ -166,5 +165,11 @@ export default {
   flex-direction: column;
   font-size: 1rem;
   width: 100%;
+
+  & .bodynator {
+    // display: flex;
+    // flex-direction: column;
+    // flex: 1;
+  }
 }
 </style>

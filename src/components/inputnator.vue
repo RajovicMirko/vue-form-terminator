@@ -7,7 +7,6 @@
       [element.otherClasses]:
         element.otherClasses && element.inputComponentClass,
       [element.customClasses]: element.customClasses,
-      [errorMessagePosition]: errorMessagePosition,
       [element.id]: element.id,
     }"
   >
@@ -15,13 +14,19 @@
     <label
       :for="element.id"
       v-if="element.label"
-      :class="{ invalid: element.haveErrors }"
+      :class="{
+        invalid: element.haveErrors,
+        [element.positioning.label]: element.positioning.label
+       }"
     >{{ element.label }}</label>
 
     <!-- Others input type -->
     <input
       v-if="element.inputComponentClass"
-      :class="{ invalid: element.haveErrors }"
+      :class="{ 
+        invalid: element.haveErrors,
+        [element.positioning.text]: element.positioning.text,
+      }"
       :type="element.type"
       :id="element.id"
       :name="element.name"
@@ -37,6 +42,7 @@
         [element.otherClasses]:
           element.otherClasses && !element.inputComponentClass,
         invalid: element.haveErrors,
+        [element.positioning.text]: element.positioning.text,
       }"
       :type="element.type"
       :id="element.id"
@@ -47,9 +53,10 @@
     />
 
     <!-- INPUT ERROR MESSAGE -->
-    <div class="errornator">
-      <small class="invalid">{{ element.errorMessage() }}</small>
-    </div>
+    <small
+      class="errornator invalid"
+      :class="element.positioning.errorMessage"
+    >{{ element.errorMessage() }}</small>
   </div>
 </template>
 
@@ -60,19 +67,6 @@ export default {
   props: {
     element: {
       type: Object,
-      required: true
-      // validator: function(value) {
-      //   switch (true) {
-      //     case !value["id"]:
-      //       throw Error("There is a missing property 'id' in body schema");
-
-      //     default:
-      //       return true;
-      //   }
-      // }
-    },
-    errorMessagePosition: {
-      type: String,
       required: true
     }
   },
@@ -86,88 +80,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@sc/variables.scss";
-
-.inputnator {
-  margin: 0;
-  margin-bottom: 1rem;
-  padding: 0;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  width: 100%;
-
-  & label {
-    position: absolute;
-  }
-
-  & input {
-    height: 2rem;
-    line-height: 2rem;
-    width: 100%;
-
-    &.invalid {
-      box-shadow: 0 0 0 1px $invalid-color;
-      border-color: transparent;
-
-      &:hover {
-        box-shadow: 0 0 2px 0.5px $invalid-color;
-      }
-
-      &:focus {
-        border-color: transparent;
-        box-shadow: 0 0 0 2px $invalid-color;
-      }
-    }
-  }
-
-  & .errornator {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    white-space: nowrap;
-
-    & small.invalid {
-      height: $err-msg-font-size;
-      line-height: $err-msg-font-size;
-      font-size: $err-msg-font-size;
-      color: $invalid-color;
-    }
-  }
-
-  // ERROR MESSAGE ON TOP
-  &.top {
-    flex-direction: column-reverse;
-
-    & label {
-      top: -0.2rem;
-    }
-
-    & .errornator {
-      margin-bottom: 0.2rem;
-    }
-  }
-
-  // ERROR MESSAGE ON BOTTOM
-  &.bottom {
-    flex-direction: column;
-
-    & label {
-      top: -1.2rem;
-    }
-
-    & .errornator {
-      margin-top: 0.2rem;
-    }
-  }
-
-  // SemanticUI definition ////////////////////////////////////////////////////////////////////////////////
-  &.input-ui {
-    display: flex;
-    color: inherit !important;
-  }
-
-  // Window size controll ////////////////////////////////////////////////////////////////////////////////
-}
+@import "@sc/inputnator/global.scss";
+@import "@sc/inputnator/semantic-ui.scss";
 </style>

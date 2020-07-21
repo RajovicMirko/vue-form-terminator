@@ -38,86 +38,103 @@ export default {
   data() {
     return {
       model: {
-        firstName: "Mirko",
-        lastName: "Rajovic",
-        username: "Mirkasin",
-        email: "mirko@gmail.com",
+        firstName: "John",
+        lastName: "Doe",
+        username: "JohnDoe",
+        email: "john.doe@gmail.com",
         password: "12345",
         repeatPassword: "12345",
-        address: "Pastirska",
+        address: "Some test street",
         addressNumber: "123"
       },
       formSetup: {
+        positioning: {
+          title: "",
+          input: {
+            label: "",
+            text: "",
+            errorMessage: ""
+          }
+        },
         title: "Bootstrap sample",
-        errorMessagePosition: "top",
         body: [
-          [
-            {
-              id: "firstName",
-              name: "FirstName",
-              type: "text",
-              label: "",
-              placeholder: "First name",
-              validations: {
-                required: {
-                  message: "First name is required"
+          {
+            isGroup: true,
+            title: "",
+            otherClasses: "group-1",
+            elements: [
+              {
+                id: "firstName",
+                name: "FirstName",
+                type: "text",
+                label: "",
+                placeholder: "First name",
+                validations: {
+                  required: {
+                    message: "First name is required"
+                  },
+                  max: {
+                    value: 30,
+                    message: "First name must have less then 20 characters"
+                  }
                 },
-                max: {
-                  value: 30,
-                  message: "First name must have less then 20 characters"
-                }
+                otherClasses: "form-control custom-input-bootstrap"
               },
-              otherClasses: "form-control"
-            },
-            {
-              id: "lastName",
-              name: "LastName",
-              type: "text",
-              label: "",
-              placeholder: "Last name",
-              validations: {
-                required: {
-                  message: "Last name is required"
+              {
+                id: "lastName",
+                name: "LastName",
+                type: "text",
+                label: "",
+                placeholder: "Last name",
+                validations: {
+                  required: {
+                    message: "Last name is required"
+                  },
+                  max: {
+                    value: 30,
+                    message: "Last name must have less then 20 characters"
+                  }
                 },
-                max: {
-                  value: 30,
-                  message: "Last name must have less then 20 characters"
-                }
-              },
-              otherClasses: "form-control"
-            }
-          ],
-          [
-            {
-              id: "address",
-              name: "Address",
-              type: "text",
-              label: "",
-              placeholder: "Address",
-              validations: {
-                required: {
-                  message: "Address is required"
-                }
-              },
-              otherClasses: "form-control"
-            },
-            {
-              id: "addressNumber",
-              name: "HouseNumber",
-              type: "number",
-              label: "",
-              placeholder: "No.",
-              validations: {
-                required: {
-                  message: "No. is required"
+                otherClasses: "form-control custom-input-bootstrap"
+              }
+            ]
+          },
+          {
+            isGroup: true,
+            title: "",
+            otherClasses: "group-2",
+            elements: [
+              {
+                id: "address",
+                name: "Address",
+                type: "text",
+                label: "",
+                placeholder: "Address",
+                validations: {
+                  required: {
+                    message: "Address is required"
+                  }
                 },
-                numberOnly: {
-                  message: "Only numbers allowed"
-                }
+                otherClasses: "form-control custom-input-bootstrap"
               },
-              otherClasses: "form-control"
-            }
-          ],
+              {
+                id: "addressNumber",
+                name: "HouseNumber",
+                type: "number",
+                label: "",
+                placeholder: "No.",
+                validations: {
+                  required: {
+                    message: "No. is required"
+                  },
+                  numberOnly: {
+                    message: "Only numbers allowed"
+                  }
+                },
+                otherClasses: "form-control custom-input-bootstrap"
+              }
+            ]
+          },
           {
             id: "username",
             name: "Username",
@@ -136,7 +153,7 @@ export default {
                 message: "No space character allowed"
               }
             },
-            otherClasses: "form-control"
+            otherClasses: "form-control custom-input-bootstrap"
           },
           {
             id: "email",
@@ -152,7 +169,7 @@ export default {
                 message: "Email must be a valid email"
               }
             },
-            otherClasses: "form-control"
+            otherClasses: "form-control custom-input-bootstrap"
           },
           {
             id: "password",
@@ -173,7 +190,7 @@ export default {
                 message: "Pasword must have less then 20 characters"
               }
             },
-            otherClasses: "form-control"
+            otherClasses: "form-control custom-input-bootstrap"
           },
           {
             id: "repeatPassword",
@@ -228,75 +245,51 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "@sc/variables.scss";
 #bootstrap {
   display: grid;
   grid-template-rows: auto 1fr;
   place-items: center;
   min-width: 350px;
 
-  & .inputnator {
-    margin-bottom: 0.6rem;
-  }
-
-  & .errornator {
-    justify-content: flex-start;
-  }
-
   & .vue-form-terminator {
     width: 50%;
     min-width: 300px;
 
-    & .group-2 {
-      flex-direction: row;
-      & .address,
-      & .addressNumber {
-        width: 47.5%;
-      }
+    & .titlenator {
+      margin-bottom: 2rem;
     }
 
-    & .buttonator {
-      & button {
-        margin-bottom: 1rem;
-      }
+    & .inputnator {
+      padding-bottom: 0.2rem;
     }
   }
 }
 
-@media (min-width: $min-width) {
+@media (min-width: 930px) {
   #bootstrap {
-    & .vue-form-terminator {
-      & .group-1 {
-        & .firstName {
-          width: 47.5%;
-        }
+    & .group-1 > .inputnator {
+      width: 47.5%;
+    }
 
-        & .lastName {
-          width: 47.5%;
-        }
+    & .group-2 {
+      & .address {
+        width: 70%;
       }
+      & .addressNumber {
+        width: 25%;
+      }
+    }
 
-      & .group-2 {
-        & .address {
-          width: 75%;
-        }
-        & .addressNumber {
-          width: 20%;
-        }
-      }
-
-      & .buttonator {
-        flex-direction: row;
-        & button {
-          width: 48%;
-        }
-      }
+    & .buttonator {
+      flex-direction: row;
+      margin: 2rem 0;
     }
   }
 }
 
 .custom-input-bootstrap {
-  border-radius: 2rem;
+  // border-radius: 2rem;
+  // font-size: 1.3rem;
 
   &:hover {
     border-color: transparent;

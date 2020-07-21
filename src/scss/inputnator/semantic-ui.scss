@@ -1,0 +1,11 @@
+// SemanticUI definition ////////////////////////////////////////////////////////////////////////////////
+.input-ui {
+  color: inherit !important;
+  font-size: 1.2rem !important;
+
+  & input {
+    width: 100% !important;
+    height: 2.5rem !important;
+    line-height: 2.5rem !important;
+  }
+}

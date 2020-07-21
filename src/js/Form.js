@@ -1,4 +1,10 @@
-export const VueFormTerminator = function(setup, config, body, actions, model) {
+export const VueFormTerminator = function(
+  title,
+  positioning,
+  body,
+  actions,
+  model
+) {
   // HELPERS //////////////////////////////////////////////////////////////////////////////////////
   function applyMixin(object, mixin) {
     Object.assign(object.prototype, mixin);
@@ -12,15 +18,119 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
   }
 
   // PRIVATE VARIABLES //////////////////////////////////////////////////////////////////////////////////////
+  let _title = "";
   let _model = {};
   let _config = {};
-  let _setup = {};
+  let _positioning = {
+    title: "center",
+    input: {
+      label: "top left",
+      text: "left",
+      errorMessage: "top right",
+    },
+  };
+
+  const _positioningSchema = `
+    String title: '',
+    Object input: {
+      String label: '',
+      String text: '',
+      String errorMessage: ''
+    }
+  `;
   let _actions = [];
 
-  let _groupCount = 1;
   const _elements = [];
 
-  // MIXINS //////////////////////////////////////////////////////////////////////////////////////
+  // CLASSES //////////////////////////////////////////////////////////////////////////////////////
+  // FORM LOGIC //////////////////////////////////
+  function Form({ title, positioning, body, actions, model = {} }) {
+    _title = title;
+    _model = model;
+
+    if (positioning) {
+      Object.keys(positioning).map((k) => {
+        if (typeof positioning[k] === "string") {
+          if (!_positioning[k]) {
+            throw new TerminatorError(
+              `Wrong property in positioning schema: "${k}" can't be used!
+positioning schema: ${_positioningSchema}`
+            );
+          }
+          if (positioning[k]) _positioning[k] = positioning[k];
+        } else {
+          Object.keys(positioning[k]).map((k2) => {
+            if (!_positioning[k][k2]) {
+              throw new TerminatorError(
+                `Wrong property in positioning schema: in object "${k}" property "${k2}" can't be used!
+positioning schema: ${_positioningSchema}`
+              );
+            }
+            if (positioning[k][k2]) _positioning[k][k2] = positioning[k][k2];
+          });
+        }
+      });
+    }
+
+    if (!body)
+      throw new TerminatorError(
+        `Missing property in form setup: "body" is required property`
+      );
+    this.body = body.map((element) =>
+      element.isGroup ? new Group(element) : new Element(element)
+    );
+
+    if (!actions)
+      throw new TerminatorError(
+        `Missing property in form setup: "actions" is required property`
+      );
+
+    _actions = actions;
+  }
+
+  Form.prototype = {
+    get title() {
+      return _title;
+    },
+
+    get model() {
+      const data = {};
+      _elements.map((el) => (data[el.id] = el.value));
+      return data;
+    },
+
+    get positioning() {
+      return _positioning;
+    },
+
+    get config() {
+      return _config;
+    },
+
+    get actions() {
+      return _actions;
+    },
+
+    validate: function() {
+      const elValidationArr = _elements.map((el) => el.isValid());
+      return elValidationArr.indexOf(false) === -1;
+    },
+
+    reset: function() {
+      _elements.map((el) => el.reset());
+    },
+  };
+
+  // GROUP ELEMENTS LOGIC //////////////////////////////////
+  const Group = function(group) {
+    this.isGroup = true;
+    this.title = group.title;
+    this.class = `group ${group.otherClasses}`;
+    this.elements = group.elements.map((el) => new Element(el));
+  };
+
+  // SINGLE ELEMENT LOGIC //////////////////////////////////
+  // ERROR MIXIN
   const ElementErrorMixin = {
     addError: function(errorMessage) {
       this.errors.push(errorMessage);
@@ -46,6 +156,7 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
     },
   };
 
+  // VALIDATION MIXIN
   const ElementValidationsMixin = {
     compareElements: function(elId) {
       const comperingElement = _elements.find((el) => el.id === elId);
@@ -79,74 +190,7 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
     },
   };
 
-  // CLASSES //////////////////////////////////////////////////////////////////////////////////////
-  // FORM LOGIC //////////////////////////////////
-  function Form({ setup, config, body, actions, model = {} }) {
-    _model = model;
-
-    _setup = setup;
-
-    _config = config;
-
-    if (!body)
-      throw new TerminatorError(
-        `Missing property in form setup: "body" is required property`
-      );
-    this.body = body.map((element) =>
-      element instanceof Array ? new Group(element) : new Element(element)
-    );
-
-    this.body.map((el) => {
-      el instanceof Group
-        ? el.elements.map((e) => _elements.push(e))
-        : _elements.push(el);
-    });
-
-    if (!actions)
-      throw new TerminatorError(
-        `Missing property in form setup: "actions" is required property`
-      );
-    _actions = actions;
-  }
-
-  Form.prototype = {
-    get model() {
-      const data = {};
-      _elements.map((el) => (data[el.id] = el.value));
-      return data;
-    },
-
-    get setup() {
-      return _setup;
-    },
-    get config() {
-      return _config;
-    },
-    get actions() {
-      return _actions;
-    },
-
-    validate: function() {
-      const elValidationArr = _elements.map((el) => el.isValid());
-      return elValidationArr.indexOf(false) === -1;
-    },
-
-    reset: function() {
-      _elements.map((el) => el.reset());
-    },
-  };
-
-  // GROUP ELEMENTS LOGIC //////////////////////////////////
-  const Group = function(elements) {
-    this.isGroup = true;
-    this.class = `group group-${_groupCount}`;
-    this.elements = elements.map((el) => new Element(el));
-
-    // Prepare data for next group elements
-    _groupCount += 1;
-  };
-
-  // SINGLE ELEMENT LOGIC //////////////////////////////////
+  // SINGLE ELEMENT
   function Element(element) {
     const {
       id,
@@ -172,8 +216,6 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
     this.validations = validations || {};
     this.otherClasses = otherClasses;
     this.value = _model[id] = _model[id] || value || "";
-
-    // Initialize element error array
     this.errors = [];
     this.haveErrors = false;
 
@@ -187,6 +229,10 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
     },
     set value(val) {
       _model[this.id] = val;
+    },
+
+    get positioning() {
+      return _positioning.input;
     },
 
     // Control of element input component (Bootstrap or SemanticUI) logic
@@ -235,5 +281,5 @@ export const VueFormTerminator = function(setup, config, body, actions, model) {
   applyMixin(Element, ElementValidationsMixin);
 
   // RETURN MODUL RESULT
-  return new Form(setup, config, body, actions, model);
+  return new Form(title, positioning, body, actions, model);
 };
