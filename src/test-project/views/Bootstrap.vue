@@ -247,6 +247,12 @@ export default {
       margin-bottom: 2rem;
     }
 
+    & .group {
+      &.outlined {
+        margin: 0.5rem 0;
+      }
+    }
+
     & .group-2 {
       flex-direction: row;
       & .address {

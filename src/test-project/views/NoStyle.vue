@@ -35,7 +35,7 @@ export default {
         body: [
           {
             isGroup: true,
-            title: "",
+            title: "Test group",
             otherClasses: "",
             elements: [
               {
