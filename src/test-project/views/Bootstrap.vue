@@ -1,25 +1,10 @@
 <template>
   <div id="bootstrap">
-    <div style="width: 100%; display: flex; justify-content: space-evenly; align-items: center;">
-      <a
-        class="git-link"
-        target="_blank"
-        href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/Bootstrap.vue"
-      >Git page code sample</a>
-
-      <div>
-        <label for="errorMessagePosition" style="margin-right: 0.5rem">Error message position</label>
-        <select
-          name="errorMessagePosition"
-          id="errorMessagePosition"
-          v-model="formSetup.errorMessagePosition"
-          style="border: none; color: inherit;"
-        >
-          <option value="top" selected>Top</option>
-          <option value="bottom">Bottom</option>
-        </select>
-      </div>
-    </div>
+    <a
+      class="git-link"
+      target="_blank"
+      href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/Bootstrap.vue"
+    >Git page code sample</a>
 
     <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
   </div>
@@ -60,7 +45,7 @@ export default {
         body: [
           {
             isGroup: true,
-            title: "",
+            title: "Name and Last name",
             otherClasses: "group-1",
             elements: [
               {
