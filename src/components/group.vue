@@ -3,7 +3,13 @@
     [group.class]: group.class,
     outlined: group.title
   }">
-    <span class="title" v-if="group.title">{{ group.title }}</span>
+    <span
+      class="title"
+      :class="{
+        [group.positioning.title]: group.positioning.title
+      }"
+      v-if="group.title"
+    >{{ group.title }}</span>
     <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
   </div>
 </template>
@@ -33,7 +39,7 @@ export default {
   width: 100%;
 
   &.outlined {
-    padding: 1.5rem 1rem 0.5rem 1rem;
+    padding: 1rem 1rem 0.5rem 1rem;
     margin: 1rem 0;
     border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 1rem;
@@ -42,13 +48,19 @@ export default {
 
   & .title {
     position: absolute;
-    top: -0.8rem;
+    top: -0.9rem;
     padding: 0 0.5rem;
-    font-size: 1.3rem;
-    justify-self: flex-end;
-    color: rgba(128, 128, 128, 1);
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.3);
     background-color: white;
     border-radius: 2rem;
+
+    &.left {
+      left: 1rem;
+    }
+    &.right {
+      right: 1rem;
+    }
   }
 }
 

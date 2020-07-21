@@ -35,6 +35,9 @@ export default {
       formSetup: {
         positioning: {
           title: "",
+          group: {
+            title: ""
+          },
           input: {
             label: "",
             text: "",

@@ -23,6 +23,9 @@ export const VueFormTerminator = function(
   let _config = {};
   let _positioning = {
     title: "center",
+    group: {
+      title: "left",
+    },
     input: {
       label: "top left",
       text: "left",
@@ -127,6 +130,12 @@ positioning schema: ${_positioningSchema}`
     this.title = group.title;
     this.class = `group ${group.otherClasses}`;
     this.elements = group.elements.map((el) => new Element(el));
+  };
+
+  Group.prototype = {
+    get positioning() {
+      return _positioning.group;
+    },
   };
 
   // SINGLE ELEMENT LOGIC //////////////////////////////////
