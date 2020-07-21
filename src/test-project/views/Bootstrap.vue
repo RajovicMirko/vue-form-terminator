@@ -244,19 +244,8 @@ export default {
       margin-bottom: 2rem;
     }
 
-    & .inputnator {
-      padding-bottom: 0.2rem;
-    }
-  }
-}
-
-@media (min-width: 930px) {
-  #bootstrap {
-    & .group-1 > .inputnator {
-      width: 47.5%;
-    }
-
     & .group-2 {
+      flex-direction: row;
       & .address {
         width: 70%;
       }
@@ -265,6 +254,21 @@ export default {
       }
     }
 
+    & .inputnator {
+      padding-bottom: 0.2rem;
+    }
+
+    & .buttonator {
+      margin-top: 1rem;
+      & button {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 930px) {
+  #bootstrap {
     & .buttonator {
       flex-direction: row;
       margin: 2rem 0;
@@ -273,8 +277,7 @@ export default {
 }
 
 .custom-input-bootstrap {
-  // border-radius: 2rem;
-  // font-size: 1.3rem;
+  font-size: 1.2rem;
 
   &:hover {
     border-color: transparent;

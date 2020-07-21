@@ -52,6 +52,15 @@ export default {
   }
 }
 
+@media (min-width: $min-width) {
+  @for $i from 1 through 20 {
+    .inputnator:first-child:nth-last-child(#{$i}),
+    .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
+      width: calc(100% / #{$i} - 0.5rem);
+    }
+  }
+}
+
 @media (max-width: $min-width) {
   .group {
     flex-direction: column;
