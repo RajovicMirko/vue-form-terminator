@@ -10,10 +10,11 @@
           v-for="route in routes"
           :key="route.name"
           :to="route.path"
-        >{{ route.name }}</router-link>
+          >{{ route.name }}</router-link
+        >
       </div>
     </div>
-    <router-view class="page" />
+    <router-view />
   </div>
 </template>
 
@@ -23,20 +24,21 @@ export default {
 
   data() {
     return {
-      title: "NPM vue-form-terminator SAMPLES"
+      title: "NPM vue-form-terminator SAMPLES",
     };
   },
 
   computed: {
     routes() {
       return this.$router.options.routes;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import "@sc/variables.scss";
+$primary: rgb(113, 170, 29);
+
 * {
   margin: 0;
   padding: 0;
@@ -52,12 +54,15 @@ export default {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 100vh;
 }
 
 #app {
-  position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
+  width: 100%;
+  height: 100%;
 
   & .nav {
     position: relative;
@@ -83,13 +88,9 @@ body {
       }
     }
   }
-
-  .page {
-    color: $primary;
-  }
 }
 
-@media (max-width: $min-width) {
+@media (max-width: 900px) {
   .nav {
     flex-direction: column;
 

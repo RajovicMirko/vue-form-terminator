@@ -49,31 +49,31 @@ export default {
     titlenator,
     inputnator,
     group,
-    buttonator
+    buttonator,
   },
 
   props: {
     title: {
-      type: String
+      type: String,
     },
 
     positioning: {
-      type: Object
+      type: Object,
     },
 
     body: {
       type: Array,
-      required: true
+      required: true,
     },
 
     actions: {
       type: Array,
-      required: true
+      required: true,
     },
 
     model: {
-      type: Object
-    }
+      type: Object,
+    },
   },
 
   data() {
@@ -85,11 +85,11 @@ export default {
           input: {
             label: "",
             text: "",
-            errorMessage: ""
-          }
+            errorMessage: "",
+          },
         },
-        body: {}
-      }
+        body: {},
+      },
     };
   },
 
@@ -99,7 +99,7 @@ export default {
       positioning: this.positioning,
       body: this.body,
       actions: this.actions,
-      model: this.model
+      model: this.model,
     });
     this.focusFirstElement();
   },
@@ -154,8 +154,8 @@ export default {
     handleReset() {
       this.VueFormTerminator.reset();
       this.focusFirstElement();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -165,11 +165,5 @@ export default {
   flex-direction: column;
   font-size: 1rem;
   width: 100%;
-
-  & .bodynator {
-    // display: flex;
-    // flex-direction: column;
-    // flex: 1;
-  }
 }
 </style>

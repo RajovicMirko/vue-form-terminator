@@ -7,6 +7,9 @@ Vue.config.productionTip = false;
 import { Plugin } from "vue-fragment";
 Vue.use(Plugin);
 
+import VueFormTerminator from "@/VueFormTerminator.vue";
+Vue.component("vue-form-terminator", VueFormTerminator);
+
 new Vue({
   router,
   render: (h) => h(App),

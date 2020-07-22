@@ -4,21 +4,20 @@
       class="git-link"
       target="_blank"
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/NoStyle.vue"
-    >Git page code sample</a>
+      >Git page code sample</a
+    >
 
-    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator
+      v-bind="formSetup"
+      :model="model"
+      @submited="handleSubmit"
+    ></vue-form-terminator>
   </div>
 </template>
 
 <script>
-import VueFormTerminator from "@/VueFormTerminator.vue";
-
 export default {
   name: "NoStyle",
-
-  components: {
-    "vue-form-terminator": VueFormTerminator
-  },
 
   data() {
     return {
@@ -30,7 +29,7 @@ export default {
         username: "JohnDoe",
         email: "john.doe@gmail.com",
         password: "12345",
-        repeatPassword: "12345"
+        repeatPassword: "12345",
       },
       formSetup: {
         positioning: {
@@ -38,8 +37,8 @@ export default {
           input: {
             label: "",
             text: "",
-            errorMessage: ""
-          }
+            errorMessage: "",
+          },
         },
         title: "NoStyle sample",
         body: [
@@ -56,14 +55,14 @@ export default {
                 placeholder: "First name",
                 validations: {
                   required: {
-                    message: "First name is required"
+                    message: "First name is required",
                   },
                   max: {
                     value: 30,
-                    message: "First name must have less then 20 characters"
-                  }
+                    message: "First name must have less then 20 characters",
+                  },
                 },
-                customClasses: "first-name"
+                customClasses: "first-name",
               },
               {
                 id: "lastName",
@@ -73,16 +72,16 @@ export default {
                 placeholder: "Last name",
                 validations: {
                   required: {
-                    message: "Last name is required"
+                    message: "Last name is required",
                   },
                   max: {
                     value: 30,
-                    message: "Last name must have less then 20 characters"
-                  }
+                    message: "Last name must have less then 20 characters",
+                  },
                 },
-                customClasses: "last-name"
-              }
-            ]
+                customClasses: "last-name",
+              },
+            ],
           },
           {
             isGroup: true,
@@ -97,10 +96,10 @@ export default {
                 placeholder: "Address",
                 validations: {
                   required: {
-                    message: "Address is required"
-                  }
+                    message: "Address is required",
+                  },
                 },
-                otherClasses: ""
+                otherClasses: "",
               },
               {
                 id: "addressNumber",
@@ -110,15 +109,15 @@ export default {
                 placeholder: "No.",
                 validations: {
                   required: {
-                    message: "No. is required"
+                    message: "No. is required",
                   },
                   numberOnly: {
-                    message: "Only numbers allowed"
-                  }
+                    message: "Only numbers allowed",
+                  },
                 },
-                otherClasses: ""
-              }
-            ]
+                otherClasses: "",
+              },
+            ],
           },
           {
             id: "username",
@@ -128,17 +127,17 @@ export default {
             placeholder: "Username",
             validations: {
               required: {
-                message: "Username is required"
+                message: "Username is required",
               },
               max: {
                 value: 20,
-                message: "Username must have less then 20 characters"
+                message: "Username must have less then 20 characters",
               },
               noWhiteSpace: {
-                message: "No space character allowed"
-              }
+                message: "No space character allowed",
+              },
             },
-            otherClasses: ""
+            otherClasses: "",
           },
           {
             id: "email",
@@ -148,13 +147,13 @@ export default {
             placeholder: "Email",
             validations: {
               required: {
-                message: "Email is required"
+                message: "Email is required",
               },
               email: {
-                message: "Email must be a valid email"
-              }
+                message: "Email must be a valid email",
+              },
             },
-            otherClasses: ""
+            otherClasses: "",
           },
           {
             id: "password",
@@ -164,18 +163,18 @@ export default {
             placeholder: "Password",
             validations: {
               required: {
-                message: "Password is required"
+                message: "Password is required",
               },
               min: {
                 value: 5,
-                message: "Pasword must have more then 5 characters"
+                message: "Pasword must have more then 5 characters",
               },
               max: {
                 value: 20,
-                message: "Pasword must have less then 20 characters"
-              }
+                message: "Pasword must have less then 20 characters",
+              },
             },
-            otherClasses: ""
+            otherClasses: "",
           },
           {
             id: "repeatPassword",
@@ -185,23 +184,23 @@ export default {
             placeholder: "Repeat Password",
             validations: {
               required: {
-                message: "Repeat Pasword is required"
+                message: "Repeat Pasword is required",
               },
               min: {
                 value: 5,
-                message: "Must have more then 5 characters"
+                message: "Must have more then 5 characters",
               },
               max: {
                 value: 20,
-                message: "Repeat Pasword must have less then 20 characters"
+                message: "Repeat Pasword must have less then 20 characters",
               },
               compareElements: {
                 value: "password",
-                message: "Repeat Password must be equal as password"
-              }
+                message: "Repeat Password must be equal as password",
+              },
             },
-            otherClasses: ""
-          }
+            otherClasses: "",
+          },
         ],
         actions: [
           {
@@ -209,28 +208,23 @@ export default {
             name: "Submit",
             type: "submit",
             icon: "fas fa-plus",
-            otherClasses: ""
+            otherClasses: "",
           },
           {
             id: "reset",
             name: "Reset",
             type: "reset",
             icon: "fas fa-trash",
-            otherClasses: ""
-          }
-        ]
-      }
+            otherClasses: "",
+          },
+        ],
+      },
     };
   },
   methods: {
     handleSubmit(data) {
       console.log(data);
-    }
-  }
+    },
+  },
 };
 </script>
-<style lang="scss">
-#nostyle {
-  padding: 0 2rem;
-}
-</style>

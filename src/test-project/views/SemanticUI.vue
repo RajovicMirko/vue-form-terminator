@@ -4,21 +4,20 @@
       class="git-link"
       target="_blank"
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/SemanticUI.vue"
-    >Git page code sample</a>
+      >Git page code sample</a
+    >
 
-    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator
+      v-bind="formSetup"
+      :model="model"
+      @submited="handleSubmit"
+    ></vue-form-terminator>
   </div>
 </template>
 
 <script>
-import VueFormTerminator from "@/VueFormTerminator.vue";
-
 export default {
   name: "SemanticUI",
-
-  components: {
-    "vue-form-terminator": VueFormTerminator
-  },
 
   data() {
     return {
@@ -30,7 +29,7 @@ export default {
         username: "JohnDoe",
         email: "john.doe@gmail.com",
         password: "12345",
-        repeatPassword: "12345"
+        repeatPassword: "12345",
       },
 
       formSetup: {
@@ -39,8 +38,8 @@ export default {
           input: {
             label: "top center",
             text: "center",
-            errorMessage: "bottom center"
-          }
+            errorMessage: "bottom center",
+          },
         },
         title: "SemanticUI sample",
         errorMessagePosition: "top",
@@ -58,14 +57,14 @@ export default {
                 placeholder: "",
                 validations: {
                   required: {
-                    message: "First name is required"
+                    message: "First name is required",
                   },
                   max: {
                     value: 30,
-                    message: "First name must have less then 20 characters"
-                  }
+                    message: "First name must have less then 20 characters",
+                  },
                 },
-                otherClasses: "ui input custom-input-semanticui"
+                otherClasses: "ui input custom-input-semanticui",
               },
               {
                 id: "lastName",
@@ -75,16 +74,16 @@ export default {
                 placeholder: "",
                 validations: {
                   required: {
-                    message: "Last name is required"
+                    message: "Last name is required",
                   },
                   max: {
                     value: 30,
-                    message: "Last name must have less then 20 characters"
-                  }
+                    message: "Last name must have less then 20 characters",
+                  },
                 },
-                otherClasses: "ui input custom-input-semanticui"
-              }
-            ]
+                otherClasses: "ui input custom-input-semanticui",
+              },
+            ],
           },
           {
             isGroup: true,
@@ -99,10 +98,10 @@ export default {
                 placeholder: "",
                 validations: {
                   required: {
-                    message: "Address is required"
-                  }
+                    message: "Address is required",
+                  },
                 },
-                otherClasses: "form-control"
+                otherClasses: "form-control",
               },
               {
                 id: "addressNumber",
@@ -112,15 +111,15 @@ export default {
                 placeholder: "",
                 validations: {
                   required: {
-                    message: "No. is required"
+                    message: "No. is required",
                   },
                   numberOnly: {
-                    message: "Only numbers allowed"
-                  }
+                    message: "Only numbers allowed",
+                  },
                 },
-                otherClasses: "form-control"
-              }
-            ]
+                otherClasses: "form-control",
+              },
+            ],
           },
           {
             id: "username",
@@ -130,14 +129,14 @@ export default {
             placeholder: "",
             validations: {
               required: {
-                message: "Username is required"
+                message: "Username is required",
               },
               max: {
                 value: 20,
-                message: "Username must have less then 20 characters"
-              }
+                message: "Username must have less then 20 characters",
+              },
             },
-            otherClasses: "ui input custom-input-semanticui"
+            otherClasses: "ui input custom-input-semanticui",
           },
           {
             id: "email",
@@ -147,13 +146,13 @@ export default {
             placeholder: "",
             validations: {
               required: {
-                message: "Email is required"
+                message: "Email is required",
               },
               email: {
-                message: "Email must be a valid email"
-              }
+                message: "Email must be a valid email",
+              },
             },
-            otherClasses: "ui input custom-input-semanticui"
+            otherClasses: "ui input custom-input-semanticui",
           },
           {
             id: "password",
@@ -163,18 +162,18 @@ export default {
             placeholder: "",
             validations: {
               required: {
-                message: "Password is required"
+                message: "Password is required",
               },
               min: {
                 value: 5,
-                message: "Pasword must have more then 5 characters"
+                message: "Pasword must have more then 5 characters",
               },
               max: {
                 value: 20,
-                message: "Pasword must have less then 20 characters"
-              }
+                message: "Pasword must have less then 20 characters",
+              },
             },
-            otherClasses: "ui input custom-input-semanticui"
+            otherClasses: "ui input custom-input-semanticui",
           },
           {
             id: "repeatPassword",
@@ -184,23 +183,23 @@ export default {
             placeholder: "",
             validations: {
               required: {
-                message: "Repeat Pasword is required"
+                message: "Repeat Pasword is required",
               },
               min: {
                 value: 5,
-                message: "Must have more then 5 characters"
+                message: "Must have more then 5 characters",
               },
               max: {
                 value: 20,
-                message: "Repeat Pasword must have less then 20 characters"
+                message: "Repeat Pasword must have less then 20 characters",
               },
               compareElements: {
                 value: "password",
-                message: "Repeat Password must be equal as password"
-              }
+                message: "Repeat Password must be equal as password",
+              },
             },
-            otherClasses: "ui input custom-input-semanticui"
-          }
+            otherClasses: "ui input custom-input-semanticui",
+          },
         ],
         actions: [
           {
@@ -208,30 +207,37 @@ export default {
             name: "Submit",
             type: "submit",
             icon: "fas fa-check-circle",
-            otherClasses: "ui primary button custom-button"
+            otherClasses: "ui primary button custom-button",
           },
           {
             id: "reset",
             name: "Reset",
             type: "Reset",
             icon: "fas fa-times-circle",
-            otherClasses: "ui yellow basic button custom-button"
-          }
-        ]
-      }
+            otherClasses: "ui yellow basic button custom-button",
+          },
+        ],
+      },
     };
   },
 
   methods: {
     handleSubmit(data) {
       console.log(data);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
+$primary: #2185d0;
+
 #semanticui {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  place-items: center;
+  color: $primary;
+
   & .vue-form-terminator {
     width: 50%;
     min-width: 300px;
