@@ -6,7 +6,7 @@
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/NoStyle.vue"
     >Git page code sample</a>
 
-    <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
 
@@ -22,6 +22,16 @@ export default {
 
   data() {
     return {
+      model: {
+        firstName: "John",
+        lastName: "Doe",
+        address: "Test street address",
+        addressNumber: "123",
+        username: "JohnDoe",
+        email: "john.doe@gmail.com",
+        password: "12345",
+        repeatPassword: "12345"
+      },
       formSetup: {
         positioning: {
           title: "",

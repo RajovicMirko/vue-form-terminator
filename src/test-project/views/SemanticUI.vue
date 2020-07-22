@@ -6,10 +6,7 @@
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/SemanticUI.vue"
     >Git page code sample</a>
 
-    <div class="forms">
-      <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
-      <vue-form-terminator v-bind="formSetup2" :model="model2" @submited="handleSubmit"></vue-form-terminator>
-    </div>
+    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
 
@@ -26,19 +23,21 @@ export default {
   data() {
     return {
       model: {
-        firstName: "Mirko",
-        lastName: "Rajovic",
-        username: "Mirkasin",
-        email: "mirko@gmail.com",
+        firstName: "John",
+        lastName: "Doe",
+        address: "Test street address",
+        addressNumber: "123",
+        username: "JohnDoe",
+        email: "john.doe@gmail.com",
         password: "12345",
         repeatPassword: "12345"
       },
 
       formSetup: {
         positioning: {
-          title: "",
+          title: "left",
           input: {
-            label: "",
+            label: "top center",
             text: "center",
             errorMessage: "bottom center"
           }
@@ -55,8 +54,8 @@ export default {
                 id: "firstName",
                 name: "FirstName",
                 type: "text",
-                label: "",
-                placeholder: "First name",
+                label: "First name",
+                placeholder: "",
                 validations: {
                   required: {
                     message: "First name is required"
@@ -72,8 +71,8 @@ export default {
                 id: "lastName",
                 name: "LastName",
                 type: "text",
-                label: "",
-                placeholder: "Last name",
+                label: "Last name",
+                placeholder: "",
                 validations: {
                   required: {
                     message: "Last name is required"
@@ -88,11 +87,47 @@ export default {
             ]
           },
           {
+            isGroup: true,
+            title: "",
+            otherClasses: "group-2",
+            elements: [
+              {
+                id: "address",
+                name: "Address",
+                type: "text",
+                label: "Address",
+                placeholder: "",
+                validations: {
+                  required: {
+                    message: "Address is required"
+                  }
+                },
+                otherClasses: "form-control"
+              },
+              {
+                id: "addressNumber",
+                name: "HouseNumber",
+                type: "number",
+                label: "No.",
+                placeholder: "",
+                validations: {
+                  required: {
+                    message: "No. is required"
+                  },
+                  numberOnly: {
+                    message: "Only numbers allowed"
+                  }
+                },
+                otherClasses: "form-control"
+              }
+            ]
+          },
+          {
             id: "username",
             name: "Username",
             type: "text",
             label: "Username",
-            placeholder: "Username",
+            placeholder: "",
             validations: {
               required: {
                 message: "Username is required"
@@ -109,7 +144,7 @@ export default {
             name: "Email",
             type: "text",
             label: "Email",
-            placeholder: "Email",
+            placeholder: "",
             validations: {
               required: {
                 message: "Email is required"
@@ -124,8 +159,8 @@ export default {
             id: "password",
             name: "Password",
             type: "password",
-            label: "",
-            placeholder: "Password",
+            label: "Password",
+            placeholder: "",
             validations: {
               required: {
                 message: "Password is required"
@@ -145,8 +180,8 @@ export default {
             id: "repeatPassword",
             name: "RepeatPassword",
             type: "password",
-            label: "",
-            placeholder: "Repeat Password",
+            label: "Repeat Password",
+            placeholder: "",
             validations: {
               required: {
                 message: "Repeat Pasword is required"
@@ -183,45 +218,6 @@ export default {
             otherClasses: "ui yellow basic button custom-button"
           }
         ]
-      },
-
-      model2: {
-        test: "Some test input"
-      },
-
-      formSetup2: {
-        title: "Test form",
-        errorMessagePosition: "top",
-        body: [
-          {
-            id: "test",
-            type: "text",
-            name: "Test",
-            placeholder: "test",
-            validations: {
-              required: {
-                message: "Test is required"
-              }
-            },
-            otherClasses: "ui input custom-input-semanticui"
-          }
-        ],
-        actions: [
-          {
-            id: "submit2",
-            name: "Submit",
-            type: "submit",
-            icon: "fas fa-check-circle",
-            otherClasses: "ui primary button custom-button"
-          },
-          {
-            id: "reset2",
-            name: "Reset",
-            type: "reset",
-            icon: "fas fa-times-circle",
-            otherClasses: "ui yellow basic button custom-button"
-          }
-        ]
       }
     };
   },
@@ -237,57 +233,43 @@ export default {
 <style lang="scss">
 #semanticui {
   & .vue-form-terminator {
-    width: 80%;
+    width: 50%;
     min-width: 300px;
 
-    & .group-1 > .inputnator {
-      width: 100%;
+    & .titlenator {
+      margin-bottom: 0;
+    }
+
+    & .group {
+      &.group-2 {
+        & .group-row {
+          flex-direction: row;
+          & .address {
+            width: 70%;
+          }
+
+          & .addressNumber {
+            width: 27.5%;
+          }
+        }
+      }
     }
 
     & .buttonator {
-      flex-direction: row;
+      margin-top: 1rem;
       & button {
-        margin: 0;
-        width: 40%;
+        margin-bottom: 1rem;
       }
     }
-  }
-}
 
-.custom-input-semanticui {
-  & input {
-    border-radius: 2rem !important;
+    @media (min-width: 900px) {
+      & .buttonator {
+        flex-direction: row;
 
-    &:hover {
-      border-color: transparent;
-      box-shadow: 0 0 2px 0.5px #2185d0;
-    }
-
-    &:focus {
-      border-color: transparent !important;
-      box-shadow: 0 0 0 1.5px #2185d0 !important;
-    }
-  }
-}
-
-.forms {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-
-  & .vue-form-terminator {
-    flex: 0 1 40%;
-    margin-bottom: 10%;
-  }
-}
-
-@media (min-width: 930px) {
-  .vue-form-terminator {
-    margin-bottom: 0;
-
-    & .group-1 > .inputnator {
-      width: 47.5% !important;
+        & button {
+          width: 48%;
+        }
+      }
     }
   }
 }

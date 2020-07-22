@@ -25,12 +25,12 @@ export default {
       model: {
         firstName: "John",
         lastName: "Doe",
+        address: "Test street address",
+        addressNumber: "123",
         username: "JohnDoe",
         email: "john.doe@gmail.com",
         password: "12345",
-        repeatPassword: "12345",
-        address: "Some test street",
-        addressNumber: "123"
+        repeatPassword: "12345"
       },
       formSetup: {
         positioning: {
@@ -66,7 +66,7 @@ export default {
                     message: "First name must have less then 20 characters"
                   }
                 },
-                otherClasses: "form-control custom-input-bootstrap"
+                otherClasses: "form-control"
               },
               {
                 id: "lastName",
@@ -83,7 +83,7 @@ export default {
                     message: "Last name must have less then 20 characters"
                   }
                 },
-                otherClasses: "form-control custom-input-bootstrap"
+                otherClasses: "form-control"
               }
             ]
           },
@@ -103,7 +103,7 @@ export default {
                     message: "Address is required"
                   }
                 },
-                otherClasses: "form-control custom-input-bootstrap"
+                otherClasses: "form-control"
               },
               {
                 id: "addressNumber",
@@ -119,7 +119,7 @@ export default {
                     message: "Only numbers allowed"
                   }
                 },
-                otherClasses: "form-control custom-input-bootstrap"
+                otherClasses: "form-control"
               }
             ]
           },
@@ -141,7 +141,7 @@ export default {
                 message: "No space character allowed"
               }
             },
-            otherClasses: "form-control custom-input-bootstrap"
+            otherClasses: "form-control"
           },
           {
             id: "email",
@@ -157,7 +157,7 @@ export default {
                 message: "Email must be a valid email"
               }
             },
-            otherClasses: "form-control custom-input-bootstrap"
+            otherClasses: "form-control"
           },
           {
             id: "password",
@@ -178,7 +178,7 @@ export default {
                 message: "Pasword must have less then 20 characters"
               }
             },
-            otherClasses: "form-control custom-input-bootstrap"
+            otherClasses: "form-control"
           },
           {
             id: "repeatPassword",
@@ -203,7 +203,7 @@ export default {
                 message: "Repeat Password must be equal as password"
               }
             },
-            otherClasses: "form-control custom-input-bootstrap"
+            otherClasses: "form-control"
           }
         ],
         actions: [
@@ -212,14 +212,14 @@ export default {
             name: "Submit",
             type: "submit",
             icon: "fas fa-check",
-            otherClasses: "btn btn-outline-primary custom-button"
+            otherClasses: "btn btn-outline-primary"
           },
           {
             id: "reset",
             name: "Reset",
             type: "reset",
             icon: "fas fa-times",
-            otherClasses: "btn btn-outline-warning custom-button"
+            otherClasses: "btn btn-outline-warning"
           }
         ]
       }
