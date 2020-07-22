@@ -38,6 +38,8 @@ export default {
 <style lang="scss">
 @import "@sc/variables.scss";
 * {
+  margin: 0;
+  padding: 0;
   text-decoration: none;
   list-style: none;
   font-style: normal;
@@ -49,16 +51,13 @@ export default {
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 #app {
+  position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
-  width: 100vw;
-  height: 100vh;
 
   & .nav {
     position: relative;

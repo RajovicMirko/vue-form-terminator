@@ -41,7 +41,7 @@ export default {
 
   &.outlined {
     padding: 1rem 1rem 0.5rem 1rem;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     border: 1px solid rgba(128, 128, 128, 0.2);
     border-radius: 1rem;
     background-color: rgba(128, 128, 128, 0.02);

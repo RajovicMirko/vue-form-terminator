@@ -1,5 +1,5 @@
 <template>
-  <div class="buttonator" :class="{ [errorMessagePosition]: errorMessagePosition }">
+  <div class="buttonator">
     <button
       v-for="action in actions"
       :key="action.id"
@@ -25,9 +25,6 @@ export default {
     actions: {
       type: Array,
       default: () => []
-    },
-    errorMessagePosition: {
-      type: String
     },
     formCleared: {
       type: Boolean

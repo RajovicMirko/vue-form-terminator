@@ -239,27 +239,30 @@ export default {
     min-width: 300px;
 
     & .titlenator {
-      margin-bottom: 2rem;
+      margin-bottom: 0;
     }
 
     & .group {
       &.outlined {
-        margin: 0.5rem 0;
+        margin-bottom: 0.5rem;
       }
-    }
 
-    & .group-2 {
-      flex-direction: row;
-      & .address {
-        width: 70%;
-      }
-      & .addressNumber {
-        width: 25%;
+      &.group-2 {
+        & .group-row {
+          flex-direction: row;
+
+          & .address {
+            width: 70%;
+          }
+          & .addressNumber {
+            width: 27.5%;
+          }
+        }
       }
     }
 
     & .inputnator {
-      padding-bottom: 0.2rem;
+      padding-bottom: 0.3rem;
     }
 
     & .buttonator {
@@ -268,29 +271,16 @@ export default {
         margin-bottom: 1rem;
       }
     }
-  }
-}
 
-@media (min-width: 930px) {
-  #bootstrap {
-    & .buttonator {
-      flex-direction: row;
-      margin: 2rem 0;
+    @media (min-width: 900px) {
+      & .buttonator {
+        flex-direction: row;
+
+        & button {
+          width: 48%;
+        }
+      }
     }
-  }
-}
-
-.custom-input-bootstrap {
-  font-size: 1.2rem;
-
-  &:hover {
-    border-color: transparent;
-    box-shadow: 0 0 2px 0.5px #2185d0;
-  }
-
-  &:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 1.5px #2185d0;
   }
 }
 </style>
