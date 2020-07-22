@@ -29,7 +29,7 @@
 
     <!-- FORM ACTIONS -->
     <buttonator
-      :actions="actions"
+      :actions="VueFormTerminator.actions"
       :errorMessagePosition="'test'"
       :formCleared="VueFormTerminator.formCleared"
     ></buttonator>

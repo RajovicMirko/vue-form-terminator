@@ -5,22 +5,9 @@ export const VueFormTerminator = function(
   actions,
   model
 ) {
-  // HELPERS //////////////////////////////////////////////////////////////////////////////////////
-  function applyMixin(object, mixin) {
-    Object.assign(object.prototype, mixin);
-  }
-
-  class TerminatorError extends Error {
-    constructor(message) {
-      super(message);
-      this.name = "vue-form-terminator";
-    }
-  }
-
   // PRIVATE VARIABLES //////////////////////////////////////////////////////////////////////////////////////
   let _title = "";
   let _model = {};
-  let _config = {};
   let _positioning = {
     title: "center",
     group: {
@@ -35,6 +22,9 @@ export const VueFormTerminator = function(
 
   const _positioningSchema = `
     String title: '',
+    Object group: {
+      String title: '',
+    },
     Object input: {
       String label: '',
       String text: '',
@@ -45,50 +35,65 @@ export const VueFormTerminator = function(
 
   const _elements = [];
 
+  // HELPER OBJECTS //////////////////////////////////////////////////////////////////////////////////////
+  function applyMixin(object, mixin) {
+    Object.assign(object.prototype, mixin);
+  }
+
+  class TerminatorError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "vue-form-terminator";
+    }
+  }
+
+  function setPositioning(positioning) {
+    // If parameter empty exit;
+    if (!positioning) return;
+
+    // Recursive loop for properties
+    (function looper(privatePositioning, positioning) {
+      Object.keys(positioning).map((k) => {
+        if (privatePositioning[k] === undefined) {
+          throw new TerminatorError(`Wrong property in positioning schema: "${k}" can't be used!
+positioning schema: ${_positioningSchema}`);
+        }
+
+        if (typeof positioning[k] === "object") {
+          looper(privatePositioning[k], positioning[k]);
+        }
+
+        if (typeof positioning[k] === "string") {
+          if (positioning[k]) privatePositioning[k] = positioning[k];
+        }
+      });
+    })(_positioning, positioning);
+  }
+
+  function setBody(body) {
+    const errorMessage = `Missing property in form setup: "body" is required property`;
+    if (!body) throw new TerminatorError(errorMessage);
+
+    this.body = body.map((element) =>
+      element.isGroup ? new Group(element) : new Element(element)
+    );
+  }
+
+  function setActions(actions) {
+    const errorMessage = `Missing property in form setup: "actions" is required property`;
+    if (!actions) throw new TerminatorError(errorMessage);
+    _actions = actions;
+  }
+
   // CLASSES //////////////////////////////////////////////////////////////////////////////////////
   // FORM LOGIC //////////////////////////////////
   function Form({ title, positioning, body, actions, model = {} }) {
     _title = title;
     _model = model;
 
-    if (positioning) {
-      Object.keys(positioning).map((k) => {
-        if (typeof positioning[k] === "string") {
-          if (!_positioning[k]) {
-            throw new TerminatorError(
-              `Wrong property in positioning schema: "${k}" can't be used!
-positioning schema: ${_positioningSchema}`
-            );
-          }
-          if (positioning[k]) _positioning[k] = positioning[k];
-        } else {
-          Object.keys(positioning[k]).map((k2) => {
-            if (!_positioning[k][k2]) {
-              throw new TerminatorError(
-                `Wrong property in positioning schema: in object "${k}" property "${k2}" can't be used!
-positioning schema: ${_positioningSchema}`
-              );
-            }
-            if (positioning[k][k2]) _positioning[k][k2] = positioning[k][k2];
-          });
-        }
-      });
-    }
-
-    if (!body)
-      throw new TerminatorError(
-        `Missing property in form setup: "body" is required property`
-      );
-    this.body = body.map((element) =>
-      element.isGroup ? new Group(element) : new Element(element)
-    );
-
-    if (!actions)
-      throw new TerminatorError(
-        `Missing property in form setup: "actions" is required property`
-      );
-
-    _actions = actions;
+    setPositioning(positioning);
+    setBody.call(this, body);
+    setActions(actions);
   }
 
   Form.prototype = {
@@ -104,10 +109,6 @@ positioning schema: ${_positioningSchema}`
 
     get positioning() {
       return _positioning;
-    },
-
-    get config() {
-      return _config;
     },
 
     get actions() {
