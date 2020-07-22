@@ -1,0 +1,20 @@
+.clean {
+  border: none;
+  outline: none;
+  background: none;
+  text-decoration: none;
+  list-style: none;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  place-items: center;
+  min-width: 350px;
+}

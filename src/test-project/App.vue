@@ -37,23 +37,10 @@ export default {
 
 <style lang="scss">
 @import "@sc/variables.scss";
-* {
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-  background: none;
-  text-decoration: none;
-  list-style: none;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  line-height: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 body {
+  margin: 0;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 

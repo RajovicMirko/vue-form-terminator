@@ -48,7 +48,7 @@ export default {
         body: [
           {
             isGroup: true,
-            title: "",
+            title: "Personal data",
             otherClasses: "group-1",
             elements: [
               {
@@ -236,11 +236,6 @@ export default {
 
 <style lang="scss">
 #semanticui {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  place-items: center;
-  min-width: 350px;
-
   & .vue-form-terminator {
     width: 80%;
     min-width: 300px;
