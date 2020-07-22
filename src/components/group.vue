@@ -10,7 +10,9 @@
       }"
       v-if="group.title"
     >{{ group.title }}</span>
-    <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
+    <div class="group-row">
+      <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
+    </div>
   </div>
 </template>
 
@@ -35,8 +37,7 @@ export default {
 .group {
   position: relative;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: column;
 
   &.outlined {
     padding: 1rem 1rem 0.5rem 1rem;
@@ -48,7 +49,7 @@ export default {
 
   & .title {
     position: absolute;
-    top: -0.9rem;
+    top: -0.8rem;
     padding: 0 0.5rem;
     font-size: 1.2rem;
     color: rgba(0, 0, 0, 0.3);
@@ -62,12 +63,19 @@ export default {
       right: 1rem;
     }
   }
+
+  & .group-row {
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+  }
 }
 
 @media (min-width: $min-width) {
-  @for $i from 1 through 20 {
-    .inputnator:first-child:nth-last-child(#{$i}),
-    .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
+  @for $i from 1 through 10 {
+    .group-row .inputnator:first-child:nth-last-child(#{$i}),
+    .group-row .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
       width: calc(100% / #{$i} - 0.5rem);
     }
   }
@@ -75,7 +83,9 @@ export default {
 
 @media (max-width: $min-width) {
   .group {
-    flex-direction: column;
+    & .group-row {
+      flex-direction: column;
+    }
   }
 }
 </style>

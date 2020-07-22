@@ -234,11 +234,6 @@ export default {
 </script>
 <style lang="scss">
 #bootstrap {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  place-items: center;
-  min-width: 350px;
-
   & .vue-form-terminator {
     width: 50%;
     min-width: 300px;

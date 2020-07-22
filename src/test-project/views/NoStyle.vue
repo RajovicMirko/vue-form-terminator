@@ -35,7 +35,7 @@ export default {
         body: [
           {
             isGroup: true,
-            title: "Test group",
+            title: "Test group title",
             otherClasses: "",
             elements: [
               {
@@ -221,9 +221,6 @@ export default {
 </script>
 <style lang="scss">
 #nostyle {
-  & .vue-form-terminator {
-    width: 40%;
-    min-width: 300px;
-  }
+  padding: 0 2rem;
 }
 </style>
