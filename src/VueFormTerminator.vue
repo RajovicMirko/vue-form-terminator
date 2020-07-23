@@ -28,11 +28,7 @@
     </div>
 
     <!-- FORM ACTIONS -->
-    <buttonator
-      :actions="VueFormTerminator.actions"
-      :errorMessagePosition="'test'"
-      :formCleared="VueFormTerminator.formCleared"
-    ></buttonator>
+    <buttonator :actions="VueFormTerminator.actions"></buttonator>
   </form>
 </template>
 
