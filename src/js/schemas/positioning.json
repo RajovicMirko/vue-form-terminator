@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/schema#positioning",
+  "title": "Positioning Schema v1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

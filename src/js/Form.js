@@ -1,3 +1,6 @@
+import { positioningSchema } from "./schemas.js";
+import { generateSchemaFromObject } from "./helpers.js";
+
 export const VueFormTerminator = function(
   title,
   positioning,
@@ -7,30 +10,11 @@ export const VueFormTerminator = function(
 ) {
   // PRIVATE VARIABLES //////////////////////////////////////////////////////////////////////////////////////
   let _title = "";
-  let _model = {};
-  let _positioning = {
-    title: "center",
-    group: {
-      title: "left",
-    },
-    input: {
-      label: "top left",
-      text: "left",
-      errorMessage: "top right",
-    },
-  };
 
-  const _positioningSchema = `
-    String title: '',
-    Object group: {
-      String title: '',
-    },
-    Object input: {
-      String label: '',
-      String text: '',
-      String errorMessage: ''
-    }
-  `;
+  let _model = {};
+
+  let _positioning = Object.assign({}, positioningSchema);
+
   let _actions = [];
 
   const _elements = [];
@@ -55,8 +39,10 @@ export const VueFormTerminator = function(
     (function looper(privatePositioning, positioning) {
       Object.keys(positioning).map((k) => {
         if (privatePositioning[k] === undefined) {
-          throw new TerminatorError(`Wrong property in positioning schema: "${k}" can't be used!
-positioning schema: ${_positioningSchema}`);
+          throw new TerminatorError(`
+Invalid property "${k}" in positioning schema.
+Valid schema is:
+positioning: ${generateSchemaFromObject(_positioning.properties)}`);
         }
 
         if (typeof positioning[k] === "object") {
