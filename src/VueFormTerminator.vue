@@ -15,20 +15,26 @@
     ></titlenator>
 
     <!-- FORM BODY -->
-    <div ref="formBody" class="bodynator">
+    <section ref="formBody" class="bodynator">
       <fragment v-for="element in VueFormTerminator.body" :key="element.name">
         <!-- SINGLE ELEMENT -->
         <inputnator :element="element" v-if="!element.isGroup"></inputnator>
 
         <!-- GROUP ELEMENTS -->
         <fragment v-if="element.isGroup">
-          <group :group="element" :errorMessagePosition="'test'"></group>
+          <group :group="element"></group>
         </fragment>
       </fragment>
-    </div>
+    </section>
 
     <!-- FORM ACTIONS -->
-    <buttonator :actions="VueFormTerminator.actions"></buttonator>
+    <section class="buttonator">
+      <custom-button
+        v-for="action in VueFormTerminator.actions"
+        :key="action.id"
+        :action="action"
+      ></custom-button>
+    </section>
   </form>
 </template>
 
@@ -37,7 +43,7 @@ import { VueFormTerminator } from "@js/Form.js";
 import titlenator from "@c/titlenator.vue";
 import inputnator from "@c/inputnator.vue";
 import group from "@c/group.vue";
-import buttonator from "@c/buttonator.vue";
+import button from "@c/button.vue";
 
 export default {
   name: "VueFormTerminator",
@@ -45,7 +51,7 @@ export default {
     titlenator,
     inputnator,
     group,
-    buttonator,
+    "custom-button": button,
   },
 
   props: {
@@ -85,6 +91,8 @@ export default {
           },
         },
         body: {},
+        actions: [],
+        model: {},
       },
     };
   },

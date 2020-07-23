@@ -17,10 +17,12 @@ export default {
 </script>
 
 <style lang="scss">
+$primary: #2185d0;
 #home {
   display: grid;
   place-items: center;
   text-align: center;
+  color: $primary;
 
   & .bolder {
     font-weight: bolder;

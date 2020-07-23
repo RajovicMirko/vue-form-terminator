@@ -42,7 +42,6 @@ export default {
           },
         },
         title: "SemanticUI sample",
-        errorMessagePosition: "top",
         body: [
           {
             isGroup: true,

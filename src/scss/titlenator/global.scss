@@ -1,0 +1,18 @@
+.titlenator {
+  display: flex;
+  width: 100%;
+  font-size: 2rem;
+  margin: 0.5rem 0;
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.left {
+    justify-content: flex-start;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+}

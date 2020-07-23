@@ -1,7 +1,7 @@
 <template>
-  <div class="titlenator" :class="{ [titlePosition]: titlePosition }">
-    <span>{{ title }}</span>
-  </div>
+  <span class="titlenator" :class="{ [titlePosition]: titlePosition }">{{
+    title
+  }}</span>
 </template>
 
 <script>
@@ -9,32 +9,15 @@ export default {
   name: "Titlenator",
   props: {
     title: {
-      type: String
+      type: String,
     },
     titlePosition: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-.titlenator {
-  display: flex;
-  width: 100%;
-  font-size: 2rem;
-  margin: 0.5rem 0;
-
-  &.center {
-    justify-content: center;
-  }
-
-  &.left {
-    justify-content: flex-start;
-  }
-
-  &.right {
-    justify-content: flex-end;
-  }
-}
+@import "@sc/titlenator/global.scss";
 </style>
