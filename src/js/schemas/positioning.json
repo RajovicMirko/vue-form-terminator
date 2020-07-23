@@ -1,20 +1,23 @@
 {
-  "$schema": "http://json-schema.org/schema#positioning",
+  "$schema": "http://json-schema.org/schema#",
   "title": "Positioning Schema v1.0.0",
   "type": "object",
   "additionalProperties": false,
 
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
 
     "group": {
       "type": "object",
       "additionalProperties": false,
+
       "properties": {
         "title": {
-          "type": "string"
+          "type": "string",
+          "default": ""
         }
       }
     },
@@ -22,15 +25,42 @@
     "input": {
       "type": "object",
       "additionalProperties": false,
+
       "properties": {
         "label": {
-          "type": "string"
+          "type": "string",
+          "default": "top left",
+          "enum": [
+            "",
+            "top",
+            "bottom",
+            "top left",
+            "top center",
+            "top right",
+            "bottom left",
+            "bottom center",
+            "bottom right"
+          ]
         },
         "text": {
-          "type": "string"
+          "type": "string",
+          "default": "left",
+          "enum": ["", "left", "center", "right"]
         },
         "errorMessage": {
-          "type": "string"
+          "type": "string",
+          "default": "top right",
+          "enum": [
+            "",
+            "top",
+            "bottom",
+            "top left",
+            "top center",
+            "top right",
+            "bottom left",
+            "bottom center",
+            "bottom right"
+          ]
         }
       }
     }

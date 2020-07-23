@@ -34,8 +34,11 @@ export default {
       formSetup: {
         positioning: {
           title: "",
+          group: {
+            title: "",
+          },
           input: {
-            label: "",
+            label: "top left",
             text: "",
             errorMessage: "",
           },
@@ -62,7 +65,6 @@ export default {
                     message: "First name must have less then 20 characters",
                   },
                 },
-                customClasses: "first-name",
               },
               {
                 id: "lastName",
@@ -79,7 +81,6 @@ export default {
                     message: "Last name must have less then 20 characters",
                   },
                 },
-                customClasses: "last-name",
               },
             ],
           },

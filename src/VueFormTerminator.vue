@@ -82,14 +82,7 @@ export default {
     return {
       VueFormTerminator: {
         title: "",
-        positioning: {
-          title: "",
-          input: {
-            label: "",
-            text: "",
-            errorMessage: "",
-          },
-        },
+        positioning: {},
         body: {},
         actions: [],
         model: {},

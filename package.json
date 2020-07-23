@@ -26,6 +26,7 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "ajv": "^6.12.3",
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.1"
   },

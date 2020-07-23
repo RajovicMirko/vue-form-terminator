@@ -1,5 +1,5 @@
-import { positioningSchema } from "./schemas.js";
-import { generateSchemaFromObject } from "./helpers.js";
+import { terminatorError } from "./error/terminatorError.js";
+import { schemaValidator } from "./schemas/validator.js";
 
 export const VueFormTerminator = function(
   title,
@@ -13,7 +13,17 @@ export const VueFormTerminator = function(
 
   let _model = {};
 
-  let _positioning = Object.assign({}, positioningSchema);
+  let _positioning = {
+    title: "center",
+    group: {
+      title: "left",
+    },
+    input: {
+      label: "top left",
+      text: "left",
+      errorMessage: "top right",
+    },
+  };
 
   let _actions = [];
 
@@ -24,27 +34,15 @@ export const VueFormTerminator = function(
     Object.assign(object.prototype, mixin);
   }
 
-  class TerminatorError extends Error {
-    constructor(message) {
-      super(message);
-      this.name = "vue-form-terminator";
-    }
-  }
-
   function setPositioning(positioning) {
     // If parameter empty exit;
     if (!positioning) return;
+    // Schema validation input
+    schemaValidator("positioning", JSON.parse(JSON.stringify(positioning)));
 
     // Recursive loop for properties
     (function looper(privatePositioning, positioning) {
       Object.keys(positioning).map((k) => {
-        if (privatePositioning[k] === undefined) {
-          throw new TerminatorError(`
-Invalid property "${k}" in positioning schema.
-Valid schema is:
-positioning: ${generateSchemaFromObject(_positioning.properties)}`);
-        }
-
         if (typeof positioning[k] === "object") {
           looper(privatePositioning[k], positioning[k]);
         }
@@ -54,20 +52,25 @@ positioning: ${generateSchemaFromObject(_positioning.properties)}`);
         }
       });
     })(_positioning, positioning);
+
+    // Schema validation output
+    schemaValidator("positioning", _positioning);
   }
 
   function setBody(body) {
     const errorMessage = `Missing property in form setup: "body" is required property`;
-    if (!body) throw new TerminatorError(errorMessage);
+    if (!body) terminatorError(errorMessage);
 
     this.body = body.map((element) =>
       element.isGroup ? new Group(element) : new Element(element)
     );
+
+    schemaValidator("body", body);
   }
 
   function setActions(actions) {
     const errorMessage = `Missing property in form setup: "actions" is required property`;
-    if (!actions) throw new TerminatorError(errorMessage);
+    if (!actions) terminatorError(errorMessage);
     _actions = actions;
   }
 
@@ -202,7 +205,7 @@ positioning: ${generateSchemaFromObject(_positioning.properties)}`);
     const errorRequiredProperties = `Missing property in form setup: in "body" schema required properties in element object are:
     - id
     - type`;
-    if (!id || !type) throw new TerminatorError(errorRequiredProperties);
+    if (!id || !type) terminatorError(errorRequiredProperties);
 
     this.id = id;
     this.name = name;
@@ -265,7 +268,7 @@ positioning: ${generateSchemaFromObject(_positioning.properties)}`);
 
           isError ? this.addError(msg) : this.removeError(msg);
         } else {
-          throw new TerminatorError(
+          terminatorError(
             `At form definition, element ${this.name}, validation function ${fn} does not exists`
           );
         }

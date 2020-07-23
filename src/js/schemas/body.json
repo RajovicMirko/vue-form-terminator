@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Positioning Schema v1.0.0",
+  "type": "array",
+  "items": {
+    "anyOf": [
+      { "$ref": "#/definitions/singleItem" },
+      { "$ref": "#/definitions/groupItem" }
+    ]
+  },
+
+  "definitions": {
+    "groupItem": {
+      "type": "object",
+      "additionalProperties": false,
+
+      "properties": {
+        "isGroup": {
+          "type": "boolean"
+        },
+
+        "title": {
+          "type": "string",
+          "default": ""
+        },
+
+        "otherClasses": {
+          "type": "string",
+          "default": ""
+        },
+
+        "elements": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/singleItem" }
+        }
+      }
+    },
+
+    "singleItem": {
+      "type": "object",
+      "additionalProperties": false,
+
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": ""
+        },
+
+        "name": {
+          "type": "string",
+          "default": ""
+        },
+
+        "type": {
+          "type": "string",
+          "default": ""
+        },
+
+        "label": {
+          "type": "string",
+          "default": ""
+        },
+
+        "placeholder": {
+          "type": "string",
+          "default": ""
+        },
+
+        "otherClasses": {
+          "type": "string",
+          "default": ""
+        },
+
+        "validations": {
+          "type": "object",
+          "additionalProperties": false,
+
+          "properties": {
+            "compareElements": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "email": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "min": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "max": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "noWhiteSpace": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "numberOnly": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "required": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
