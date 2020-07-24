@@ -30,7 +30,7 @@ export default {
         positioning: {
           title: "",
           group: {
-            title: "",
+            title: "none",
           },
           input: {
             label: "",
@@ -233,11 +233,11 @@ $primary: #2185d0;
     min-width: 300px;
 
     & .titlenator {
-      margin-bottom: 0;
+      margin: 0;
     }
 
     & .group {
-      &.outlined {
+      &.outline {
         margin-bottom: 0.5rem;
       }
 
@@ -285,6 +285,7 @@ $primary: #2185d0;
       }
     }
 
+    // BIG SCREEN
     @media (min-width: 768px) {
       & .group {
         &.group-1 {

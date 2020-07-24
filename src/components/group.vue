@@ -1,7 +1,6 @@
 <template>
   <div :class="{
       [group.class]: group.class,
-      outlined: group.title,
     }">
     <div
       class="title"

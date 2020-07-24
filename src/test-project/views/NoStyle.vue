@@ -43,7 +43,7 @@ export default {
           {
             isGroup: true,
             title: "Test group title",
-            otherClasses: "",
+            otherClasses: "outline",
             elements: [
               {
                 id: "firstName",

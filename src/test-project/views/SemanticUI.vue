@@ -41,7 +41,7 @@ export default {
           {
             isGroup: true,
             title: "Personal data",
-            otherClasses: "group-1",
+            otherClasses: "outline group-1",
             elements: [
               {
                 id: "firstName",
@@ -228,10 +228,6 @@ $primary: #2185d0;
   & .vue-form-terminator {
     width: 50%;
     min-width: 300px;
-
-    & .titlenator {
-      margin-bottom: 0;
-    }
 
     & .group {
       & .group-data {
