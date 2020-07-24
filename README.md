@@ -28,7 +28,7 @@ For proper functioning of vue-form-terminator please install dependencies
 
 This component contains a functional part of the form with the responsiveness, and styling is left as customizable.
 
-Is created in a way to be easily integrated with third party CSS libraries like Bootstrap, SemanticUI, Font Awesome...
+It's created in a way to be easily integrated with third party CSS libraries like Bootstrap, SemanticUI, Font Awesome...
 
 More about that in the styling section.
 
