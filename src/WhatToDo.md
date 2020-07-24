@@ -14,7 +14,6 @@
 
 ## Add data model
 
-- initial values
 - sync data with data model
 
 ## add call back function for validations

@@ -1,24 +1,18 @@
 <template>
-  <div
-    :class="{
+  <div :class="{
       [group.class]: group.class,
       outlined: group.title,
-    }"
-  >
+    }">
     <span
       class="title"
       :class="{
         [group.positioning.title]: group.positioning.title,
       }"
       v-if="group.title"
-      >{{ group.title }}</span
-    >
-    <div class="group-row">
-      <inputnator
-        v-for="element in group.elements"
-        :key="element.name"
-        :element="element"
-      ></inputnator>
+    >{{ group.title }}</span>
+
+    <div class="group-data">
+      <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
     </div>
   </div>
 </template>

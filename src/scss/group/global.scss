@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 
   &.outlined {
     padding: 1rem 1rem 0.5rem 1rem;
@@ -28,7 +29,7 @@
     }
   }
 
-  & .group-row {
+  & .group-data {
     position: relative;
     justify-content: space-between;
     display: flex;
@@ -38,8 +39,8 @@
 
 @media (min-width: $min-width) {
   @for $i from 1 through 10 {
-    .group-row .inputnator:first-child:nth-last-child(#{$i}),
-    .group-row .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
+    .group-data .inputnator:first-child:nth-last-child(#{$i}),
+    .group-data .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
       width: calc(100% / #{$i} - 0.5rem);
     }
   }
@@ -47,7 +48,7 @@
 
 @media (max-width: $min-width) {
   .group {
-    & .group-row {
+    & .group-data {
       flex-direction: column;
     }
   }

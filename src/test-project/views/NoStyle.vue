@@ -4,14 +4,9 @@
       class="git-link"
       target="_blank"
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/NoStyle.vue"
-      >Git page code sample</a
-    >
+    >Git page code sample</a>
 
-    <vue-form-terminator
-      v-bind="formSetup"
-      :model="model"
-      @submited="handleSubmit"
-    ></vue-form-terminator>
+    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
   </div>
 </template>
 
@@ -38,7 +33,7 @@ export default {
             title: "",
           },
           input: {
-            label: "top left",
+            label: "",
             text: "",
             errorMessage: "",
           },
@@ -54,7 +49,7 @@ export default {
                 id: "firstName",
                 name: "FirstName",
                 type: "text",
-                label: "",
+                label: "First name",
                 placeholder: "First name",
                 validations: {
                   required: {
@@ -70,7 +65,7 @@ export default {
                 id: "lastName",
                 name: "LastName",
                 type: "text",
-                label: "",
+                label: "Last name",
                 placeholder: "Last name",
                 validations: {
                   required: {
@@ -82,18 +77,11 @@ export default {
                   },
                 },
               },
-            ],
-          },
-          {
-            isGroup: true,
-            title: "",
-            otherClasses: "",
-            elements: [
               {
                 id: "address",
                 name: "Address",
                 type: "text",
-                label: "",
+                label: "Address",
                 placeholder: "Address",
                 validations: {
                   required: {
@@ -106,7 +94,7 @@ export default {
                 id: "addressNumber",
                 name: "HouseNumber",
                 type: "number",
-                label: "",
+                label: "Str. no.",
                 placeholder: "No.",
                 validations: {
                   required: {
@@ -160,7 +148,7 @@ export default {
             id: "password",
             name: "Password",
             type: "password",
-            label: "",
+            label: "Password",
             placeholder: "Password",
             validations: {
               required: {
@@ -181,7 +169,7 @@ export default {
             id: "repeatPassword",
             name: "RepeatPassword",
             type: "password",
-            label: "",
+            label: "Repeat Password",
             placeholder: "Repeat Password",
             validations: {
               required: {
