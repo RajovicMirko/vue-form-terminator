@@ -1,5 +1,5 @@
 <template>
-  <div id="bootstrap">
+  <div id="bootstrap-sample">
     <a
       class="git-link"
       target="_blank"
@@ -26,6 +26,7 @@ export default {
         password: "12345",
         repeatPassword: "12345",
       },
+
       formSetup: {
         positioning: {
           title: "",
@@ -212,6 +213,7 @@ export default {
       },
     };
   },
+
   methods: {
     handleSubmit(data) {
       console.log(data);
@@ -222,7 +224,7 @@ export default {
 <style lang="scss">
 $primary: #2185d0;
 
-#bootstrap {
+#bootstrap-sample {
   display: grid;
   grid-template-rows: auto 1fr;
   place-items: center;

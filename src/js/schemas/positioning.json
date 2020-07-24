@@ -7,7 +7,8 @@
   "properties": {
     "title": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "enum": ["", "left", "center", "right"]
     },
 
     "group": {

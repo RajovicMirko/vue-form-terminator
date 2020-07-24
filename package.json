@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "vue-form-terminator",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Vue form with validation",
   "author": "Rajović Mirko",
   "license": "MIT",
@@ -14,8 +14,7 @@
   "keywords": [
     "vue",
     "vuejs",
-    "form",
-    "vue-form-terminator"
+    "form"
   ],
   "files": [
     "dist/*"
@@ -27,8 +26,8 @@
   },
   "dependencies": {
     "ajv": "^6.12.3",
-    "vue": "^2.6.11",
-    "vue-fragment": "^1.5.1"
+    "vue-fragment": "^1.5.1",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

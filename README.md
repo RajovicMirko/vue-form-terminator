@@ -7,30 +7,34 @@
   - [INSTALLATION](#installation)
   - [IMPORT](#import)
   - [USAGE](#usage)
-    - [Template section](#template-section)
-    - [Script section](#script-section)
-      - [title](#title)
-      - [errorMessagePosition](#errormessageposition)
-      - [body - array of objects for form inputs.](#body---array-of-objects-for-form-inputs)
-      - [actions - array of objects for form buttons](#actions---array-of-objects-for-form-buttons)
-    - [Style section](#style-section)
+  - [Registration page code explanation](#registration-page-code-explanation)
+    - [template](#template)
+    - [script](#script)
+      - [formSetup](#formsetup)
+        - [title - Form title](#title---form-title)
+        - [positioning](#positioning)
+        - [body - Form inputs](#body---form-inputs)
+        - [actions - Form buttons](#actions---form-buttons)
+      - [model](#model)
+      - [method](#method)
+    - [style](#style)
       - [Third-party](#third-party)
 
 ## DEPENDANCIES
 
 For proper functioning of vue-form-terminator please install dependencies
 
-- vue-fragment - https://www.npmjs.com/package/vue-fragment
-
 ## INTRODUCTION
 
-This component contains a functional part of the form, and styling is left as customizable.
+This component contains a functional part of the form with the responsiveness, and styling is left as customizable.
 
-Is created in a way to be easily integrated with third party CSS libraries like Bootstrap and SemanticUI.
+Is created in a way to be easily integrated with third party CSS libraries like Bootstrap, SemanticUI, Font Awesome...
 
 More about that in the styling section.
 
 ## GIT SAMPLE
+
+Follow the link for more information
 
 Sample - https://github.com/RajovicMirko/vue-form-terminator-live
 
@@ -48,7 +52,7 @@ npm i --save vue-form-terminator
 
 ## IMPORT
 
-In the primary vue project file main.js, index.js or whatever use the code
+In the primary vue project file main.js, index.js or whatever, use the following code
 
 **_if vue-form-terminator.common is not imported, no initial style will be active. Is recommended to import it for the best experience_**
 
@@ -59,114 +63,149 @@ Vue.use(VueFormTerminator);
 ```
 
 Now the vue-form-terminator component is available in the whole vue app.
+```html
+<template>
+  <vue-form-terminator></vue-form-terminator>
+<template>
+```
 
 ## USAGE
 
-**_In the following sections, a simple registration page will be presented_**
+**_In the following sections, a simple registration page will be presented and the styling with bootstrap_**
 
-**_Styling with Bootstrap_**
+For this demo let's use CDNs for bootstrap and font awesome.
 
-First create file named "Registration.vue" in src/view folder
+In the main index.html in the head section add following code:
+```html
+<!-- Bootstrap CDN -->
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+/>
 
-### Template section
+<!-- FontAwesome CDN -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+  rel="stylesheet"
+/>
+```
 
-In the template section, call the component
+Then let's create a file named "Registration.vue" in "src/view" folder and paste the following code:
 
-```js
+Code is explained after the script:
+```javascript
 <template>
   <div id="registration">
     <vue-form-terminator
       v-bind="formSetup"
+      :model="model"
       @submited="handleSubmit"
-    ></vue-form-terminator>
+    >
+    </vue-form-terminator>
   </div>
 </template>
-```
 
-For proper component functioning, we need to bind object (in this case "formSetup") and submit event controller (in this case "handleSubmit")
-
-**_More about them in the script section_**
-
-### Script section
-
-**_Description of script section is after the code_**
-
-```js
 <script>
 export default {
- data() {
+  name: "Registration",
+
+  data() {
     return {
+      model: {
+        firstName: "John",
+        lastName: "Doe",
+        address: "Test street address",
+        addressNumber: "123",
+        username: "JohnDoe",
+        email: "john.doe@gmail.com",
+        password: "12345",
+        repeatPassword: "12345",
+      },
+
       formSetup: {
-        title: "Bootstrap sample",
-        errorMessagePosition: "top",
+        title: "Registration",
+        positioning: {
+          title: "",
+          group: {
+            title: "none",
+          },
+          input: {
+            label: "",
+            text: "",
+            errorMessage: "",
+          },
+        },
         body: [
-          [
-            {
-              id: "firstName",
-              name: "FirstName",
-              type: "text",
-              label: "",
-              placeholder: "First name",
-              validations: {
-                required: {
-                  message: "First name is required"
+          {
+            isGroup: true,
+            title: "Personal data",
+            otherClasses: "group-1",
+            elements: [
+              {
+                id: "firstName",
+                name: "FirstName",
+                type: "text",
+                label: "",
+                placeholder: "First name",
+                validations: {
+                  required: {
+                    message: "First name is required",
+                  },
+                  max: {
+                    value: 30,
+                    message: "First name must have less then 20 characters",
+                  },
                 },
-                max: {
-                  value: 30,
-                  message: "First name must have less then 20 characters"
-                }
+                otherClasses: "form-control form-control-sm",
               },
-              otherClasses: "form-control"
-            },
-            {
-              id: "lastName",
-              name: "LastName",
-              type: "text",
-              label: "",
-              placeholder: "Last name",
-              validations: {
-                required: {
-                  message: "Last name is required"
+              {
+                id: "lastName",
+                name: "LastName",
+                type: "text",
+                label: "",
+                placeholder: "Last name",
+                validations: {
+                  required: {
+                    message: "Last name is required",
+                  },
+                  max: {
+                    value: 30,
+                    message: "Last name must have less then 20 characters",
+                  },
                 },
-                max: {
-                  value: 30,
-                  message: "Last name must have less then 20 characters"
-                }
+                otherClasses: "form-control form-control-sm",
               },
-              otherClasses: "form-control"
-            }
-          ],
-          [
-            {
-              id: "address",
-              name: "Address",
-              type: "text",
-              label: "",
-              placeholder: "Address",
-              validations: {
-                required: {
-                  message: "Address is required"
-                }
-              },
-              otherClasses: "form-control"
-            },
-            {
-              id: "houseNumber",
-              name: "HouseNumber",
-              type: "text",
-              label: "",
-              placeholder: "No.",
-              validations: {
-                required: {
-                  message: "No. is required"
+              {
+                id: "address",
+                name: "Address",
+                type: "text",
+                label: "",
+                placeholder: "Address",
+                validations: {
+                  required: {
+                    message: "Address is required",
+                  },
                 },
-                numberOnly: {
-                  message: "No. must be string"
-                }
+                otherClasses: "form-control form-control-sm",
               },
-              otherClasses: "form-control"
-            }
-          ],
+              {
+                id: "addressNumber",
+                name: "HouseNumber",
+                type: "number",
+                label: "",
+                placeholder: "No.",
+                validations: {
+                  required: {
+                    message: "No. is required",
+                  },
+                  numberOnly: {
+                    message: "Only numbers allowed",
+                  },
+                },
+                otherClasses: "form-control form-control-sm",
+              },
+            ],
+          },
           {
             id: "username",
             name: "Username",
@@ -175,17 +214,17 @@ export default {
             placeholder: "Username",
             validations: {
               required: {
-                message: "Username is required"
+                message: "Username is required",
               },
               max: {
                 value: 20,
-                message: "Username must have less then 20 characters"
+                message: "Username must have less then 20 characters",
               },
               noWhiteSpace: {
-                message: "No space character allowed"
-              }
+                message: "No space character allowed",
+              },
             },
-            otherClasses: "form-control"
+            otherClasses: "form-control form-control-sm",
           },
           {
             id: "email",
@@ -195,13 +234,13 @@ export default {
             placeholder: "Email",
             validations: {
               required: {
-                message: "Email is required"
+                message: "Email is required",
               },
               email: {
-                message: "Email must be a valid email"
-              }
+                message: "Email must be a valid email",
+              },
             },
-            otherClasses: "form-control"
+            otherClasses: "form-control form-control-sm",
           },
           {
             id: "password",
@@ -211,18 +250,18 @@ export default {
             placeholder: "Password",
             validations: {
               required: {
-                message: "Password is required"
+                message: "Password is required",
               },
               min: {
                 value: 5,
-                message: "Pasword must have more then 5 characters"
+                message: "Pasword must have more then 5 characters",
               },
               max: {
                 value: 20,
-                message: "Pasword must have less then 20 characters"
-              }
+                message: "Pasword must have less then 20 characters",
+              },
             },
-            otherClasses: "form-control"
+            otherClasses: "form-control form-control-sm",
           },
           {
             id: "repeatPassword",
@@ -232,75 +271,198 @@ export default {
             placeholder: "Repeat Password",
             validations: {
               required: {
-                message: "Repeat Pasword is required"
+                message: "Repeat Pasword is required",
               },
               min: {
                 value: 5,
-                message: "Must have more then 5 characters"
+                message: "Must have more then 5 characters",
               },
               max: {
                 value: 20,
-                message: "Repeat Pasword must have less then 20 characters"
+                message: "Repeat Pasword must have less then 20 characters",
               },
               compareElements: {
                 value: "password",
-                message: "Repeat Password must be equal as password"
-              }
+                message: "Repeat Password must be equal as password",
+              },
             },
-            otherClasses: "form-control custom-input-bootstrap"
-          }
+            otherClasses: "form-control form-control-sm",
+          },
         ],
         actions: [
           {
             id: "submit",
             name: "Submit",
             type: "submit",
-            icon: "fas fa-plus",
-            otherClasses: "btn btn-outline-primary custom-button"
+            icon: "fas fa-check",
+            otherClasses: "btn btn-outline-primary",
           },
           {
             id: "reset",
             name: "Reset",
             type: "reset",
-            icon: "fas fa-camera",
-            otherClasses: "btn btn-outline-warning custom-button"
-          }
-        ]
-      }
+            icon: "fas fa-times",
+            otherClasses: "btn btn-outline-warning",
+          },
+        ],
+      },
     };
   },
+
   methods: {
     handleSubmit(data) {
       console.log(data);
-    }
-  }
+    },
+  },
 };
 </script>
+<style lang="scss">
+$primary: #2185d0;
+
+#registration {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  place-items: center;
+  color: $primary;
+
+  & .vue-form-terminator {
+    width: 40%;
+    min-width: 300px;
+
+    & .titlenator {
+      margin: 0;
+    }
+
+    & .group {
+      &.outline {
+        margin-bottom: 0.5rem;
+      }
+
+      &.group-1 {
+        & .group-data {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          grid-gap: 0 1rem;
+
+          & .inputnator {
+            width: 100%;
+
+            &.firstName {
+              grid-column: 1/6;
+            }
+            &.lastName {
+              grid-column: 1/6;
+            }
+
+            &.address {
+              grid-column: 1/4;
+            }
+
+            &.addressNumber {
+              grid-column: 4/6;
+            }
+          }
+        }
+      }
+    }
+
+    & .inputnator {
+      padding-bottom: 0.3rem;
+
+      & .errornator {
+        font-size: 0.7rem;
+        margin-top: 0.3rem;
+      }
+    }
+
+    & .buttonator {
+      margin-top: 1rem;
+      & button {
+        margin-bottom: 1rem;
+      }
+    }
+
+    // BIG SCREEN
+    @media (min-width: 768px) {
+      & .group {
+        &.group-1 {
+          & .group-data {
+            & .inputnator {
+              &.firstName {
+                grid-column: 1/3;
+              }
+              &.lastName {
+                grid-column: 3/6;
+              }
+            }
+          }
+        }
+      }
+
+      & .buttonator {
+        flex-direction: row;
+
+        & button {
+          width: 48%;
+        }
+      }
+    }
+  }
+}
+</style>
 ```
 
-I know it looks ugly, but wait for it :D
+## Registration page code explanation
 
 **_So what's happening here_**
 
-_"formSetup" object attributes explained:_
+### template
 
-#### title
+vue-form-terminator component props are:
+* two attributes:
+  * model - not required
+  * formSetup - required
+* submit handler:
+  * method - required
 
-- form title (not requiered)
+All of the props and methods are explained in the script section.
 
-#### errorMessagePosition
+### script
 
-- does input error validation message is on top of the input or on the bottom (requiered)
-- valid values: top or bottom
+#### formSetup
+formSetup contains many attributes and I'll try to explain them all:
 
-#### body - array of objects for form inputs.
+##### title - Form title
+This is form title. If you don't enter a value, the title will not be presented.
 
-**The first level**
+##### positioning
+This is an object that controls some of the elements positioning.
 
-- Available atributes are:
-  - id - required (form return object keys depends on it)
+In the code below logic is:
+
+attribute - type (valid values)
+
+```js
+positioning: {
+  title: string ("", "left", "center", "right"),
+  group: {
+    title: string ("", "none", "left", "center", "right"),
+  },
+  input: {
+    label: string ( "", "none", "top", "bottom", "top left", "top center", "top right", "bottom left", "bottom center", "bottom right"),
+    text: string ("", "left", "center", "right"),
+    errorMessage: string ( "", "none", "top", "bottom", "top left", "top center", "top right", "bottom left", "bottom center", "bottom right")
+  }
+}
+```
+
+##### body - Form inputs
+"body" object can include two types of schemas:
+
+- Single element object:
+  - id - required (form model object keys depends on it)
   - name - not required
-  - type - required (for now available values are text, password, email)
+  - type - required (for now available values are text, number, password, email)
   - label - not required
   - placeholder - not required
   - validations - not required. Available validations are:
@@ -311,142 +473,47 @@ _"formSetup" object attributes explained:_
     - noWhiteSpace { message: 'return this error message'}
     - numberOnly { message: 'return this error message'}
     - required { message: 'return this error message'}
-  - otherClasses - not required (use to integrate thired party class names)
+  - otherClasses - not required (use to integrate custom and thired party class names)
 
-**The second level (GROUPING)**
+- Group element object:
+  - isGroup: required (set it to true)
+  - title: not required
+  - otherClasses - not required (use to integrate custom and thired party class names
+  - elements - required (this is an array of "Single element object")
 
-- if you create another array of objects like "The first level", it will be presented as a group element (single line elements)
-- Groups are automatically separated by class "group group-{counter number}"
+The main difference is that Single element is represented each in a new row, and Group element is represented in a single row.
 
-#### actions - array of objects for form buttons
+Of course, the Group element can be controlled via CSS grid (as in the sample), and be reorganized in the way you need it.
 
+##### actions - Form buttons
+"actions" is an array of objects and it's attributes are:
 - id - required
 - name - required
 - type - required (for now available values are submit, reset)
 - otherClasses - not required (use to integrate thired party class names)
 
-methods explained:
+#### model
+Form don't sync model, it creates a new one that is returned through the submit method as an object of all body elements.
 
-- handleSubmit - when we submit vue-form-terminator the "data" key:value pairs object is returned from the form in a way that inputs id is key and value is ... well input value :D
+Please try and see what is happening when you remove the model.
 
-### Style section
-
-Now let's make it looks better
-
-Sample bootstrap:
-
-In the public/index.html in < head> section use bootstrap CDN, or import it in any other way.
-
-It's important that we make bootstrap classes available to us in the project.
-
-```html
-<link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-  crossorigin="anonymous"
-/>
-```
-
-After that, define classes you want to use in the otherClasses attribute of body and action objects.
-
-In this sample we already defined in the script section:
-
+#### method
+"data" parameter represents the new model.
 ```js
-// FOR INPUTS IN body ATRIBUTE
-otherClasses: "form-control custom-input-bootstrap";
-
-// FOR BUTTONS IN actions ATRIBUTE
-otherClasses: "btn btn-outline-primary custom-button";
+handleSubmit(data) {
+  console.log(data);
+},
 ```
 
-Check the result, is much better now :D.
-
-Let's customize it a bit to make it awesome:
-
-```scss
-<style lang="scss">
-#registration {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  place-items: center;
-  min-width: 350px;
-
-  & .inputnator {
-    margin-bottom: 0.6rem;
-  }
-
-  & .errornator {
-    justify-content: flex-start;
-  }
-
-  & .vue-form-terminator {
-    width: 50%;
-    min-width: 300px;
-
-    & .group-1 {
-      & .firstName,
-      & .lastName {
-        width: 100%;
-      }
-    }
-
-    & .group-2 {
-      flex-direction: row;
-      & .address {
-        width: 65%;
-      }
-
-      & .houseNumber {
-        width: 30%;
-      }
-    }
-
-    & .buttonator {
-      & button {
-        width: 48%;
-      }
-    }
-  }
-}
-
-@media (min-width: 930px) {
-  #bootstrap {
-    & .vue-form-terminator {
-      & .group-1 {
-        & .firstName {
-          width: 47.5%;
-        }
-
-        & .lastName {
-          width: 47.5%;
-        }
-      }
-    }
-  }
-}
-
-.custom-input-bootstrap {
-  border-radius: 2rem;
-
-  &:hover {
-    border-color: transparent;
-    box-shadow: 0 0 2px 0.5px #2185d0;
-  }
-
-  &:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 1.5px #2185d0;
-  }
-}
-</style>
-```
+### style
+SCSS is used for styling and you can see that with a small amount of code we receive a very good result.
 
 And Vue-la. That was it. :D :D :D :D
 
 #### Third-party
 
-For now:
+For now are tested:
 
 - Bootstrap
 - SemanticUI
+- Font Awesome
