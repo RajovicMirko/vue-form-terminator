@@ -50,6 +50,10 @@
     &.right {
       align-self: flex-end;
     }
+
+    &.none {
+      display: none;
+    }
   }
 
   & label {

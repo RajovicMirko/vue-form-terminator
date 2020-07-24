@@ -17,7 +17,8 @@
       "properties": {
         "title": {
           "type": "string",
-          "default": ""
+          "default": "",
+          "enum": ["", "none", "left", "center", "right"]
         }
       }
     },
@@ -32,6 +33,7 @@
           "default": "top left",
           "enum": [
             "",
+            "none",
             "top",
             "bottom",
             "top left",
@@ -52,6 +54,7 @@
           "default": "top right",
           "enum": [
             "",
+            "none",
             "top",
             "bottom",
             "top left",

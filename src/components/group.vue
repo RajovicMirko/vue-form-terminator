@@ -3,13 +3,14 @@
       [group.class]: group.class,
       outlined: group.title,
     }">
-    <span
+    <div
       class="title"
       :class="{
         [group.positioning.title]: group.positioning.title,
       }"
-      v-if="group.title"
-    >{{ group.title }}</span>
+    >
+      <span class="text" v-if="group.title">{{ group.title }}</span>
+    </div>
 
     <div class="group-data">
       <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
