@@ -12,5 +12,12 @@ export function schemaValidator(schema, data) {
   const ajv = new Ajv();
   const valid = ajv.validate(schemas[schema], data);
 
-  if (!valid) terminatorError(ajv.errorsText());
+  if (!valid) {
+    const errorsParams = ajv.errors.map((error) => error.params);
+    const errorMessage = `
+    ${ajv.errorsText()}:
+    ${JSON.stringify(errorsParams, null, 2)}`;
+
+    terminatorError(errorMessage.replace("data", schema));
+  }
 }

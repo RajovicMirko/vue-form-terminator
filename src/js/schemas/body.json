@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "title": "Positioning Schema v1.0.0",
+  "title": "Body Schema v1.0.0",
   "type": "array",
   "items": {
-    "anyOf": [
+    "oneOf": [
       { "$ref": "#/definitions/singleItem" },
       { "$ref": "#/definitions/groupItem" }
     ]
