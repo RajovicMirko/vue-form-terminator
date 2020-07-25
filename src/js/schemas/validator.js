@@ -2,10 +2,12 @@ import { terminatorError } from "@js/error/terminatorError.js";
 import Ajv from "ajv";
 import positioning from "./positioning.json";
 import body from "./body.json";
+import actions from "./actions.json";
 
 const schemas = {
   positioning,
   body,
+  actions,
 };
 
 export function schemaValidator(schema, data) {

@@ -28,10 +28,12 @@ export default {
       },
 
       formSetup: {
+        title: "Bootstrap sample",
+
         positioning: {
           title: "",
           group: {
-            title: "none",
+            title: "",
           },
           input: {
             label: "",
@@ -39,12 +41,12 @@ export default {
             errorMessage: "",
           },
         },
-        title: "Bootstrap sample",
+
         body: [
           {
             isGroup: true,
             title: "Personal data",
-            otherClasses: "group-1",
+            otherClasses: "outline group-1",
             elements: [
               {
                 id: "firstName",
@@ -52,6 +54,7 @@ export default {
                 type: "text",
                 label: "",
                 placeholder: "First name",
+                otherClasses: "form-control form-control-sm",
                 validations: {
                   required: {
                     message: "First name is required",
@@ -61,7 +64,6 @@ export default {
                     message: "First name must have less then 20 characters",
                   },
                 },
-                otherClasses: "form-control form-control-sm",
               },
               {
                 id: "lastName",
@@ -69,6 +71,7 @@ export default {
                 type: "text",
                 label: "",
                 placeholder: "Last name",
+                otherClasses: "form-control form-control-sm",
                 validations: {
                   required: {
                     message: "Last name is required",
@@ -78,7 +81,6 @@ export default {
                     message: "Last name must have less then 20 characters",
                   },
                 },
-                otherClasses: "form-control form-control-sm",
               },
               {
                 id: "address",
@@ -86,12 +88,12 @@ export default {
                 type: "text",
                 label: "",
                 placeholder: "Address",
+                otherClasses: "form-control form-control-sm",
                 validations: {
                   required: {
                     message: "Address is required",
                   },
                 },
-                otherClasses: "form-control form-control-sm",
               },
               {
                 id: "addressNumber",
@@ -99,6 +101,7 @@ export default {
                 type: "number",
                 label: "",
                 placeholder: "No.",
+                otherClasses: "form-control form-control-sm",
                 validations: {
                   required: {
                     message: "No. is required",
@@ -107,7 +110,6 @@ export default {
                     message: "Only numbers allowed",
                   },
                 },
-                otherClasses: "form-control form-control-sm",
               },
             ],
           },
@@ -117,6 +119,7 @@ export default {
             type: "text",
             label: "",
             placeholder: "Username",
+            otherClasses: "form-control form-control-sm",
             validations: {
               required: {
                 message: "Username is required",
@@ -129,7 +132,6 @@ export default {
                 message: "No space character allowed",
               },
             },
-            otherClasses: "form-control form-control-sm",
           },
           {
             id: "email",
@@ -137,6 +139,7 @@ export default {
             type: "text",
             label: "",
             placeholder: "Email",
+            otherClasses: "form-control form-control-sm",
             validations: {
               required: {
                 message: "Email is required",
@@ -145,7 +148,6 @@ export default {
                 message: "Email must be a valid email",
               },
             },
-            otherClasses: "form-control form-control-sm",
           },
           {
             id: "password",
@@ -153,6 +155,7 @@ export default {
             type: "password",
             label: "",
             placeholder: "Password",
+            otherClasses: "form-control form-control-sm",
             validations: {
               required: {
                 message: "Password is required",
@@ -166,7 +169,6 @@ export default {
                 message: "Pasword must have less then 20 characters",
               },
             },
-            otherClasses: "form-control form-control-sm",
           },
           {
             id: "repeatPassword",
@@ -174,6 +176,7 @@ export default {
             type: "password",
             label: "",
             placeholder: "Repeat Password",
+            otherClasses: "form-control form-control-sm",
             validations: {
               required: {
                 message: "Repeat Pasword is required",
@@ -191,7 +194,6 @@ export default {
                 message: "Repeat Password must be equal as password",
               },
             },
-            otherClasses: "form-control form-control-sm",
           },
         ],
         actions: [

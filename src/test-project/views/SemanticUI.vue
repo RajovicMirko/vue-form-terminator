@@ -28,6 +28,8 @@ export default {
       },
 
       formSetup: {
+        title: "SemanticUI sample",
+
         positioning: {
           title: "left",
           input: {
@@ -36,7 +38,7 @@ export default {
             errorMessage: "bottom center",
           },
         },
-        title: "SemanticUI sample",
+
         body: [
           {
             isGroup: true,
@@ -49,6 +51,7 @@ export default {
                 type: "text",
                 label: "First name",
                 placeholder: "",
+                otherClasses: "ui input",
                 validations: {
                   required: {
                     message: "First name is required",
@@ -58,7 +61,6 @@ export default {
                     message: "First name must have less then 20 characters",
                   },
                 },
-                otherClasses: "ui input custom-input-semanticui",
               },
               {
                 id: "lastName",
@@ -66,6 +68,7 @@ export default {
                 type: "text",
                 label: "Last name",
                 placeholder: "",
+                otherClasses: "ui input",
                 validations: {
                   required: {
                     message: "Last name is required",
@@ -75,7 +78,6 @@ export default {
                     message: "Last name must have less then 20 characters",
                   },
                 },
-                otherClasses: "ui input custom-input-semanticui",
               },
               {
                 id: "address",
@@ -83,12 +85,12 @@ export default {
                 type: "text",
                 label: "Address",
                 placeholder: "",
+                otherClasses: "ui input",
                 validations: {
                   required: {
                     message: "Address is required",
                   },
                 },
-                otherClasses: "form-control",
               },
               {
                 id: "addressNumber",
@@ -96,6 +98,7 @@ export default {
                 type: "number",
                 label: "No.",
                 placeholder: "",
+                otherClasses: "ui input",
                 validations: {
                   required: {
                     message: "No. is required",
@@ -104,7 +107,6 @@ export default {
                     message: "Only numbers allowed",
                   },
                 },
-                otherClasses: "form-control",
               },
             ],
           },
@@ -114,6 +116,7 @@ export default {
             type: "text",
             label: "Username",
             placeholder: "",
+            otherClasses: "ui input",
             validations: {
               required: {
                 message: "Username is required",
@@ -123,7 +126,6 @@ export default {
                 message: "Username must have less then 20 characters",
               },
             },
-            otherClasses: "ui input custom-input-semanticui",
           },
           {
             id: "email",
@@ -131,6 +133,7 @@ export default {
             type: "text",
             label: "Email",
             placeholder: "",
+            otherClasses: "ui input",
             validations: {
               required: {
                 message: "Email is required",
@@ -139,7 +142,6 @@ export default {
                 message: "Email must be a valid email",
               },
             },
-            otherClasses: "ui input custom-input-semanticui",
           },
           {
             id: "password",
@@ -147,6 +149,7 @@ export default {
             type: "password",
             label: "Password",
             placeholder: "",
+            otherClasses: "ui input",
             validations: {
               required: {
                 message: "Password is required",
@@ -160,7 +163,6 @@ export default {
                 message: "Pasword must have less then 20 characters",
               },
             },
-            otherClasses: "ui input custom-input-semanticui",
           },
           {
             id: "repeatPassword",
@@ -168,6 +170,7 @@ export default {
             type: "password",
             label: "Repeat Password",
             placeholder: "",
+            otherClasses: "ui input",
             validations: {
               required: {
                 message: "Repeat Pasword is required",
@@ -185,9 +188,9 @@ export default {
                 message: "Repeat Password must be equal as password",
               },
             },
-            otherClasses: "ui input custom-input-semanticui",
           },
         ],
+
         actions: [
           {
             id: "submit",

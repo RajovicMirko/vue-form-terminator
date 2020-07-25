@@ -34,7 +34,7 @@ export const VueFormTerminator = function(
     Object.assign(object.prototype, mixin);
   }
 
-  function setPositioning(positioning) {
+  function setPositioning(positioning = {}) {
     // If parameter empty exit;
     if (!positioning) return;
     // Schema validation input
@@ -57,20 +57,23 @@ export const VueFormTerminator = function(
     schemaValidator("positioning", _positioning);
   }
 
-  function setBody(body) {
+  function setBody(body = []) {
+    schemaValidator("body", body);
+
     const errorMessage = `Missing property in form setup: "body" is required property`;
     if (!body) terminatorError(errorMessage);
 
     this.body = body.map((element) =>
       element.isGroup ? new Group(element) : new Element(element)
     );
-
-    schemaValidator("body", body);
   }
 
-  function setActions(actions) {
+  function setActions(actions = []) {
+    schemaValidator("actions", actions);
+
     const errorMessage = `Missing property in form setup: "actions" is required property`;
     if (!actions) terminatorError(errorMessage);
+
     _actions = actions;
   }
 
