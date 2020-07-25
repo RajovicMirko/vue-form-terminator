@@ -22,6 +22,7 @@ export const VueFormTerminator = function(
       label: "top left",
       text: "left",
       errorMessage: "top right",
+      checkbox: "left",
     },
   };
 
@@ -262,17 +263,18 @@ export const VueFormTerminator = function(
     validate() {
       this.clearErrors();
 
-      Object.keys(this.validations).map((fn) => {
-        const { value, message } = this.validations[fn];
+      Object.keys(this.validations).map((validator) => {
+        const { fn, value, message } = this.validations[validator];
 
-        if (this[fn]) {
-          const isError = this[fn](value);
+        if (this[validator] || validator === "test") {
+          const isError =
+            validator === "test" ? fn.apply(this) : this[validator](value);
+
           const msg = message;
-
           isError ? this.addError(msg) : this.removeError(msg);
         } else {
           terminatorError(
-            `At form definition, element ${this.name}, validation function ${fn} does not exists`
+            `At form definition, element ${this.name}, validation function ${validator} does not exists`
           );
         }
       });

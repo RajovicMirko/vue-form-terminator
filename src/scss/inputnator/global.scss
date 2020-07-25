@@ -95,4 +95,63 @@
       bottom: -0.1rem;
     }
   }
+
+  // Other type of inputs logic
+  // CHECKBOX
+  &.checkboxnator {
+    padding: 0;
+    margin-bottom: 1rem;
+    flex-direction: row;
+    align-items: center;
+    height: 1rem;
+    line-height: 1rem;
+
+    & label,
+    & small.errornator.invalid {
+      align-self: center;
+      position: relative;
+      margin: 0 !important;
+    }
+
+    & label {
+      font-size: 0.9rem;
+    }
+
+    & input {
+      $checkbox-size: 1.4;
+
+      width: auto;
+      margin: 0 1rem;
+
+      -ms-transform: scale($checkbox-size); /* IE */
+      -moz-transform: scale($checkbox-size); /* FF */
+      -webkit-transform: scale($checkbox-size); /* Safari and Chrome */
+      -o-transform: scale($checkbox-size); /* Opera */
+      transform: scale($checkbox-size);
+    }
+
+    &.left {
+      &.reverse {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+      }
+    }
+
+    &.center {
+      justify-content: center;
+
+      &.reverse {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &.right {
+      flex-direction: row-reverse;
+
+      &.reverse {
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+    }
+  }
 }

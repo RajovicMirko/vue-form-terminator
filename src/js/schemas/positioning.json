@@ -65,6 +65,19 @@
             "bottom center",
             "bottom right"
           ]
+        },
+        "checkbox": {
+          "type": "string",
+          "default": "left",
+          "enum": [
+            "",
+            "left",
+            "left reverse",
+            "center",
+            "center reverse",
+            "right",
+            "right reverse"
+          ]
         }
       }
     }

@@ -4,9 +4,13 @@
       class="git-link"
       target="_blank"
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/NoStyle.vue"
-    >Git page code sample</a>
+      >Git page code sample</a
+    >
 
-    <vue-form-terminator v-bind="formSetup" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator
+      v-bind="formSetup"
+      @submited="handleSubmit"
+    ></vue-form-terminator>
   </div>
 </template>
 
@@ -28,6 +32,7 @@ export default {
             label: "",
             text: "",
             errorMessage: "",
+            checkbox: "",
           },
         },
 
@@ -94,6 +99,12 @@ export default {
             name: "RepeatPassword",
             label: "Repeat Password",
             placeholder: "Repeat Password",
+          },
+          {
+            id: "agree",
+            type: "checkbox",
+            name: "agree",
+            label: "Agree to terms and conditions",
           },
         ],
         actions: [

@@ -41,7 +41,7 @@
 <script>
 import { VueFormTerminator } from "@js/Form.js";
 import titlenator from "@c/titlenator.vue";
-import inputnator from "@c/inputnator.vue";
+import inputnator from "@c/inputnator/inputnator.vue";
 import group from "@c/group.vue";
 import button from "@c/button.vue";
 

@@ -1,7 +1,9 @@
 <template>
-  <div :class="{
+  <div
+    :class="{
       [group.class]: group.class,
-    }">
+    }"
+  >
     <div
       class="title"
       :class="{
@@ -12,13 +14,17 @@
     </div>
 
     <div class="group-data">
-      <inputnator v-for="element in group.elements" :key="element.name" :element="element"></inputnator>
+      <inputnator
+        v-for="element in group.elements"
+        :key="element.name"
+        :element="element"
+      ></inputnator>
     </div>
   </div>
 </template>
 
 <script>
-import inputnator from "@c/inputnator.vue";
+import inputnator from "@c/inputnator/inputnator.vue";
 
 export default {
   name: "Group",

@@ -4,9 +4,14 @@
       class="git-link"
       target="_blank"
       href="https://github.com/RajovicMirko/vue-form-terminator-live/blob/master/src/views/Bootstrap.vue"
-    >Git page code sample</a>
+      >Git page code sample</a
+    >
 
-    <vue-form-terminator v-bind="formSetup" :model="model" @submited="handleSubmit"></vue-form-terminator>
+    <vue-form-terminator
+      v-bind="formSetup"
+      :model="model"
+      @submited="handleSubmit"
+    ></vue-form-terminator>
   </div>
 </template>
 
@@ -25,6 +30,7 @@ export default {
         email: "john.doe@gmail.com",
         password: "12345",
         repeatPassword: "12345",
+        agree: true,
       },
 
       formSetup: {
@@ -39,6 +45,7 @@ export default {
             label: "",
             text: "",
             errorMessage: "",
+            checkbox: "right reverse",
           },
         },
 
@@ -195,6 +202,20 @@ export default {
               },
             },
           },
+          {
+            id: "agree",
+            type: "checkbox",
+            name: "agree",
+            label: "Agree to terms and conditions",
+            otherClasses: "",
+            validations: {
+              test: {
+                fn: function() {
+                  return !this.value;
+                },
+              },
+            },
+          },
         ],
         actions: [
           {
@@ -244,6 +265,10 @@ $primary: #2185d0;
         font-size: 0.7rem;
         margin-top: 0.3rem;
       }
+
+      &.checkboxnator {
+        margin: 1rem 0;
+      }
     }
 
     & .group {
@@ -276,7 +301,6 @@ $primary: #2185d0;
     }
 
     & .buttonator {
-      margin-top: 1rem;
       & button {
         margin-bottom: 1rem;
       }

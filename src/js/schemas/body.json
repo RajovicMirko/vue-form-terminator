@@ -55,7 +55,8 @@
 
         "type": {
           "type": "string",
-          "default": ""
+          "default": "",
+          "enum": ["text", "number", "email", "password", "checkbox"]
         },
 
         "label": {
@@ -73,11 +74,18 @@
           "default": ""
         },
 
+        "value": {
+          "type": ["array", "boolean", "integer", "number", "object", "string"],
+          "default": ""
+        },
+
         "validations": {
           "type": "object",
           "additionalProperties": false,
 
           "properties": {
+            "test": {},
+
             "compareElements": {
               "type": "object",
               "additionalProperties": false,
