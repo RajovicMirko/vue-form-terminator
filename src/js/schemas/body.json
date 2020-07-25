@@ -56,7 +56,7 @@
         "type": {
           "type": "string",
           "default": "",
-          "enum": ["text", "number", "email", "password", "checkbox"]
+          "enum": ["text", "number", "email", "password", "checkbox", "date"]
         },
 
         "label": {
@@ -76,7 +76,7 @@
 
         "value": {
           "type": ["array", "boolean", "integer", "number", "object", "string"],
-          "default": ""
+          "default": null
         },
 
         "validations": {

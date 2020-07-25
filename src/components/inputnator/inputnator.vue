@@ -9,13 +9,15 @@
       [element.customClasses]: element.customClasses,
       [element.id]: element.id,
       checkboxnator: element.type === 'checkbox',
-      [element.positioning.checkbox]: element.type === 'checkbox',
+      [element.positioning.checkbox]: ['checkbox'].indexOf(element.type) !== -1,
     }"
   >
     <input-all
       :element="element"
       v-if="
-        ['text', 'number', 'email', 'password'].indexOf(element.type) !== -1
+        ['text', 'number', 'email', 'password', 'date'].indexOf(
+          element.type
+        ) !== -1
       "
     ></input-all>
 

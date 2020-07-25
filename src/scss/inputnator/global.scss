@@ -97,6 +97,7 @@
   }
 
   // Other type of inputs logic
+
   // CHECKBOX
   &.checkboxnator {
     padding: 0;
@@ -152,6 +153,26 @@
         flex-direction: row;
         justify-content: flex-end;
       }
+    }
+  }
+
+  &.colornator {
+    @extend .checkboxnator;
+    & input {
+      width: 4rem;
+      transform: scale(1);
+    }
+  }
+
+  &.filenator {
+    @extend .checkboxnator;
+    & input {
+    }
+  }
+
+  &.radionator {
+    @extend .checkboxnator;
+    & input {
     }
   }
 }

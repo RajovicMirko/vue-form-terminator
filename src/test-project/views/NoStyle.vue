@@ -101,6 +101,12 @@ export default {
             placeholder: "Repeat Password",
           },
           {
+            id: "date",
+            type: "date",
+            name: "date",
+            label: "Pick a date",
+          },
+          {
             id: "agree",
             type: "checkbox",
             name: "agree",
