@@ -232,25 +232,27 @@ $primary: #2185d0;
     width: 50%;
     min-width: 300px;
 
+    & .inputnator {
+      width: 100%;
+    }
+
     & .group {
-      & .group-data {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: 0 1rem;
+      &.group-1 {
+        & .group-data {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          grid-gap: 0 1rem;
 
-        & .inputnator {
-          width: 100%;
-
-          &.firstName {
+          & .firstName {
             grid-column: 1/6;
           }
-          &.lastName {
+          & .lastName {
             grid-column: 1/6;
           }
-          &.address {
+          & .address {
             grid-column: 1/4;
           }
-          &.addressNumber {
+          & .addressNumber {
             grid-column: 4/6;
           }
         }
@@ -266,12 +268,12 @@ $primary: #2185d0;
 
     @media (min-width: 768px) {
       & .group {
-        & .group-data {
-          & .inputnator {
-            &.firstName {
+        &.group-1 {
+          & .group-data {
+            & .firstName {
               grid-column: 1/3;
             }
-            &.lastName {
+            & .lastName {
               grid-column: 3/6;
             }
           }

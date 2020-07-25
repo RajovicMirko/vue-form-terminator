@@ -240,9 +240,19 @@ $primary: #2185d0;
       margin: 0;
     }
 
+    & .inputnator {
+      width: 100%;
+      padding-bottom: 0;
+
+      & .errornator {
+        font-size: 0.7rem;
+        margin-top: 0.3rem;
+      }
+    }
+
     & .group {
       &.outline {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
       }
 
       &.group-1 {
@@ -251,34 +261,21 @@ $primary: #2185d0;
           grid-template-columns: 1fr 1fr 1fr 1fr;
           grid-gap: 0 1rem;
 
-          & .inputnator {
-            width: 100%;
+          & .firstName {
+            grid-column: 1/6;
+          }
+          & .lastName {
+            grid-column: 1/6;
+          }
 
-            &.firstName {
-              grid-column: 1/6;
-            }
-            &.lastName {
-              grid-column: 1/6;
-            }
+          & .address {
+            grid-column: 1/4;
+          }
 
-            &.address {
-              grid-column: 1/4;
-            }
-
-            &.addressNumber {
-              grid-column: 4/6;
-            }
+          & .addressNumber {
+            grid-column: 4/6;
           }
         }
-      }
-    }
-
-    & .inputnator {
-      padding-bottom: 0.3rem;
-
-      & .errornator {
-        font-size: 0.7rem;
-        margin-top: 0.3rem;
       }
     }
 
@@ -294,13 +291,11 @@ $primary: #2185d0;
       & .group {
         &.group-1 {
           & .group-data {
-            & .inputnator {
-              &.firstName {
-                grid-column: 1/3;
-              }
-              &.lastName {
-                grid-column: 3/6;
-              }
+            & .firstName {
+              grid-column: 1/3;
+            }
+            & .lastName {
+              grid-column: 3/6;
             }
           }
         }
