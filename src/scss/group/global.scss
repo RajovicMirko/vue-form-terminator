@@ -19,7 +19,6 @@
 
   & .title {
     position: absolute;
-    padding: 0 1rem;
     top: -0.8rem;
     width: 100%;
     display: flex;
@@ -48,25 +47,16 @@
 
   & .group-data {
     position: relative;
-    justify-content: space-between;
     display: flex;
-    width: 100%;
+    flex-direction: column;
   }
 }
 
 @media (min-width: $min-width) {
-  @for $i from 1 through 10 {
-    .group-data .inputnator:first-child:nth-last-child(#{$i}),
-    .group-data .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
-      width: calc(100% / #{$i} - 0.5rem);
-    }
-  }
-}
-
-@media (max-width: $min-width) {
   .group {
     & .group-data {
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-between;
     }
   }
 }

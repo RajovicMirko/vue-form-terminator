@@ -1,3 +1,15 @@
+// ADDITIONAL with outside elements setup
+.group-data {
+  @media (min-width: $min-width) {
+    @for $i from 1 through 10 {
+      & .inputnator:first-child:nth-last-child(#{$i}),
+      & .inputnator:first-child:nth-last-child(#{$i}) ~ .inputnator {
+        width: calc(100% / #{$i} - 1rem);
+      }
+    }
+  }
+}
+
 // Global definition ////////////////////////////////////////////////////////////////////////////////
 .inputnator {
   position: relative;
