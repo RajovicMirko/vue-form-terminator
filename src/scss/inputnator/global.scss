@@ -155,24 +155,4 @@
       }
     }
   }
-
-  &.colornator {
-    @extend .checkboxnator;
-    & input {
-      width: 4rem;
-      transform: scale(1);
-    }
-  }
-
-  &.filenator {
-    @extend .checkboxnator;
-    & input {
-    }
-  }
-
-  &.radionator {
-    @extend .checkboxnator;
-    & input {
-    }
-  }
 }

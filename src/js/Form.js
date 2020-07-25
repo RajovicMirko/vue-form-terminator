@@ -218,7 +218,7 @@ export const VueFormTerminator = function(
     this.placeholder = placeholder;
     this.validations = validations || {};
     this.otherClasses = otherClasses;
-    this.value = _model[id] = _model[id] || value || "";
+    this.value = _model[id] = _model[id] || value || null;
     this.errors = [];
     this.haveErrors = false;
 
