@@ -236,10 +236,6 @@ $primary: #2185d0;
     width: 40%;
     min-width: 300px;
 
-    & .titlenator {
-      margin: 0;
-    }
-
     & .inputnator {
       width: 100%;
       padding-bottom: 0;
